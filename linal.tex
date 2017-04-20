@@ -1,0 +1,222 @@
+\section{Linear Algebra Preliminaries}
+
+
+We now present some useful results from linear algebra. In what follows, $A$ is an $\ncn$ matrix and $\I$ the $\ncn$.
+\subsection{Results in Matrix Decomposition and Transformation}
+Let $B$ be a $\ncn$ block diagonal matrix given by $B=\begin{bmatrix} B_1 &0 &0 &\ldots &0 \\ 0 &B_2 &0 &\ldots &0  \\ \vdots &\vdots &\vdots &\vdots &\vdots \\ 0 &\ldots &0 &0 &B_k \end{bmatrix}$, where $B_i$ is a $n_i \times n_i$ matrix such that $n_i<n$ (w.l.o.g) and $\sum_{i=1}^k n_i=n$. We also denote $B$ as
+\begin{align*}
+B=B_1 \op B_2 \op \ldots B_k
+\end{align*}
+\begin{lemma}
+There exists a polynomial known as the \emph{characteristic} polynomial denoted by $\chi_A=(\lambda_1 \I-A)^{n_1}\ldots(\lambda_{k} \I-A)^{n_k}$, where $\lambda_i,\,i=1,\ldots,k (k\leq n)$ are the $k$ distinct eigenvalues of the matrix $A$ such that $\sum_{i=1}^k n_i=n$.
+\end{lemma}
+\begin{lemma}
+There exists a polynomial known as the \emph{minimal} polynomial denoted by $m_A=(\lambda_1 \I-A)^{n'_1}\ldots(\lambda_k \I-A)^{n'_k}$, where $n'_i\leq n_i,\,i=1\ldots,k$.
+\end{lemma}
+\begin{lemma}
+There exists a complex matrix $V\in \C^{\ncn}$ such that $A=V\Lambda V^{-1}$, where
+$\tL=\tL_1\op\ldots\op\tL_k$, where each $\tL_i,\,i=1,\ldots,k$ can further be written as $\tL_i= {\tJ}^i_{d^i_1}\op \ldots \op {\tJ}^i_{d^i_{l(i)}}$
+such that  $n'_i=\max\{d^i_1,\ldots, d^i_{l(i)} \}$ and $\sum_{j=1}^{l(i)} d^i_j =n_i$. Each of ${\tJ}^i_{d^i_j}$ is a $d^i_j\times d^i_j$ square matrix with the special form given by
+${\tJ}^i_{d_j}=\begin{bmatrix} \lambda_i &1 &0 &\ldots &0 &0\\ 0 &\lambda_i &1 &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\lambda_i &1 \\ 0 &\ldots &0 &0 &0 &\lambda_i \end{bmatrix}$.
+\end{lemma}
+
+\begin{lemma}
+Given a AS matrix $A$, there exists a matrix $U_A\in \C^{\ncn}$ such that $A=U_A\Lambda_A U_A^{-1}$ where $\Lambda_A^\dag+\Lambda_A$ is a real symmetric positive definite matrix.
+\end{lemma}
+\begin{proof}
+Consider the diagonal matrices $D^i_j=\begin{bmatrix} 1  &0 &0 &\ldots &0 &0\\ 0 &\re(\lambda_i) &0 &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re(\lambda)^{d^i_j-1}_i &0 \\ 0 &\ldots &0 &0 &0 &\re(\lambda)^{d^i_j}_i \end{bmatrix},\,\forall j=1,\ldots,l(i)$, $D^i=D^i_1 \op\ldots\op D^i_{l(i)},\,\forall i=1,\ldots,k$ and $D=D^1 \op\ldots\op D^k$.
+It follows that $A=(VD) \Lambda (VD)^{-1}$, where $\Lambda$ is a matrix such that
+$\Lambda=\Lambda_1 \op \ldots \op \Lambda_k$, where each $\Lambda_i,\,i=1,\ldots,k$ can further be written as
+$\Lambda_i=J^i_{d^i_1} \op \ldots \op J^i_{d^i_{l(i)}}$ such that  $n'_i=\max\{d^i_1,\ldots, d^i_{l(i)} \}$ and $\sum_{j=1}^{l(i)} d^i_j =n_i$. Each of $J^i_{d^i_j}$ is a $d^i_j\times d^i_j$ square matrix with the special form given by
+$J^i_{d_j}=\begin{bmatrix} \lambda_i &\re(\lambda_i) &0 &\ldots &0 &0\\ 0 &\lambda_i &\re(\lambda_i) &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\lambda_i &\re(\lambda_i) \\ 0 &\ldots &0 &0 &0 &\lambda_i \end{bmatrix}$.
+
+Now let $\frac{(\Lambda^\dag+\Lambda)}{2}=\op_{i=1}^k \op_{j=1}^{l(i)}(J^{i\dag}_{d_j}+J^i_{d_j})$, where $J^{i\dag}_{d_j}+J^i_{d_j}=\begin{bmatrix} \re(\lambda_i) &\frac{\re(\lambda_i)}{2} &0 &\ldots &0 &0\\ \frac{\re(\lambda_i)}{2} &\re(\lambda_i) &\frac{\re(\lambda_i)}{2} &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re(\lambda_i) &\frac{\re(\lambda_i)}{2} \\ 0 &\ldots &0 &0 &\frac{\re(\lambda_i)}{2} &\re(\lambda_i) \end{bmatrix} $. Then for any $x\in \C^n (\neq \mathbf{0})$, there exists a $b\in {-1,1}^n$, such that
+\begin{align*}
+x^\dag \frac{(\Lambda^\dag+\Lambda)}{2} x &=\sum_{i=1}^n \ip{x_i,x_i}+\sum_{i=1}^{n-1}\ip{x_i,x_{i+1}}\\
+&> (\sum_{i=1}^n b_i x_i)^2\\
+&\geq 0
+\end{align*}
+\end{proof}
+
+\section{Error Recursion}
+\begin{assumption}\label{cmplxassmp}
+\begin{enumerate}
+\item $\Lt\eqdef \Lambda + L_t$ where $\Lambda$ is a positive definite matrix and $\{L_t \in C^{\ncn},\,t> 0\}$ is a sequence of $i.i.d$ matrices such that $\E[L_t]=\zero,\,\forall t>0$.
+\item $\{\zeta_t,\,t\geq 0\in C^n\}$ is a sequence of noise vectors such that $\E[\zeta_t]=0,\,\forall t\geq 0$.
+\item $\E[\norm{L_t \zeta_t}]=\hat{\sigma}_2^2$, $\E[\norm{\zeta_t}^2]=\hat{\sigma}_1^2$
+\end{enumerate}
+\end{assumption}
+
+\begin{definition}
+Define $\forall,\,i\geq j$, $F_{i,j}=(I-\alpha \L_i)\ldots (I-\alpha \L_j)$ and $\forall,\,i<j$ $F_{i,j}=\I$.
+\end{definition}
+
+
+\begin{align}
+\theta_t&=\theta_{t-1}+\alpha\big(b_t-A_t\theta_{t-1}\big)\\
+\theta_t-\ts&=\theta_{t-1}-\ts+\alpha\big(b_t-A_t(\theta_{t-1}-\ts+\ts)\big)\\
+e_t&=(I-\alpha A_t)e_{t-1}+(b_t -b -(A_t-A)\ts)\\
+U^{-1}e_t&=(I-\alpha U^{-1}A_t U) U^{-1}e_{t-1}+ U^{-1}(b_t -b -(A_t-A)\ts)\\
+z_t&=(I-\alpha \Lt) z_{t-1}+ \zeta_t
+\end{align}
+
+
+\begin{align*}
+z_t
+& = (I-\alpha \Lambda_t) (I-\alpha \Lambda_{t-1}) z_{t-2}\\ &+ \alpha (I-\alpha \Lambda_t) \zeta_{t-1} +\alpha \zeta_t \\
+& \quad \vdots\\
+& = (I-\alpha \Lambda_t) \cdots (I-\alpha \Lambda_1) e_0\\ &+ \alpha (I-\alpha \Lambda_t) \cdots (I-\alpha \Lambda_2) \zeta_1 \\
+& + \alpha (I-\alpha \Lambda_t) \cdots (I-\alpha \Lambda_3) \zeta_2\\
+&  \quad \vdots \\
+&+ \alpha \zeta_t\,,
+\end{align*}
+which can be written compactly as
+\begin{align}
+\label{eq:etft}
+z_t = F_{t,1} z_0 + \alpha (F_{t,2} \zeta_1 + \dots + F_{t,t+1} \zeta_t )\,,
+\end{align}
+\begin{align*}
+\zb_t=\frac{1}{t+1}{\sum}_{i=0}^{t}z_i
+=\frac{1}{t+1}&\Big\{{\sum}_{i=0}^{t} F_{i,1} z_0 \\
+&+ \alpha \sum_{i=1}^{t} \left(\sum_{k=i}^{t} F_{k,i+1} \right)\zeta_i \Big\} ,
+\end{align*}
+where in the second sum we flipped the order of sums and swapped the names of the variables that the sum runs over.
+
+It follows that \todoc{We should rather use $C$ instead of $H$ here?}
+\begin{align*}
+\E[\norm{\zb_t}^2]&=\E\ip{\zb_t,\zb_t}
+=\frac{1}{(t+1)^2} \sum_{i,j=0}^t \E\ip{z_i,z_j}\,.
+\end{align*}
+Hence, we see that it suffices to bound $\EE{\ip{ e_i,  e_j }}$.
+There are two cases depending on whether $i=j$. When $i< j$,
+\begin{align*}
+\E\ip{z_i,z_j}
+&=\E \ip{z_i,\big[F_{j,i+1} e_i+\alpha\textstyle\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\\
+&=\E\ip{z_i,F_{j,i+1} z_i}  \text{(from \cref{noisecancel})}\\
+&=\E\ip{z_i, (I-\alpha \Lambda)^{j-i} z_i} \text{(from \cref{lem:unroll})}
+\end{align*}
+and therefore
+\begin{align*}
+\label{inter}
+\sum_{i=0}^{t-1}\sum_{j=i+1}^t \E\ip{z_i,z_j}
+&=\frac1{\alpha\rhoD} {\sum}_{i=0}^{t-1}\E\ip{z_i,z_i}\\
+&\leq \frac2{\alpha\rhoD}{\sum}_{i=0}^{t}\E\ip{z_i,z_i}\,.
+\end{align*}
+Since $\sum_{i,j}\cdot{} = \sum_{i=j}\cdot{} + 2 \sum_i \sum_{j>i} \cdot{}$,
+\begin{align*}
+{\sum}_{i=0}^{t}{\sum}_{j=0}^{t} \E\ip{z_i,z_j}&= \left(1+\frac2{\alpha\rhoD}\right){\sum}_{i=0}^{t}\E\ip{z_i,z_i}\,.
+\end{align*}
+Expanding $z_i$ using \eqref{eq:etft} and then using \cref{innerproduct} and \Cref{cmplxassmp}
+\begin{align*}
+\E\ip{z_i,z_i}&=\E\ip{F_{i,1}z_0,F_{i,1}z_0}+\alpha^2{\sum}_{j=1}^i\E\ip{ F_{i,j+1}\zeta_j, F_{i,j+1}\zeta_j}+\alpha\sum_{j=1}^i  \E\ip{F_{i,1} z_0, F_{i,j+1}\zeta_j}\\
+&\leq (1-\alpha\rhoR)^i\norm{z_0}^2+ \alpha^2\frac{\hat{\sigma}_1^2}{\alpha \rhoR}+ \alpha \frac{\hat{\sigma}^2_2 \norm{z_0}}{\alpha\rhoR}\,,
+\end{align*}
+and so
+\begin{align*}
+{\sum}_{i=0}^{t}{\sum}_{j=0}^{t} \E\ip{z_i,z_j}
+&\leq \left(1+\frac2{\alpha\rhoD }\right)\, \frac1{\alpha\rhoR}\, (t(\alpha^2\hat{\sigma}_1^2+\alpha \hat{\sigma}^2_2\norm{z_0}) +\norm{z_0}^2)\,.
+\end{align*}
+Putting things together,
+\begin{align}
+\E[\norm{\zb_t}^2]
+\leq \left(1+\frac2{\alpha\rhoD}\right)\, \frac1{\alpha\rhoR}\, \,
+\left(\frac{\norm{z_0}^2}{(t+1)^2}+ \frac{\alpha^2\hat{\sigma}_1^2+\alpha \hat{\sigma}^2_2\norm{z_0}}{t+1} \right)\,.
+\end{align}
+
+
+Let $\F_t = \sigma( H_1,\dots,H_t, \zeta_1,\dots,\zeta_t ) $, with $\F_0$ the $\sigma$-field that holds all random variables.
+\newcommand{\cF}{\F}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}[Product unroll lemma]\label{lem:genunroll}
+Let $t>i\ge 1$, $x,y\in \R^n$ be $\F_{i}$-measurable random vectors. Then,
+\begin{align*}
+\E[x^\top F_{t,i+1}y|\F_i]=x^\top (I-\alpha H)^{t-i} y\,.
+\end{align*}
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}
+By the definition of $F_{t,i+1}$,
+and because $F_{t-1,i+1} = (I-\alpha H_{t-1}) \dots (I-\alpha H_{i+1})$ is $\cF_{t-1}$-measurable,
+as are $x$ and $y$,
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{t-1} } &= x^\top \EE{ (I-\alpha H_t) | \cF_{t-1} } F_{t-1,i+1} y\\
+&=x^\top  (I-\alpha H)  F_{t-1,i+1} y\,.
+\end{align*}
+By the tower-rule for conditional expectations and our measurability assumptions,
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{t-2} }
+&=x^\top  (I-\alpha H)  \EE{F_{t-1,i+1} |\cF_{t-2}} y\\
+&= x^\top (I-\alpha H)^2 F_{t-2,i+1} y\,.
+\end{align*}
+Continuing this way we get
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{t-j} }
+= x^\top (I-\alpha H)^j F_{t-j,i+1} y\,, \quad j=1,2,\dots,t-i\,.
+\end{align*}
+Specifically, for $j=t-i$ we get
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{i} }  = x^\top (I-\alpha H)^{t-i} y\,.
+\end{align*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}\label{noisecancel}
+Let $t>i\ge 1$ and let $x$ be an $\F_{i-1}$-measurable random vector. Then,
+$\E[x^\top F_{t,i+1}\zeta_{i}]=0$.
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}
+By \cref{lem:genunroll},
+\begin{align*}
+\EE{x^\top F_{t,i+1} \zeta_i | \cF_{i} }  = x^\top (I-\alpha H)^{t-i} \zeta_i\,.
+\end{align*}
+Using the tower rule,
+\begin{align*}
+\EE{x^\top F_{t,i+1} \zeta_i | \cF_{i-1} }
+= x^\top (I-\alpha H)^{t-i}\EE{ \zeta_i | \cF_{i-1} }= 0\,.
+\end{align*}
+\end{proof}
+
+\begin{lemma}\label{lem:unroll}
+For all $t>i\ge 0$, $\E \ip{He_i,H F_{t,i+1} e_i}=\E\ip{He_i,H(I-\alpha H)^{t-i} e_i}$.
+\end{lemma}
+\begin{proof}
+The lemma follows directly from \cref{lem:genunroll}. Indeed,
+$\theta_i$ depends only on $H_1,\dots,H_{i},g_1,\dots,g_{i}$, $\theta_i$ and so is $e_i$ $\cF_i$-measurable.
+Hence, the lemma is applicable and implies that
+\begin{align*}
+\EE{ \ip{He_i, HF_{t,i+1} e_i} | \cF_i } =
+\EE{ \ip{He_i, H (I-\alpha H)^{t-i} e_i} | \cF_i }\,.
+\end{align*}
+Taking expectation of both sides gives the desired result.
+\end{proof}
+
+\begin{lemma}\label{innerproduct}
+Let $i>j \ge 0$ and let $x\in \R^n$ be an $\F_j$-measurable random vector.
+Then,
+\begin{align*}
+\E\ip{F_{i,j+1}x,F_{i,j+1}x}\leq (1-\alpha \rho_\alpha)^{i-j}\E\norm{x}^2\,.
+\end{align*}
+\end{lemma}
+\begin{proof}
+Note that
+$S_t\doteq \EE{ (I-\alpha H_t)^\top (I-\alpha H_t) | \F_{t-1} }
+= I - \alpha (H^\top + H) + \alpha^2 \EE{ H_t^\top H_t | \F_{t-1} }$.
+Since $(g_t,H_t)_t$ is an independent sequence, $\EE{ H_t^\top H_t|\F_{t-1}} = \EE{ H_1^\top H_1 }$.
+Now, using the definition of $\rho_\alpha$ from \eqref{eq:rhodef},
+$\sup_{x:\norm{x}= 1} x^\top S_t x = 1 - \alpha \inf_{x:\norm{x}=1} x^\top (H^\top + H - \alpha \EE{H_1^\top H_1}) x
+= 1-\alpha \rho_\alpha$.
+Hence,
+\begin{align*}
+&\EE{\ip{F_{i,j+1}x,F_{i,j+1}x}|\F_{i-1} }\\
+&= \EE{x^\top F_{i-1,j+1}^\top (I-\alpha H_i)^\top (I-\alpha H_i) F_{i-1,j+1} x\,|\,\F_{i-1}}\\
+&=(x F_{i-1,j+1})^\top \, S_i \, F_{i-1,j+1} x\\
+&\le (1-\alpha \rho_\alpha) \, \ip{ F_{i-1,j+1} x, F_{i-1,j+1} x} \\
+& \le (1-\alpha \rho_\alpha)^2\, \ip{ F_{i-2,j+1} x, F_{i-2,j+1} x} \\
+& \quad \vdots \\
+& \le (1-\alpha \rho_\alpha)^{i-j}\, \norm{x}^2\,.
+%&= \E[x^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_i)^\top (I-\alpha H_i)\ldots (I-\alpha H_{j+1})x|\F_{i-1}]\\
+%&=(1-\alpha\rho_{\alpha}) \E[x^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_{i-1})^\top (I-\alpha H_{i-1})\ldots (I-\alpha H_{j+1})x]
+\end{align*}
+\end{proof}
+

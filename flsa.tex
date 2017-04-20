@@ -1,0 +1,173 @@
+\documentclass{article}
+\input{pack.tex}
+% if you need to pass options to natbib, use, e.g.:
+% \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading nips_2017
+%
+% to avoid loading the natbib package, add option nonatbib:
+% \usepackage[nonatbib]{nips_2017}
+
+\usepackage{nips_2017}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+% \usepackage[final]{nips_2017}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\title{Finite Time Analysis of Linear Stochastic Approximation}
+
+% The \author macro works with any number of authors. There are two
+% commands used to separate the names and addresses of multiple
+% authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to
+% break the lines. Using \AND forces a line break at that point. So,
+% if LaTeX puts 3 of 4 authors names on the first line, and the last
+% on the second line, try using \AND instead of \And before the third
+% author name.
+
+\author{
+%  David S.~Hippocampus\thanks{Use footnote for providing further
+%    information about author (webpage, alternative
+%    address)---\emph{not} for acknowledging funding agencies.} \\
+%  Department of Computer Science\\
+%  Cranberry-Lemon University\\
+%  Pittsburgh, PA 15213 \\
+%  \texttt{hippo@cs.cranberry-lemon.edu} \\
+  %% examples of more authors
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \AND
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+}
+
+\begin{document}
+% \nipsfinalcopy is no longer used
+
+\maketitle
+\begin{abstract}
+
+\end{abstract}
+
+\section{Introduction}
+\section{Notation}
+
+\section{Problem Setup}
+We consider linear stochastic approximation schemes given as
+\begin{align}
+\theta_t=\theta_{t-1}+\alpha(b_t-A_t\theta_{t-1}),
+\end{align}
+where we assume
+\begin{assumption}
+\item $A_t=A+M_t$ and $b_t=b+N_t$, where $\{M_t \in \R^{\ncn},\,t\geq 0\}$ and $\{N_t\in\R^n,\,t\geq 0\}$ are $i.i.d$ sequences such that $\E[M_t]=0$ and $\E[N_t]=0$.
+\item There exists a $\ts\in \R^n$ such that $\ts=A^{-1}b$.
+\item All the eigenvalues of $A$ have strictly positive real parts.
+\item $\E[M_t^\top M_t\ts]=\sigma_1^2$ and $\E[\norm{N_t}^2]=\sigma_2^2$.
+\end{assumption}
+
+\begin{example}[Linear Least Squares]
+\end{example}
+
+\begin{example}[TD(0)]
+\end{example}
+
+
+\section{Definitions}
+\begin{definition}[Weakly Admissible]
+\end{definition}
+
+\begin{definition}[Admissible]
+\end{definition}
+
+
+\begin{definition}[Strongly Admissible]
+\end{definition}
+
+\begin{lemma}\label{pdt}
+Given a AS matrix $A$, there exists a non-singular matrix $U\in \C^{\ncn}$ such that $A=U\Lambda U^{-1}$ where $\Lambda^\dag+\Lambda$ is a real symmetric positive definite matrix.
+\end{lemma}
+Note that in \cref{pdt} the transformation $U\Lambda U^{-1}$ is not unique.
+\begin{example}
+\end{example}
+
+\begin{definition}
+Define symmetric matrices
+$
+\SD \eqdef(\T_U(A)^\dag+\T_U(A))-\alpha \T_U(A)^\dag \T_U(A),\,
+\SR \eqdef(\T_U(A)^\dag+\T_U(A))-\alpha \E[\T_U(A_1)^\dag \T_U(A_1)],\,
+$
+and constants
+$\rhoD \eqdef \inf_{\norm{x}=1} \ip{x,\SD x},\, \rhoR \eqdef \inf_{\norm{x}=1} \ip{x,\SR x},\,$ and $\bu\eqdef \norm{U}^2\norm{U^{-1}}^2 \big(1+\frac2{\alpha\rhoD}\big)\frac{1}{\alpha \rhoR}$
+\end{definition}
+\begin{lemma}
+Given any AS matrix $A$, there exists $\alpha_D>0,\,\alpha_R>0$ and a non-singluar matrix $U$ such that
+\begin{enumerate}
+\item $\rhoD>0,\,\forall \alpha \in (0,\alpha_D)$.
+\item $\rhoR>0,\,\forall \alpha \in (0,\alpha_R)$.
+\end{enumerate}
+\end{lemma}
+\begin{corollary}
+There exists $\beta\eqdef\inf_{U : det(U)\neq 0,\alpha\in (0,\alpha_R)} \bu$.
+\end{corollary}
+\section{Main Results}
+\begin{theorem}
+\begin{align}
+\E[\norm{\zb_t}^2]
+\leq \beta
+\left(\frac{\norm{e_0}^2}{(t+1)^2}+ \frac{\alpha^2{\sigma}_1^2+ {\sigma}_2^2 (\alpha^2+\alpha \norm{e_0})}{t+1} \right)\,.
+\end{align}
+\end{theorem}
+
+\section{Comparison With Prior Works}
+
+\subsection{Stochastic Approximation}
+
+\section{Interesting Special Cases}
+
+\section{Application in Reinforcement Learning}
+\subsection{RL Setting}
+
+\subsection{TD(0) Algorithm}
+
+
+\subsection{GTD}
+\textbf{Flaws with GTD-MP:}
+
+\textbf{Why is GTD slow:}
+
+
+\subsection{iLSTD}
+
+\subsection{Comparison of TD, GTD and iLSTD}
+
+\section{Conclusion}
+
+
+\appendix
+
+\input{linal}
+
+\end{document}

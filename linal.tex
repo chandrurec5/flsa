@@ -40,9 +40,9 @@ x^\dag \frac{(\Lambda^\dag+\Lambda)}{2} x &=\sum_{i=1}^n \ip{x_i,x_i}+\sum_{i=1}
 
 \section{Error Recursion}
 \begin{assumption}\label{cmplxassmp}
-\begin{enumerate}
-\item $\Lt\eqdef \Lambda + L_t$ where $\Lambda$ is a positive definite matrix and $\{L_t \in C^{\ncn},\,t> 0\}$ is a sequence of $i.i.d$ matrices such that $\E[L_t]=\zero,\,\forall t>0$.
-\item $\{\zeta_t,\,t\geq 0\in C^n\}$ is a sequence of noise vectors such that $\E[\zeta_t]=0,\,\forall t\geq 0$.
+\begin{enumerate}[leftmargin=*, before=\leavevmode\vspace{-\baselineskip}]
+\item $\Lt\eqdef \Lambda + L_t$ where $\Lambda$ is a positive definite matrix and $\{L_t \in \C^{\ncn},\,t> 0\}$ is a sequence of $i.i.d$ matrices such that $\E[L_t]=\zero,\,\forall t>0$.
+\item $\{\zeta_t,\,t\geq 0\in \C^n\}$ is a sequence of noise vectors such that $\E[\zeta_t]=0,\,\forall t\geq 0$.
 \item $\E[\norm{L_t \zeta_t}]=\hat{\sigma}_2^2$, $\E[\norm{\zeta_t}^2]=\hat{\sigma}_1^2$
 \end{enumerate}
 \end{assumption}
@@ -76,7 +76,7 @@ which can be written compactly as
 z_t = F_{t,1} z_0 + \alpha (F_{t,2} \zeta_1 + \dots + F_{t,t+1} \zeta_t )\,,
 \end{align}
 \begin{align*}
-\zb_t=\frac{1}{t+1}{\sum}_{i=0}^{t}z_i
+\zh_t=\frac{1}{t+1}{\sum}_{i=0}^{t}z_i
 =\frac{1}{t+1}&\Big\{{\sum}_{i=0}^{t} F_{i,1} z_0 \\
 &+ \alpha \sum_{i=1}^{t} \left(\sum_{k=i}^{t} F_{k,i+1} \right)\zeta_i \Big\} ,
 \end{align*}
@@ -84,7 +84,7 @@ where in the second sum we flipped the order of sums and swapped the names of th
 
 It follows that \todoc{We should rather use $C$ instead of $H$ here?}
 \begin{align*}
-\E[\norm{\zb_t}^2]&=\E\ip{\zb_t,\zb_t}
+\E[\norm{\zh_t}^2]&=\E\ip{\zh_t,\zh_t}
 =\frac{1}{(t+1)^2} \sum_{i,j=0}^t \E\ip{z_i,z_j}\,.
 \end{align*}
 Hence, we see that it suffices to bound $\EE{\ip{ e_i,  e_j }}$.
@@ -99,27 +99,27 @@ and therefore
 \begin{align*}
 \label{inter}
 \sum_{i=0}^{t-1}\sum_{j=i+1}^t \E\ip{z_i,z_j}
-&=\frac1{\alpha\rhoD} {\sum}_{i=0}^{t-1}\E\ip{z_i,z_i}\\
-&\leq \frac2{\alpha\rhoD}{\sum}_{i=0}^{t}\E\ip{z_i,z_i}\,.
+&=\frac1{\alpha\rhod{P}} {\sum}_{i=0}^{t-1}\E\ip{z_i,z_i}\\
+&\leq \frac2{\alpha\rhod{P}}{\sum}_{i=0}^{t}\E\ip{z_i,z_i}\,.
 \end{align*}
 Since $\sum_{i,j}\cdot{} = \sum_{i=j}\cdot{} + 2 \sum_i \sum_{j>i} \cdot{}$,
 \begin{align*}
-{\sum}_{i=0}^{t}{\sum}_{j=0}^{t} \E\ip{z_i,z_j}&= \left(1+\frac2{\alpha\rhoD}\right){\sum}_{i=0}^{t}\E\ip{z_i,z_i}\,.
+{\sum}_{i=0}^{t}{\sum}_{j=0}^{t} \E\ip{z_i,z_j}&= \left(1+\frac2{\alpha\rhod{P}}\right){\sum}_{i=0}^{t}\E\ip{z_i,z_i}\,.
 \end{align*}
 Expanding $z_i$ using \eqref{eq:etft} and then using \cref{innerproduct} and \Cref{cmplxassmp}
 \begin{align*}
 \E\ip{z_i,z_i}&=\E\ip{F_{i,1}z_0,F_{i,1}z_0}+\alpha^2{\sum}_{j=1}^i\E\ip{ F_{i,j+1}\zeta_j, F_{i,j+1}\zeta_j}+\alpha\sum_{j=1}^i  \E\ip{F_{i,1} z_0, F_{i,j+1}\zeta_j}\\
-&\leq (1-\alpha\rhoR)^i\norm{z_0}^2+ \alpha^2\frac{\hat{\sigma}_1^2}{\alpha \rhoR}+ \alpha \frac{\hat{\sigma}^2_2 \norm{z_0}}{\alpha\rhoR}\,,
+&\leq (1-\alpha\rhos{P})^i\norm{z_0}^2+ \alpha^2\frac{\hat{\sigma}_1^2}{\alpha \rhos{P}}+ \alpha \frac{\hat{\sigma}^2_2 \norm{z_0}}{\alpha\rhos{P}}\,,
 \end{align*}
 and so
 \begin{align*}
 {\sum}_{i=0}^{t}{\sum}_{j=0}^{t} \E\ip{z_i,z_j}
-&\leq \left(1+\frac2{\alpha\rhoD }\right)\, \frac1{\alpha\rhoR}\, (t(\alpha^2\hat{\sigma}_1^2+\alpha \hat{\sigma}^2_2\norm{z_0}) +\norm{z_0}^2)\,.
+&\leq \left(1+\frac2{\alpha\rhod{P} }\right)\, \frac1{\alpha\rhos{P}}\, (t(\alpha^2\hat{\sigma}_1^2+\alpha \hat{\sigma}^2_2\norm{z_0}) +\norm{z_0}^2)\,.
 \end{align*}
 Putting things together,
 \begin{align}
-\E[\norm{\zb_t}^2]
-\leq \left(1+\frac2{\alpha\rhoD}\right)\, \frac1{\alpha\rhoR}\, \,
+\E[\norm{\zh_t}^2]
+\leq \left(1+\frac2{\alpha\rhod{P}}\right)\, \frac1{\alpha\rhos{P}}\, \,
 \left(\frac{\norm{z_0}^2}{(t+1)^2}+ \frac{\alpha^2\hat{\sigma}_1^2+\alpha \hat{\sigma}^2_2\norm{z_0}}{t+1} \right)\,.
 \end{align}
 

@@ -1,10 +1,11 @@
 %Packages
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{comment}
 \usepackage{amsfonts}
 \usepackage[capitalize]{cleveref}
 \usepackage[textsize=tiny]{todonotes}
-
+\usepackage{enumitem}
 
 
 %New Commands
@@ -16,16 +17,23 @@
 \newcommand{\todoch}[2][]{\todo[size=\scriptsize,color=red!20!white,#1]{Chandru: #2}}
 
 
+\newcommand{\rhod}[1]{\rho_d(\alpha,#1)}
+\newcommand{\rhos}[1]{\rho_s(\alpha,#1)}
+\newcommand{\alphaps}{\alpha_s(P)}
+\newcommand{\alphapd}{\alpha_d(P)}
+\newcommand{\ra}{\rightarrow}
 \newcommand{\zero}{\mathbf{0}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\pc}{p_{\mathcal{c}}}
 \newcommand{\E}{\mathbf{E}}
 \newcommand{\F}{\mathcal{F}}
-\newcommand{\R}{\mathbf{R}}
+\newcommand{\R}{\mathbb{R}}
 \newcommand{\T}{\mathcal{T}}
 \newcommand{\EE}[1]{\mathbf{E}[#1]}
-
+\newcommand{\gln}{GL(n)}
 \newcommand{\ncn}{n\times n}
 \newcommand{\I}{\mathcal{I}}
-\newcommand{\C}{\mathcal{C}}
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\re}{\emph{Re}}
 \newcommand{\im}{\emph{Im}}
 \newcommand{\op}{\oplus}
@@ -36,11 +44,12 @@
 \newcommand{\eb}{\bar{e}}
 \newcommand{\tb}{\bar{\theta}}
 \newcommand{\zb}{\bar{z}}
-\newcommand{\rhoD}{\rho^D_{\alpha,U}}
-\newcommand{\rhoR}{\rho^R_{\alpha,U}}
+\newcommand{\zh}{\hat{z}}
+%\newcommand{\rhoD}{\rho_D(\alpha,U,A)}
+%\newcommand{\rhoR}{\rho_R(\alpha,U,A)}
 \newcommand{\SD}{S^D_{\alpha,U}}
 \newcommand{\SR}{S^R_{\alpha,U}}
-\newcommand{\bu}{\beta_U}
+\newcommand{\bu}{\beta(\alpha,U,P)}
 
 %Theorem Definition
 \theoremstyle{definition}

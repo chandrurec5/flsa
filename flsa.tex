@@ -81,11 +81,13 @@ We consider linear stochastic approximation schemes given as
 \theta_t=\theta_{t-1}+\alpha(b_t-A_t\theta_{t-1}),
 \end{align}
 where we assume
-\begin{assumption}
+\begin{assumption}\label{ass:lsa}
+\begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
 \item $A_t=A+M_t$ and $b_t=b+N_t$, where $\{M_t \in \R^{\ncn},\,t\geq 0\}$ and $\{N_t\in\R^n,\,t\geq 0\}$ are $i.i.d$ sequences such that $\E[M_t]=0$ and $\E[N_t]=0$.
 \item There exists a $\ts\in \R^n$ such that $\ts=A^{-1}b$.
 \item All the eigenvalues of $A$ have strictly positive real parts.
 \item $\E[M_t^\top M_t\ts]=\sigma_1^2$ and $\E[\norm{N_t}^2]=\sigma_2^2$.
+\end{itemize}
 \end{assumption}
 
 \begin{example}[Linear Least Squares]
@@ -95,50 +97,102 @@ where we assume
 \end{example}
 
 
+\section{Notation}
+Let $\R^{\ncn}$ and $\C^{\ncn}$ denote the set of $n\times n$ real and complex matrices respectively. Let $\gln\subset\C^{\ncn}$ denote the set of all invertible $\ncn$ complex matrices.
+
+
+
 \section{Definitions}
-\begin{definition}[Weakly Admissible]
+\begin{definition}[Asymptotically Stable]
+An $\ncn$ matrix said to be \emph{asymptotically stable} iff all its eigenvalues have positive real parts.
 \end{definition}
+
+\begin{definition}\label{def:dist}[Distributions]
+Given a distribution $P$ over $\C^{\ncn}$ and let
+\begin{align*}
+A_P=\int M dP(M),\quad C_P=\int M^\dag M dP(M),
+\end{align*}
+and let $\P$ denote the set of probability distributions on $\C^{\ncn}$.
+\end{definition}
+
+\begin{definition}[Similarity Transformation]
+Given any $U\in \gln$, define $\T_U \colon \C^{\ncn}\rightarrow \C^{\ncn}$ be the linear map that takes $A\in \C^{\ncn}$ to $\T_U(A)=U^{-1}\,A\,U$.
+\end{definition}
+\begin{definition}[Transformed Measure]
+Given a distribution $P$ over $\C^{\ncn}$ define the distribution $P_U$ induced by the linear transformation $\T_U$ as follows:
+\begin{align*}
+\int_{S} dP_U(M) \eqdef \int_{\T_U^{-1}(S)} dP(M)
+\end{align*}
+\end{definition}
+
+\begin{comment}
+\begin{definition}[Induced Distribution]
+Let $P\in \P$ be any distribution over $\R^{\ncn}$ and let $p_c^U$ denote the probability distribution over $\C^{\ncn}$ induced by the linear map $\T_U$ such that the pullback of $p_c^U$ using $\T_U$ is $p$.
+\end{definition}
+\end{comment}
+
+\begin{definition}[Spectral Norms]
+Define $\rhod{P}\eqdef {\inf}_{x\in\C^n\colon\norm{x}=1}\ip{\bar{x},\big(A_P+A_P^\dag)-\alpha A_P^\dag A_P)x}$, $\rhos{P}\eqdef{\inf}_{x\in \C^n\colon\norm{x}=1}\ip{\bar{x},\big(A_P+A_P^\dag-\alpha C_P\big)x}$
+\end{definition}
+
+\begin{definition}[Weakly Admissible]
+A set of distributions $\P$ over $\C^{\ncn}$ is said to be \emph{weakly admissible} if for any given $P\in \P,\,\exists$ a matrix $U_P \in \gln$, real-valued constants $\alphapd>0$ and $\alphaps>0$ such that $\rhod{P_{U_P}}>0,\,\forall \alpha\in(0,\alphapd)$ and $\rhos{P_U}>0,\,\forall \alpha\in(0,\alphaps)$.
+\end{definition}
+\begin{definition}
+Given a weakly admissible class $\P$ and any $P\in\P$, $U\in \gln$ and $\alpha>0$ such that $\rhos{P_{U}}>0$ define
+\begin{align*}
+\bu&\eqdef \norm{U}^2\norm{U^{-1}}^2 \left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{1}{\alpha \rhos{P_U}}\\
+\beta(P)&\eqdef \inf_{\alpha,U\colon \bu>0} \bu
+\end{align*}
+\end{definition}
+
+
 
 \begin{definition}[Admissible]
+A set of distributions $\P$ over $\C^{\ncn}$ is \emph{admissible} if  for any given $P\in \P,\,\exists$ a matrix $U_P\in \gln,\,$ and a real-valued constant $\alpha_0>0$ such that $\rhod{P_{U_P}}>0,\,\forall \alpha\in(0,\alpha_0)$ and $\rhos{P_{U_P}},\,\forall \alpha\in(0,\alpha_0)$.
 \end{definition}
-
-
+\begin{example}
+\end{example}
 \begin{definition}[Strongly Admissible]
+A set of distributions $\P$ over $\C^{\ncn}$ is \emph{strongly admissible} if  $\forall\,P\in \P,\,\exists U_P\in \gln,\, \alpha_0>0$ such that $\rhod{P_{U_P}}>0,\,\forall \alpha\in(0,\alpha_0]$ and $\rhos{P_{U_P}},\,\forall \alpha\in(0,\alpha_0]$, $\inf_{P\in \P} \rho_d(\alpha_0,P_{U_P})>0$ and $\inf_{P\in \P} \rho_s(\alpha_0,P_{U_P})>0$.
 \end{definition}
-
+\begin{example}
+\end{example}
+\begin{comment}
 \begin{lemma}\label{pdt}
 Given a AS matrix $A$, there exists a non-singular matrix $U\in \C^{\ncn}$ such that $A=U\Lambda U^{-1}$ where $\Lambda^\dag+\Lambda$ is a real symmetric positive definite matrix.
 \end{lemma}
 Note that in \cref{pdt} the transformation $U\Lambda U^{-1}$ is not unique.
 \begin{example}
 \end{example}
-
-\begin{definition}
-Define symmetric matrices
-$
-\SD \eqdef(\T_U(A)^\dag+\T_U(A))-\alpha \T_U(A)^\dag \T_U(A),\,
-\SR \eqdef(\T_U(A)^\dag+\T_U(A))-\alpha \E[\T_U(A_1)^\dag \T_U(A_1)],\,
-$
-and constants
-$\rhoD \eqdef \inf_{\norm{x}=1} \ip{x,\SD x},\, \rhoR \eqdef \inf_{\norm{x}=1} \ip{x,\SR x},\,$ and $\bu\eqdef \norm{U}^2\norm{U^{-1}}^2 \big(1+\frac2{\alpha\rhoD}\big)\frac{1}{\alpha \rhoR}$
-\end{definition}
+\end{comment}
+\begin{comment}
 \begin{lemma}
 Given any AS matrix $A$, there exists $\alpha_D>0,\,\alpha_R>0$ and a non-singluar matrix $U$ such that
 \begin{enumerate}
-\item $\rhoD>0,\,\forall \alpha \in (0,\alpha_D)$.
-\item $\rhoR>0,\,\forall \alpha \in (0,\alpha_R)$.
+\item $\rhod{\Lambda_1}>0,\,\forall \alpha \in (0,\alpha_D)$.
+\item $\rhos{\Lambda_1}>0,\,\forall \alpha \in (0,\alpha_R)$.
 \end{enumerate}
 \end{lemma}
 \begin{corollary}
 There exists $\beta\eqdef\inf_{U : det(U)\neq 0,\alpha\in (0,\alpha_R)} \bu$.
 \end{corollary}
+\end{comment}
 \section{Main Results}
+The following theorem states that weak admissibility implies stabilizability.
 \begin{theorem}
+Let $\P_{as}$ be a set of distributions supported on $\R^{\ncn}$ such that for any given $P\in \P$, all the eigenvalues of $A_{P}$ have positive real parts. $\P_{as}$ is \emph{weakly admissible}.
+\end{theorem}
+In short, so long as the matrices $A_t$ are distributed such that all the eigenvalues of $\E[A_t]$ have with positive real parts, then there always exists a positive step size $\alpha$ (albeit problem dependent) that results in \eqref{lsa} to converge in the mean-squared sense.
+
+In \Cref{thm:rate} that we state we below, we let $P_A$ denote the underlying distribution that generates $A_t, t\geq 0$, and in order to be consitent with \Cref{ass:lsa} and \Cref{def:dist} it is understood that $A_{P_A}=A$.
+\begin{theorem}\label{thm:rate}
 \begin{align}
 \E[\norm{\zb_t}^2]
-\leq \beta
+\leq \beta(P_A)
 \left(\frac{\norm{e_0}^2}{(t+1)^2}+ \frac{\alpha^2{\sigma}_1^2+ {\sigma}_2^2 (\alpha^2+\alpha \norm{e_0})}{t+1} \right)\,.
 \end{align}
+
 \end{theorem}
 
 \section{Comparison With Prior Works}

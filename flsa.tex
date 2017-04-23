@@ -20,6 +20,11 @@
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
+%\usepackage{varioref}
+%\usepackage{thmtools}
+\usepackage{aliascnt}
+\usepackage{titlecaps,cleveref}
+\crefname{assumption}{Assumption}{Assumption}
 
 \title{Finite Time Analysis of Linear Stochastic Approximation}
 
@@ -76,12 +81,13 @@
 \section{Notation}
 
 \section{Problem Setup}
-We consider linear stochastic approximation schemes given as
+We consider linear stochastic approximation schemes with constant step size and PR-averaging given as below:
 \begin{align}
-\theta_t=\theta_{t-1}+\alpha(b_t-A_t\theta_{t-1}),
+\theta_t&=\theta_{t-1}+\alpha(b_t-A_t\theta_{t-1}),\\
+\thh_t&=\frac{1}{t+1}{\sum}_{i=0}^{t}\theta_s
 \end{align}
 where we assume
-\begin{assumption}\label{ass:lsa}
+\begin{assumption}\label{lsa}
 \begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
 \item $A_t=A+M_t$ and $b_t=b+N_t$, where $\{M_t \in \R^{\ncn},\,t\geq 0\}$ and $\{N_t\in\R^n,\,t\geq 0\}$ are $i.i.d$ sequences such that $\E[M_t]=0$ and $\E[N_t]=0$.
 \item There exists a $\ts\in \R^n$ such that $\ts=A^{-1}b$.
@@ -89,7 +95,7 @@ where we assume
 \item $\E[M_t^\top M_t\ts]=\sigma_1^2$ and $\E[\norm{N_t}^2]=\sigma_2^2$.
 \end{itemize}
 \end{assumption}
-
+\Cref{lsa}
 \begin{example}[Linear Least Squares]
 \end{example}
 
@@ -131,8 +137,8 @@ Let $P\in \P$ be any distribution over $\R^{\ncn}$ and let $p_c^U$ denote the pr
 \end{definition}
 \end{comment}
 
-\begin{definition}[Spectral Norms]
-Define $\rhod{P}\eqdef {\inf}_{x\in\C^n\colon\norm{x}=1}\ip{\bar{x},\big(A_P+A_P^\dag)-\alpha A_P^\dag A_P)x}$, $\rhos{P}\eqdef{\inf}_{x\in \C^n\colon\norm{x}=1}\ip{\bar{x},\big(A_P+A_P^\dag-\alpha C_P\big)x}$
+\begin{definition}\label{def:spectnorm}[Spectral Norms]
+Define $\rhod{P}\eqdef {\inf}_{x\in\C^n\colon\norm{x}=1}\ip{\bar{x},\left((A_P+A_P^\dag)-\alpha A_P^\dag A_P\right)x}$, $\rhos{P}\eqdef{\inf}_{x\in \C^n\colon\norm{x}=1}\ip{\bar{x},\left((A_P+A_P^\dag)-\alpha C_P\right)x}$
 \end{definition}
 
 \begin{definition}[Weakly Admissible]
@@ -185,11 +191,11 @@ Let $\P_{as}$ be a set of distributions supported on $\R^{\ncn}$ such that for a
 \end{theorem}
 In short, so long as the matrices $A_t$ are distributed such that all the eigenvalues of $\E[A_t]$ have with positive real parts, then there always exists a positive step size $\alpha$ (albeit problem dependent) that results in \eqref{lsa} to converge in the mean-squared sense.
 
-In \Cref{thm:rate} that we state we below, we let $P_A$ denote the underlying distribution that generates $A_t, t\geq 0$, and in order to be consitent with \Cref{ass:lsa} and \Cref{def:dist} it is understood that $A_{P_A}=A$.
+In \Cref{thm:rate} that we state we below, we let $P^A$ denote the underlying distribution that generates $A_t, t\geq 0$, and in order to be consistent with \Cref{lsa} and \Cref{def:dist} it is understood that $A_{P^A}=A$.
 \begin{theorem}\label{thm:rate}
 \begin{align}
 \E[\norm{\zb_t}^2]
-\leq \beta(P_A)
+\leq \beta(P^A)
 \left(\frac{\norm{e_0}^2}{(t+1)^2}+ \frac{\alpha^2{\sigma}_1^2+ {\sigma}_2^2 (\alpha^2+\alpha \norm{e_0})}{t+1} \right)\,.
 \end{align}
 

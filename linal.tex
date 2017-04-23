@@ -14,42 +14,49 @@ There exists a polynomial known as the \emph{characteristic} polynomial denoted 
 There exists a polynomial known as the \emph{minimal} polynomial denoted by $m_A=(\lambda_1 \I-A)^{n'_1}\ldots(\lambda_k \I-A)^{n'_k}$, where $n'_i\leq n_i,\,i=1\ldots,k$.
 \end{lemma}
 \begin{lemma}
-There exists a complex matrix $V\in \C^{\ncn}$ such that $A=V\Lambda V^{-1}$, where
+There exists a complex matrix $V\in \C^{\ncn}$ such that $A=VJ V^{-1}$, where
 $\tL=\tL_1\op\ldots\op\tL_k$, where each $\tL_i,\,i=1,\ldots,k$ can further be written as $\tL_i= {\tJ}^i_{d^i_1}\op \ldots \op {\tJ}^i_{d^i_{l(i)}}$
 such that  $n'_i=\max\{d^i_1,\ldots, d^i_{l(i)} \}$ and $\sum_{j=1}^{l(i)} d^i_j =n_i$. Each of ${\tJ}^i_{d^i_j}$ is a $d^i_j\times d^i_j$ square matrix with the special form given by
 ${\tJ}^i_{d_j}=\begin{bmatrix} \lambda_i &1 &0 &\ldots &0 &0\\ 0 &\lambda_i &1 &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\lambda_i &1 \\ 0 &\ldots &0 &0 &0 &\lambda_i \end{bmatrix}$.
 \end{lemma}
 
 \begin{lemma}
-Given a AS matrix $A$, there exists a matrix $U_A\in \C^{\ncn}$ such that $A=U_A\Lambda_A U_A^{-1}$ where $\Lambda_A^\dag+\Lambda_A$ is a real symmetric positive definite matrix.
+Given a AS matrix $A$, there exists a matrix $U_A\in \C^{\ncn}$ such that $A=U_AJ_A U_A^{-1}$ where $J_A^\dag+J_A$ is a real symmetric positive definite matrix.
 \end{lemma}
 \begin{proof}
 Consider the diagonal matrices $D^i_j=\begin{bmatrix} 1  &0 &0 &\ldots &0 &0\\ 0 &\re(\lambda_i) &0 &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re(\lambda)^{d^i_j-1}_i &0 \\ 0 &\ldots &0 &0 &0 &\re(\lambda)^{d^i_j}_i \end{bmatrix},\,\forall j=1,\ldots,l(i)$, $D^i=D^i_1 \op\ldots\op D^i_{l(i)},\,\forall i=1,\ldots,k$ and $D=D^1 \op\ldots\op D^k$.
-It follows that $A=(VD) \Lambda (VD)^{-1}$, where $\Lambda$ is a matrix such that
-$\Lambda=\Lambda_1 \op \ldots \op \Lambda_k$, where each $\Lambda_i,\,i=1,\ldots,k$ can further be written as
-$\Lambda_i=J^i_{d^i_1} \op \ldots \op J^i_{d^i_{l(i)}}$ such that  $n'_i=\max\{d^i_1,\ldots, d^i_{l(i)} \}$ and $\sum_{j=1}^{l(i)} d^i_j =n_i$. Each of $J^i_{d^i_j}$ is a $d^i_j\times d^i_j$ square matrix with the special form given by
+It follows that $A=(VD) J (VD)^{-1}$, where $J$ is a matrix such that
+$J=J_1 \op \ldots \op J_k$, where each $J_i,\,i=1,\ldots,k$ can further be written as
+$J_i=J^i_{d^i_1} \op \ldots \op J^i_{d^i_{l(i)}}$ such that  $n'_i=\max\{d^i_1,\ldots, d^i_{l(i)} \}$ and $\sum_{j=1}^{l(i)} d^i_j =n_i$. Each of $J^i_{d^i_j}$ is a $d^i_j\times d^i_j$ square matrix with the special form given by
 $J^i_{d_j}=\begin{bmatrix} \lambda_i &\re(\lambda_i) &0 &\ldots &0 &0\\ 0 &\lambda_i &\re(\lambda_i) &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\lambda_i &\re(\lambda_i) \\ 0 &\ldots &0 &0 &0 &\lambda_i \end{bmatrix}$.
 
-Now let $\frac{(\Lambda^\dag+\Lambda)}{2}=\op_{i=1}^k \op_{j=1}^{l(i)}(J^{i\dag}_{d_j}+J^i_{d_j})$, where $J^{i\dag}_{d_j}+J^i_{d_j}=\begin{bmatrix} \re(\lambda_i) &\frac{\re(\lambda_i)}{2} &0 &\ldots &0 &0\\ \frac{\re(\lambda_i)}{2} &\re(\lambda_i) &\frac{\re(\lambda_i)}{2} &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re(\lambda_i) &\frac{\re(\lambda_i)}{2} \\ 0 &\ldots &0 &0 &\frac{\re(\lambda_i)}{2} &\re(\lambda_i) \end{bmatrix} $. Then for any $x\in \C^n (\neq \mathbf{0})$, there exists a $b\in {-1,1}^n$, such that
+Now let $\frac{(J^\dag+J)}{2}=\op_{i=1}^k \op_{j=1}^{l(i)}(J^{i\dag}_{d_j}+J^i_{d_j})$, where $J^{i\dag}_{d_j}+J^i_{d_j}=\begin{bmatrix} \re(\lambda_i) &\frac{\re(\lambda_i)}{2} &0 &\ldots &0 &0\\ \frac{\re(\lambda_i)}{2} &\re(\lambda_i) &\frac{\re(\lambda_i)}{2} &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re(\lambda_i) &\frac{\re(\lambda_i)}{2} \\ 0 &\ldots &0 &0 &\frac{\re(\lambda_i)}{2} &\re(\lambda_i) \end{bmatrix} $. Then for any $x\in \C^n (\neq \mathbf{0})$, there exists a $b\in {-1,1}^n$, such that
 \begin{align*}
-x^\dag \frac{(\Lambda^\dag+\Lambda)}{2} x &=\sum_{i=1}^n \ip{x_i,x_i}+\sum_{i=1}^{n-1}\ip{x_i,x_{i+1}}\\
+x^\dag \frac{(J^\dag+J)}{2} x &=\sum_{i=1}^n \ip{x_i,x_i}+\sum_{i=1}^{n-1}\ip{x_i,x_{i+1}}\\
 &> (\sum_{i=1}^n b_i x_i)^2\\
 &\geq 0
 \end{align*}
 \end{proof}
 
 \section{Error Recursion}
-\begin{assumption}\label{cmplxassmp}
-\begin{enumerate}[leftmargin=*, before=\leavevmode\vspace{-\baselineskip}]
-\item $\Lt\eqdef \Lambda + L_t$ where $\Lambda$ is a positive definite matrix and $\{L_t \in \C^{\ncn},\,t> 0\}$ is a sequence of $i.i.d$ matrices such that $\E[L_t]=\zero,\,\forall t>0$.
-\item $\{\zeta_t,\,t\geq 0\in \C^n\}$ is a sequence of noise vectors such that $\E[\zeta_t]=0,\,\forall t\geq 0$.
-\item $\E[\norm{L_t \zeta_t}]=\hat{\sigma}_2^2$, $\E[\norm{\zeta_t}^2]=\hat{\sigma}_1^2$
-\end{enumerate}
-\end{assumption}
-
+\subsection{Definition}
 \begin{definition}
 Define $\forall,\,i\geq j$, $F_{i,j}=(I-\alpha \L_i)\ldots (I-\alpha \L_j)$ and $\forall,\,i<j$ $F_{i,j}=\I$.
 \end{definition}
+
+\begin{assumption}\label{cmplxassmp}
+\begin{enumerate}[leftmargin=*, before=\leavevmode\vspace{-\baselineskip}]
+\item $J_t\eqdef J + G_t$ where $J$ is a positive definite matrix and $\{G_t \in \C^{\ncn},\,t> 0\}$ is a sequence of $i.i.d$ matrices such that $\E[G_t]=\zero,\,\forall t>0$.
+\item $\{H_t,\,t\geq 0\in \C^n\}$ is a sequence of noise vectors such that $\E[H_t]=0,\,\forall t\geq 0$.
+\item $\E[\norm{G_t H_t}]=\hat{\sigma}_2^2$, $\E[\norm{H_t}^2]=\hat{\sigma}_1^2$
+\end{enumerate}
+\end{assumption}
+Let $P^J$ be the distribution that generates $J_t$ and in accordance with \Cref{def:dist} we have $J=A_{P^J}$. In this light, the constants in \Cref{def:spectnorm} $\rhod{P^J}$ and $\rhos{P^J}$ can also be given by
+\begin{align*}
+\rhod{P^J}&={\inf}_{x\in\C^n\colon\norm{x}=1}\ip{\bar{x},\left((J+J^\dag)-\alpha J^\dag J\right)x}\\
+\rhos{P^J}&={\inf}_{x\in \C^n\colon\norm{x}=1}\ip{\bar{x},\left((J+J^\dag-\alpha \E_{P^J}[J_1^\dag J_1]\right)x}
+\end{align*}
+
 
 
 \begin{align}
@@ -57,23 +64,23 @@ Define $\forall,\,i\geq j$, $F_{i,j}=(I-\alpha \L_i)\ldots (I-\alpha \L_j)$ and 
 \theta_t-\ts&=\theta_{t-1}-\ts+\alpha\big(b_t-A_t(\theta_{t-1}-\ts+\ts)\big)\\
 e_t&=(I-\alpha A_t)e_{t-1}+(b_t -b -(A_t-A)\ts)\\
 U^{-1}e_t&=(I-\alpha U^{-1}A_t U) U^{-1}e_{t-1}+ U^{-1}(b_t -b -(A_t-A)\ts)\\
-z_t&=(I-\alpha \Lt) z_{t-1}+ \zeta_t
+z_t&=(I-\alpha J_t) z_{t-1}+ H_t
 \end{align}
 
 
 \begin{align*}
 z_t
-& = (I-\alpha \Lambda_t) (I-\alpha \Lambda_{t-1}) z_{t-2}\\ &+ \alpha (I-\alpha \Lambda_t) \zeta_{t-1} +\alpha \zeta_t \\
+& = (I-\alpha J_t) (I-\alpha J_{t-1}) z_{t-2}\\ &+ \alpha (I-\alpha J_t) \zeta_{t-1} +\alpha H_t \\
 & \quad \vdots\\
-& = (I-\alpha \Lambda_t) \cdots (I-\alpha \Lambda_1) e_0\\ &+ \alpha (I-\alpha \Lambda_t) \cdots (I-\alpha \Lambda_2) \zeta_1 \\
-& + \alpha (I-\alpha \Lambda_t) \cdots (I-\alpha \Lambda_3) \zeta_2\\
+& = (I-\alpha J_t) \cdots (I-\alpha J_1) e_0\\ &+ \alpha (I-\alpha J_t) \cdots (I-\alpha J_2) \zeta_1 \\
+& + \alpha (I-\alpha J_t) \cdots (I-\alpha J_3) \zeta_2\\
 &  \quad \vdots \\
-&+ \alpha \zeta_t\,,
+&+ \alpha H_t\,,
 \end{align*}
 which can be written compactly as
 \begin{align}
 \label{eq:etft}
-z_t = F_{t,1} z_0 + \alpha (F_{t,2} \zeta_1 + \dots + F_{t,t+1} \zeta_t )\,,
+z_t = F_{t,1} z_0 + \alpha (F_{t,2} \zeta_1 + \dots + F_{t,t+1} H_t )\,,
 \end{align}
 \begin{align*}
 \zh_t=\frac{1}{t+1}{\sum}_{i=0}^{t}z_i
@@ -93,7 +100,7 @@ There are two cases depending on whether $i=j$. When $i< j$,
 \E\ip{z_i,z_j}
 &=\E \ip{z_i,\big[F_{j,i+1} e_i+\alpha\textstyle\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\\
 &=\E\ip{z_i,F_{j,i+1} z_i}  \text{(from \cref{noisecancel})}\\
-&=\E\ip{z_i, (I-\alpha \Lambda)^{j-i} z_i} \text{(from \cref{lem:unroll})}
+&=\E\ip{z_i, (I-\alpha J)^{j-i} z_i} \text{(from \cref{lem:unroll})}
 \end{align*}
 and therefore
 \begin{align*}
@@ -124,7 +131,7 @@ Putting things together,
 \end{align}
 
 
-Let $\F_t = \sigma( H_1,\dots,H_t, \zeta_1,\dots,\zeta_t ) $, with $\F_0$ the $\sigma$-field that holds all random variables.
+Let $\F_t = \sigma( H_1,\dots,H_t, \zeta_1,\dots,H_t ) $, with $\F_0$ the $\sigma$-field that holds all random variables.
 \newcommand{\cF}{\F}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lemma}[Product unroll lemma]\label{lem:genunroll}

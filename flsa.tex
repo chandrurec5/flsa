@@ -24,6 +24,7 @@
 %\usepackage{thmtools}
 \usepackage{aliascnt}
 \usepackage{titlecaps,cleveref}
+\usepackage{amsmath,amssymb,graphicx}
 \crefname{assumption}{Assumption}{Assumption}
 
 \title{Finite Time Analysis of Linear Stochastic Approximation}
@@ -78,8 +79,216 @@
 \end{abstract}
 
 \section{Introduction}
-\section{Notation}
 
+
+\section{Notations and Definitions}
+
+We denote the sets real and complex number by $\R$ and $\C$ respectively. For $x=a+ib\in \C$, we denote its real and imaginary parts by $\re{x}=a$ and $\im{x}=b$ respectively. We denote $n$-dimensional vector spaces over $\R$ and $\C$ by $\R^{n}$ and $\C^{n}$ respectively. We use $\R^{\ncn}$ and $\C^{\ncn}$ to denote $\ncn$ matrices with real and complex entries respectively. For any $x\in \C$ we denote the modulus of $x$ by $\md{x}=\sqrt{\re{x}^2+\im{x}^2}$. For any $x\in \C^n$We denote complex conjugate of $x$ by $\bar{x}$. We denote the transpose of $x\in \C^{n}, A\in \C^{\ncn}$ by $x^\top$ and $A^\top$ respectively. Further, by $x^\dag$ denotes the conjugate transpose, i.e., $x^\dag=\bar{x}^\top$ (the same convention carries over to matrices as well). We will use $\ip{\cdot,\cdot}$ to denote the inner products: $\ip{x,y}=x^\dag y$. Also, by $A_{ij}$ we denote the entry of matrix $A$ in the $i^{th}$ row and $j^{th}$ column.
+The norm of the matrix $A$ in given by $\norm{A}\eqdef \sup_{x\in \C^n:\norm{x}=1} \norm{Ax}$. For a positive real number $B>0$, we denote by $\C^{\ncn}_B=\{A\in \C^{\ncn}\mid \norm{A}\leq B\}$ and  $\R^{\ncn}_B=\{A\in \R^{\ncn}\mid \norm{A}\leq B,\,\forall i,j=1,\ldots,n\}$ the set of complex and real matrices whose norms are bounded $B$.
+%We denote by $\C^{\ncn}_B=\{A\in \C^{\ncn}\mid \md{A_{ij}}\leq B,\,\forall i,j=1,\ldots,n\}$ and  $\R^{\ncn}_B=\{A\in \R^{\ncn}\mid \md{A_{ij}}\leq B,\,\forall i,j=1,\ldots,n\}$.
+%We use $\P$ to denote the set of probability distribution over $\C^{\ncn}$.
+We also denote the set of invertible $\ncn$ complex matrices by $\gln$. We use $A\sim P$ to denote the fact that the random variable $A$ is distributed according to distribution $P$. Let the random matrix $A\sim P$, and $U\in \gln$, we use $P_U$ to denote the distribution of the random matrix $U^{-1}A U$.  We denote the identity matrix in $\C^{\ncn}$ by $\I$.
+%We denote the set of distributions over $\C_B^{\ncn}$ by $\P$.
+
+We use $A\succeq 0$ to denote that the
+square matrix $A$ is hermitian and positive semidefinite (HPD):
+$A = A^\dag$, $\inf_x x^\dag A x\ge 0$.
+For $A,B$ HPD matrices, $A\succeq B$ holds if $A-B\succeq 0$.
+We also use $A\succ B$ similarly to denote that $A-B \succ 0$.
+We also use $\preceq$ and $\prec$ analogously. $\E$ denotes mathematical expectation.
+
+\begin{definition}
+Let $P$ be a distribution over $\C_B^{\ncn}$, then define
+\begin{align*}
+A_P=\int M dP(M),\quad C_P=\int M^\dag M dP(M),
+\end{align*}
+Note that $\norm{A_P}<B$ and $\norm{C_P}<B^2$.
+\end{definition}
+\begin{definition}\label{contract}[Contraction Factors]
+Define
+\begin{align*}
+\rhod{P}&\eqdef {\inf}_{x\in\C^n\colon\norm{x}=1}\ip{x,\left((A_P+A_P^\dag)-\alpha A_P^\dag A_P\right)x},\\ \rhos{P}&\eqdef{\inf}_{x\in \C^n\colon\norm{x}=1}\ip{x,\left((A_P+A_P^\dag)-\alpha C_P\right)x}
+\end{align*}
+\end{definition}
+Note that $\rhod{P}>\rhos{P}$.
+
+\begin{definition}
+We define a matrix $A\in \C^{\ncn}$ to be \emph{positive definite} if $\ip{x,Ax} >0,\,\forall x\neq 0 \in \C^{n}$. We define a matix $A\in \C^{\ncn}$ to be \emph{asymptotically stable} if all eigenvalues of $A$ have positive real parts.
+\end{definition}
+\begin{definition}\label{distpd}
+Define a distribution $P\in \P$ to be \emph{positive definite} (PD)  if $A_P$ is positive definite. Define a distribution $P\in \P$ to be \emph{asymptotically stable} (AS) if $A_P$ is asymptotically stable.
+\end{definition}
+
+
+\section{Problem Setup}
+We consider the linear stochastic approximation scheme with constant step size and PR-averaging given as below:
+\begin{align}
+\label{conststep} \theta_t&=\theta_{t-1}+\alpha(b_t-A_t\theta_{t-1}),\\
+\label{iteravg} \thh_t&=\frac{1}{t+1}{\sum}_{i=0}^{t}\theta_s,
+\end{align}
+where $\thh_t\in \C^{n}$ in \eqref{iteravg} is PR-average of the iterates $\theta_t\in \C^{n}$ of the constant step size stochastic recursion in \eqref{conststep}. For the quantities in \eqref{conststep,iteravg} we assume the following:
+\begin{assumption}\label{lsadist}
+$\{A_t,\, t\geq 0\}$ is an $i.i.d$ sequence of $\ncn$ matrices distributed according to $P\in \P$ and $\{b_t\}$ is an $i.i.d$ sequence of vectors in $\C^n$ with mean $\E[b_t]=b$.
+\end{assumption}
+From \cref{lsadist} it follows that $M_t\eqdef A_t-A_P$ and $N_t\eqdef b_t-b$ are martingale difference sequences with respect to the $\sigma$-field given by $\F_{t-1}=\{\theta_0,M_1,\ldots, M_{t-1}\}$.
+Further, we assume that
+\begin{assumption}\label{matvar}
+%\begin{align*}\E\left[ M_t^\dag M_t\mid\F_{t-1}\right]\leq \Sigma^2_P, \, \E[N_t^\dag N_t]=\sigma_b^2.\end{align*}
+\begin{align*}\E\left[ \norm{M_t}^2\mid\F_{t-1}\right]\leq \sigma^2_P, \, \E[N_t^\dag N_t]=\sigma_b^2.\end{align*}
+\end{assumption}
+
+Our objective is to analyse $\EE{\norm{\thh_t-\theta^*}^2}$.
+
+\begin{example}[TD(0)]
+\end{example}
+
+\begin{example}[Linear Prediction]
+\end{example}
+
+%\section{Error Recursion and Similarity Transformation}
+
+
+\section{Main Results}
+\begin{lemma}
+Let $P$ be a positive definite distribution over $\C_B^{\ncn}$, then there exists an $\alpha_P$ such that $\rhod{P}>0$ and $\rhos{P}>0,~\forall \alpha \in (0,\alpha_P)$.
+\end{lemma}
+\begin{theorem}
+Let $P$ in \Cref{lsadist} be a positive definite distribution over $\C_B^{\ncn}$. Then
+\begin{align}
+\EE{\norm{\thh_t-\theta^*}^2}
+\leq
+\left(1+\frac2{\alpha\rhod{P}}\right)\frac{1}{\alpha \rhos{P}}
+\left(\frac{\norm{\theta_0-\theta^*}^2}{(t+1)^2}+ \frac{\alpha^2(\sigma_P^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_P^2\norm{\ts})\norm{\theta_0-\theta^*}}{t+1} \right)\,.
+%\left(\frac{\norm{\theta_0-\theta^*}^2}{(t+1)^2}+ \frac{\alpha^2{\sigma}_1^2+ {\sigma}_2^2 (\alpha^2+\alpha \norm{\theta_0-\theta^*})}{t+1} \right)\,.
+\end{align}
+
+\end{theorem}
+
+\begin{lemma}[Similarity Transformation]
+Let $P^{AS}\in\P$ be asymptotically stable, then there exists a $U\in \gln$ such that $P^{AS}_U$ is positive definite.
+\end{lemma}
+
+\begin{theorem}[Change of Basis]
+Let $P$ be as in \Cref{lsadist}. Define $\gamma_t\eqdef U^{-1}\theta_t,\,,\gamma^*\eqdef U^{-1}\theta^*$, and suppose if $P_U$ is positive definite, then
+\begin{align}
+\EE{\norm{\gamma_t-\gamma^*}^2}
+\leq
+\left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{\norm{U^{-1}}^2}{\alpha \rhos{P_U}}
+\left(\frac{\norm{\gamma_0-\gamma^*}^2}{(t+1)^2}+ \frac{\alpha^2(\sigma_P^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_P^2\norm{\ts})\norm{\gamma_0-\gamma^*}}{t+1} \right)\,.
+%\left(\frac{\norm{\gamma_0-\gamma^*}^2}{(t+1)^2}+ \frac{\alpha^2{\sigma}_1^2+ {\sigma}_2^2 (\alpha^2+\alpha \norm{\gamma_0-\gamma^*})}{t+1} \right)\,,
+\end{align}
+where $\gh_t=\frac{1}{t+1}\sum_{s=0}^t \gamma_s$.
+\end{theorem}
+\begin{corollary}
+Let $P$ in \Cref{lsadist} be asymptotically stable. Then, there exists
+\begin{align}
+\EE{\norm{\thh_t-\theta^*}^2}
+\leq
+\left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{\norm{U}^2\norm{U^{-1}}^2}{\alpha \rhos{P_U}} \left(\frac{\norm{\theta_0-\theta^*}^2}{(t+1)^2}+ \frac{\alpha^2{\sigma}_1^2+ {\sigma}_2^2 (\alpha^2+\alpha \norm{\theta_0-\theta^*})}{t+1} \right)\,.
+\end{align}
+\end{corollary}
+
+\section{Uniform stepsizes}
+\begin{definition}
+Call a set of distributions $\P$ over $\C_B^{\ncn}$
+\emph{weakly admissible} if there exists $\alpha>0$ such that
+$\rhos{P}>0$ holds for all $P\in \P$.
+\end{definition}
+\begin{definition}
+Call a set of distributions $\P$ over $\C_B^{\ncn}$ \emph{admissible}
+if there exists some $\alpha>0$ such that $\inf_{P\in \P} \rhos{P}>0$.
+The value of $\alpha$ is called a witness.
+\end{definition}
+It is easy to see that $\alpha \mapsto \rhos{P}$ is decreasing,
+hence if $\alpha>0$ witnesses that $\P$ is (weakly) admissible
+then any $0<\alpha'\le \alpha$ is also witnessing this.
+
+If $\P$ is weakly admissible, then one can choose a stepsize $\alpha>0$ solely based on the knowledge of $\P$ and
+conclude that no matter the joint distribution of $(A_t,b_t)$, as long as the distribution of $A_t$ is an element of $\P$, the conclusions of \cref{maintheorem} hold. Further, if $\P$ is admissible then the error bound stated in  \cref{maintheorem} becomes independent of the instance.
+Hence, an interesting question to investigate is whether a given set $\P$ is (weakly) admissible.
+A hopeful set is the following:
+For $B>0$, let $\P_B$ is the set of distributions where for every $P\in \P_B$, $H_P+H_P^\top\succ 0$
+and if $H\sim P$ then $\norm{H}\le B$ holds with probability one.
+In what follows all distributions will be a subset of $\P_B$ with some $B>0$,
+Note that in most applications the knowledge of a suitable $B>0$ such that $\P\subset \P_B$ is available.
+By appropriately normalizing the matrices involved, we may as well assume that $B=1$.
+
+Our first result shows that we cannot be too ambitious:
+\begin{proposition}
+The set $\P_1$ is not weakly admissible.
+\end{proposition}
+\begin{proof}
+Fix an arbitrary $\alpha>0$. We show that there exists $P\in \P$ such that $\rho_\alpha(P)<0$.
+For $\epsilon \in (0,1/2)$ let $P$ be the distribution that is supported on $\{-I,I\}$ and takes on the value of $I$ with probability $1/2+\epsilon$. Then $H_P = 2\epsilon I \succ 0$, hence $P\in \P_1$. Further, $Q_P = I$.
+Hence, $\rho_\alpha(P) = 4\epsilon-\alpha$. Hence, if $\epsilon<\alpha/4$, $\rho_\alpha(P)<0$.
+\end{proof}
+Note that the result still holds if in the definition of $\P_B$ we replace the condition that $H_P + H_P^\top \succ 0$ with the
+stronger condition that $H_P\succ 0$. In words, positive definiteness of $H_P$ alone is not sufficient for weak admissibility.
+
+In linear least-squares problems (cf. \cref{ex:leastsquares}) the set $\P$ has more structure.
+In particular, the random matrices $\{H_t\}$ are PSD. \todoc{The standard notation is $\mathrm{S}^{++}$ for the set of positive definite matrices. Introduce these and use them below..}
+Define
+\begin{align*}
+\P_{\text{PSD},B} = \{ P \in \P_B \,:\,  \supp(P)\subset \text{PSD} \}\,.
+\end{align*}
+We have the following proposition:
+\begin{proposition}
+For any $B>0$, the set $\P_{\text{PSD},B}$ is weakly admissible
+and in particular any $0<\alpha < 2/B$ witnesses this.
+\end{proposition}
+\begin{proof}
+Take any $P\in \P_{\text{PSD}}$ and let $H\sim P$.
+Consider the SVD of $H$: $H = U \Lambda U^\top$ where $U$ is orthonormal and $\Lambda$ is diagonal with
+nonnegative elements. Note that $\Lambda \preceq B\, \I$ and thus $\Lambda^2 \preceq B \Lambda$.
+Then for any $x\in \R^n$, $x^\top H^\top H x = x^\top U \Lambda^2 U^\top x \le B x^\top U \Lambda U^\top x = B x^\top H x$.
+Taking expectations we find that $x^\top Q_P x \le B x^\top H_P x$.
+Hence, $\rho_\alpha(P) = 2 x^\top H_P x - \alpha x^\top Q_P x \ge (2- \alpha B ) \,x^\top H_P x $.
+Thus, for any $\alpha<2/B$, $\rho_\alpha(P)>0$.
+\end{proof}
+\todoc[inline]{So this altogether is weaker than what Bach founds. They prove strong admissibility.
+I am guessing that for this they use that the loss is special and also that the noise is special.
+This would be a good place to somehow incorporate this with a (short?) proof.
+}
+
+\begin{comment}
+\paragraph{Contraction over time $t$}
+The condition of contraction per time step is overly restrictive in the general case (other than the one presented in \Cref{rankonestep}). We can relax this condition and ask whether a weaker result in \Cref{multheorem} holds.
+\begin{lemma}\label{multheorem}
+Let $\P$ be the space of positive definite distributions supported on $\C_B^{\ncn}$. Then there exists an $\alpha_{\max}>0$ such that $\alpha\in(0,\alpha_{\max})$ implies $\us{\sup}{\norm{x}\leq 1,P\in\P,t\geq 0}\E_{P}[\norm{(I-\alpha H)^tx}]< \infty$.
+\end{lemma}
+\textbf{Possible Counter example for \Cref{multheorem} in $\R$}
+Consider $\H=[-1,1]$ and $\P$ supported on $\{-1,1\}$ with $P(1)=\frac{1}{2}+\epsilon$ and $P(-1)=\frac{1}{2}-\epsilon$. Note that
+\begin{align*}
+\E[\Pi_{i=1}^t (1-\alpha H_i)]&=\exp{\ous{\sum}{i=1}{t}\log(1-\alpha H_i)}\\
+&\approx \exp{t\E[\log(1-\alpha H_i)]}
+\end{align*}
+Now the condition $\E[\Pi_{i=1}^t (1-\alpha H_i)]<\infty,$ where $H_i\sim P$ loosely translates to the following
+\begin{align*}
+\E[\log(1-\alpha H_i)]<0,
+\end{align*}
+which can be verified by noting that
+\begin{align*}
+&\E[\log(1-\alpha H_i)]\\&=\E[(\frac{1}{2}+\epsilon)\log (1-\alpha)+(\frac{1}{2}-\epsilon)\log (1+\alpha)]\\
+&=\frac{1}{2}\log(1-\alpha^2)+\epsilon(\log(1-\alpha)-\log(1+\alpha))\\
+&<0
+\end{align*}
+\textbf{Possible Counter example for \Cref{multheorem} in $\R^2$}
+Given any $\alpha$ the aim is to choose a distribution $P$ over $\H$ such that $\E_{P}[\norm{(I-\alpha H)^tx}]$ grows with $t$. In other words, given an $\alpha>0$, we are looking for a distribution $P'$ supported in the $\alpha$ neighbourhood of $I$ denoted by $\F$ such that $\E_{P'}[F^t]$ grows with $t$ (where $F\sim P'$). We now look at a possible suggestion for such a $P'$.\par
+\begin{example}
+Pick $F_1=\begin{bmatrix} 0 & 1-\beta_2 \\ 1+\beta_1& 0\\\end{bmatrix}^{\frac{1}{p}}$, $F_2=\begin{bmatrix} 0 & 1+\beta_1 \\ 1-\beta_2& 0\\\end{bmatrix}^{\frac{1}{p}}$, where $\beta_2>\beta_1$ such that $1+\frac{1}{2}(\beta_1-\beta_2)$. Let $P'$ be supported on $\{F_1,F_2\}$ with $P'(F_1)=\frac{1}{2}$ and $P'(F_2)=\frac{1}{2}$, and  $p$ is sufficiently large such that $F_1,F_2$ belong to the $\alpha$-neighbourhood of $I$. A possible way the random product can blow up is when products $F_2^pF_1^p$ occur in a contiguous stream. To see this,
+\begin{align}
+F_2^pF_1^p=\begin{bmatrix} (1+\beta_1) &0  \\ 0& (1-\beta_2)^2\\\end{bmatrix}
+\end{align}
+Thus $\norm{F_2^p F_1^p}>1$. However, such (i.e., $F_2^p F_1^p$) sequences have probability of occurance $\frac{1}{2^{2p}}$ is a sequence of length $2p$. Thus probability of them occuring quite often in a given random product is small.
+\end{example}
+\todoc[inline]{Did not we also want to discuss the multiplicative ergodic theorem? I have not cleaned this part yet..}
+\end{comment}
+
+\appendix
+\input{linal}
+
+\begin{comment}
+\input{linal}
 \section{Problem Setup}
 We consider linear stochastic approximation schemes with constant step size and PR-averaging given as below:
 \begin{align}
@@ -131,15 +340,12 @@ Given a distribution $P$ over $\C^{\ncn}$ define the distribution $P_U$ induced 
 \end{align*}
 \end{definition}
 
-\begin{comment}
+
 \begin{definition}[Induced Distribution]
 Let $P\in \P$ be any distribution over $\R^{\ncn}$ and let $p_c^U$ denote the probability distribution over $\C^{\ncn}$ induced by the linear map $\T_U$ such that the pullback of $p_c^U$ using $\T_U$ is $p$.
 \end{definition}
-\end{comment}
 
-\begin{definition}\label{def:spectnorm}[Spectral Norms]
-Define $\rhod{P}\eqdef {\inf}_{x\in\C^n\colon\norm{x}=1}\ip{\bar{x},\left((A_P+A_P^\dag)-\alpha A_P^\dag A_P\right)x}$, $\rhos{P}\eqdef{\inf}_{x\in \C^n\colon\norm{x}=1}\ip{\bar{x},\left((A_P+A_P^\dag)-\alpha C_P\right)x}$
-\end{definition}
+
 
 \begin{definition}[Weakly Admissible]
 A set of distributions $\P$ over $\C^{\ncn}$ is said to be \emph{weakly admissible} if for any given $P\in \P,\,\exists$ a matrix $U_P \in \gln$, real-valued constants $\alphapd>0$ and $\alphaps>0$ such that $\rhod{P_{U_P}}>0,\,\forall \alpha\in(0,\alphapd)$ and $\rhos{P_U}>0,\,\forall \alpha\in(0,\alphaps)$.
@@ -164,15 +370,15 @@ A set of distributions $\P$ over $\C^{\ncn}$ is \emph{strongly admissible} if  $
 \end{definition}
 \begin{example}
 \end{example}
-\begin{comment}
+
 \begin{lemma}\label{pdt}
 Given a AS matrix $A$, there exists a non-singular matrix $U\in \C^{\ncn}$ such that $A=U\Lambda U^{-1}$ where $\Lambda^\dag+\Lambda$ is a real symmetric positive definite matrix.
 \end{lemma}
 Note that in \cref{pdt} the transformation $U\Lambda U^{-1}$ is not unique.
 \begin{example}
 \end{example}
-\end{comment}
-\begin{comment}
+
+
 \begin{lemma}
 Given any AS matrix $A$, there exists $\alpha_D>0,\,\alpha_R>0$ and a non-singluar matrix $U$ such that
 \begin{enumerate}
@@ -183,7 +389,7 @@ Given any AS matrix $A$, there exists $\alpha_D>0,\,\alpha_R>0$ and a non-singlu
 \begin{corollary}
 There exists $\beta\eqdef\inf_{U : det(U)\neq 0,\alpha\in (0,\alpha_R)} \bu$.
 \end{corollary}
-\end{comment}
+
 \section{Main Results}
 The following theorem states that weak admissibility implies stabilizability.
 \begin{theorem}
@@ -229,5 +435,7 @@ In \Cref{thm:rate} that we state we below, we let $P^A$ denote the underlying di
 \appendix
 
 \input{linal}
+
+\end{comment}
 
 \end{document}

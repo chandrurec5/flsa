@@ -1,0 +1,38 @@
+\section{Notations and Definitions}\label{sec:def}
+
+We denote the sets real and complex number by $\R$ and $\C$ respectively. For $x=a+ib\in \C$, we denote its real and imaginary parts by $\re{x}=a$ and $\im{x}=b$ respectively. We denote $n$-dimensional vector spaces over $\R$ and $\C$ by $\R^{n}$ and $\C^{n}$ respectively. We use $\R^{\ncn}$ and $\C^{\ncn}$ to denote $\ncn$ matrices with real and complex entries respectively. For any $x\in \C$ we denote the modulus of $x$ by $\md{x}=\sqrt{\re{x}^2+\im{x}^2}$. For any $x\in \C^n$We denote complex conjugate of $x$ by $\bar{x}$. We denote the transpose of $x\in \C^{n}, A\in \C^{\ncn}$ by $x^\top$ and $A^\top$ respectively. Further, by $x^\dag$ denotes the conjugate transpose, i.e., $x^\dag=\bar{x}^\top$ (the same convention carries over to matrices as well). We will use $\ip{\cdot,\cdot}$ to denote the inner products: $\ip{x,y}=x^\dag y$. Also, by $A_{ij}$ we denote the entry of matrix $A$ in the $i^{th}$ row and $j^{th}$ column.
+The norm of the matrix $A$ in given by $\norm{A}\eqdef \sup_{x\in \C^n:\norm{x}=1} \norm{Ax}$. For a positive real number $B>0$, we denote by $\C^{\ncn}_B=\{A\in \C^{\ncn}\mid \norm{A}\leq B\}$ and  $\R^{\ncn}_B=\{A\in \R^{\ncn}\mid \norm{A}\leq B,\,\forall i,j=1,\ldots,n\}$ the set of complex and real matrices whose norms are bounded $B$.
+%We denote by $\C^{\ncn}_B=\{A\in \C^{\ncn}\mid \md{A_{ij}}\leq B,\,\forall i,j=1,\ldots,n\}$ and  $\R^{\ncn}_B=\{A\in \R^{\ncn}\mid \md{A_{ij}}\leq B,\,\forall i,j=1,\ldots,n\}$.
+%We use $\P$ to denote the set of probability distribution over $\C^{\ncn}$.
+We also denote the set of invertible $\ncn$ complex matrices by $\gln$. We use $A\sim P$ to denote the fact that the random variable $A$ is distributed according to distribution $P$. Let the random matrix $A\sim P$, and $U\in \gln$, we use $P_U$ to denote the distribution of the random matrix $U^{-1}A U$.  We denote the identity matrix in $\C^{\ncn}$ by $\I$.
+%We denote the set of distributions over $\C_B^{\ncn}$ by $\P$.
+
+We use $A\succeq 0$ to denote that the
+square matrix $A$ is hermitian and positive semidefinite (HPD):
+$A = A^\dag$, $\inf_x x^\dag A x\ge 0$.
+For $A,B$ HPD matrices, $A\succeq B$ holds if $A-B\succeq 0$.
+We also use $A\succ B$ similarly to denote that $A-B \succ 0$.
+We also use $\preceq$ and $\prec$ analogously. For any $x\in\C^n$x, we denote the general quadratic norm with respect to a $C\succ 0$ by $\norm{x}^2_C\eqdef x^\dag\, C \,x$.
+$\E$ denotes mathematical expectation.
+
+\begin{definition}
+Let $P$ be a distribution over $\C^{\ncn}$, then define
+\begin{align*}
+A_P=\int M dP(M),\quad C_P=\int M^\dag M dP(M),
+\end{align*}
+\end{definition}
+\begin{definition}\label{def:contract}[Contraction Factors]
+Define
+\begin{align*}
+\rhod{P}&\eqdef {\inf}_{x\in\C^n\colon\norm{x}=1}\ip{x,\left((A_P+A_P^\dag)-\alpha A_P^\dag A_P\right)x},\\ \rhos{P}&\eqdef{\inf}_{x\in \C^n\colon\norm{x}=1}\ip{x,\left((A_P+A_P^\dag)-\alpha C_P\right)x}
+\end{align*}
+\end{definition}
+Note that $\rhod{P}>\rhos{P}$.
+
+\begin{definition}
+We call a matrix $A\in \C^{\ncn}$ to be \emph{positive definite} (PD) if $\ip{x,Ax} >0,\,\forall x\neq 0 \in \C^{n}$. We call a matix $A\in \C^{\ncn}$ to be \emph{asymptotically stable} (AS) if all eigenvalues of $A$ have positive real parts. We call a matrix $A\in \C^{\ncn}$ to be \emph{symmetric positive definite} (SPD) is it is symmetric i.e., $A^\top=A$ and PD.
+\end{definition}
+\begin{definition}\label{distpd}
+We call a distribution $P$ to be PD/AS/SPD if $A_P$ is PD/AS/SPD.
+\end{definition}
+

@@ -1,0 +1,59 @@
+\section{Uniform stepsizes}
+\begin{definition}
+Call a set of distributions $\P$ over $\C^{\ncn}$
+\emph{weakly admissible} if there exists $\alpha>0$ such that
+$\rhos{P}>0$ holds for all $P\in \P$.
+\end{definition}
+\begin{definition}
+Call a set of distributions $\P$ over $\C^{\ncn}$ \emph{admissible}
+if there exists some $\alpha>0$ such that $\inf_{P\in \P} \rhos{P}>0$.
+The value of $\alpha$ is called a witness.
+\end{definition}
+It is easy to see that $\alpha \mapsto \rhos{P}$ is decreasing,
+hence if $\alpha>0$ witnesses that $\P$ is (weakly) admissible
+then any $0<\alpha'\le \alpha$ is also witnessing this.
+
+If $\P$ is weakly admissible, then one can choose a stepsize $\alpha>0$ solely based on the knowledge of $\P$ and
+conclude that no matter the joint distribution of $(A_t,b_t)$, as long as the distribution of $A_t$ is an element of $\P$, the conclusions of \cref{maintheorem} hold. Further, if $\P$ is admissible then the error bound stated in  \cref{maintheorem} becomes independent of the instance.
+Hence, an interesting question to investigate is whether a given set $\P$ is (weakly) admissible.
+A hopeful set is the following:
+For $B>0$, let $\P_B$ be the set of distributions over $\C_B^{\ncn}$ where for every $P\in \P_B$ is positive definite.
+In what follows all distributions will be a subset of $\P_B$ with some $B>0$,
+Note that in most applications the knowledge of a suitable $B>0$ such that $\P\subset \P_B$ is available.
+By appropriately normalizing the matrices involved, we may as well assume that $B=1$.
+
+Our first result shows that we cannot be too ambitious:
+\begin{proposition}\label{notwad}
+The set $\P_1$ is not weakly admissible.
+\end{proposition}
+\begin{proof}
+Fix an arbitrary $\alpha>0$. We show that there exists $P\in \P$ such that $\rho_\alpha(P)<0$.
+For $\epsilon \in (0,1/2)$ let $P$ be the distribution that is supported on $\{-I,I\}$ and takes on the value of $I$ with probability $1/2+\epsilon$. Then $A_P = 2\epsilon I \succ 0$, hence $P\in \P_1$. Further, $Q_P = I$.
+Hence, $\rhos{P} = 4\epsilon-\alpha$. Hence, if $\epsilon<\alpha/4$, $\rho_\alpha(P)<0$.
+\end{proof}
+Thus \Cref{notwad} positive definiteness of $P\in \P_B$ alone is not sufficient for weak admissibility.
+In linear least-squares problems (cf. \cref{ex:leastsquares}) the set $\P$ has more structure.
+In particular, the random matrices $\{A_t\}$ are PSD. \todoc{The standard notation is $\mathrm{S}^{++}$ for the set of positive definite matrices. Introduce these and use them below..}
+Define
+\begin{align*}
+\P_{\text{PSD},B} = \{ P \in \P_B \,:\,  \supp(P)\subset \text{PSD} \}\,.
+\end{align*}
+We have the following proposition:
+\begin{proposition}
+For any $B>0$, the set $\P_{\text{PSD},B}$ is weakly admissible
+and in particular any $0<\alpha < 2/B$ witnesses this.
+\end{proposition}
+\begin{proof}
+Take any $P\in \P_{\text{PSD}}$ and let $H\sim P$.
+Consider the SVD of $H$: $H = U \Lambda U^\top$ where $U$ is orthonormal and $\Lambda$ is diagonal with
+nonnegative elements. Note that $\Lambda \preceq B\, \I$ and thus $\Lambda^2 \preceq B \Lambda$.
+Then for any $x\in \R^n$, $x^\top H^\top H x = x^\top U \Lambda^2 U^\top x \le B x^\top U \Lambda U^\top x = B x^\top H x$.
+Taking expectations we find that $x^\top Q_P x \le B x^\top H_P x$.
+Hence, $\rho_\alpha(P) = 2 x^\top H_P x - \alpha x^\top Q_P x \ge (2- \alpha B ) \,x^\top H_P x $.
+Thus, for any $\alpha<2/B$, $\rho_\alpha(P)>0$.
+\end{proof}
+\todoc[inline]{So this altogether is weaker than what Bach founds. They prove strong admissibility.
+I am guessing that for this they use that the loss is special and also that the noise is special.
+This would be a good place to somehow incorporate this with a (short?) proof.
+}
+

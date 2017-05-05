@@ -1,10 +1,12 @@
 \section{Introduction}
+
 Stochastic Approximation (SA) algorithms can be expressed in the general form
 \begin{align}\label{eq:sa}
 \theta_t=\theta_{t-1}+\alpha_t f(\theta_{t-1},\zeta_t),
 \end{align}
 where $\theta_t\in \R^d$ are the iterates, and $f(\theta_{t-1},\zeta_t)$ of the function $g(\theta_{t-1})=\EE{f(\theta_{t-1})}_{\zeta_t}$, where the expectation is with respect to some noise process $\zeta_t$. At each time step, the algorithm updates the iterates in increments proportional to a step-size $\alpha_t>0$ and the idea is to eventually converge to $\ts\in \R^d$ which is a desired optimum or a fixed point. Due to their inherent online nature SA algorithms appear widely in machine learning applications \cite{konda,bhatnagar,borkar,gtd,td,bach}, where we have to learn from a noisy data stream.\par
 The choice of the step-size $\alpha_t$ needs to trade-off learning rate versus filtering noise, so to speak. In general, one can guess that larger step-size lead to faster learning and at the same time smaller step-sizes are better to handle noise. A popular choice of step-size schedule that is known handle the noise $\alpha_t=O(\frac{1}{t})$. However, since the step size are diminishing, it can hurt the learning rate. An alternative suggestion is to use more aggressive step sizes without minding the noise in the iterates $\theta_t$ in \eqref{eq:sa}, however, introduce additional averaging (known as Polyak-Rupert averaging) to filter the noise. The averaged iterates can be given by $\th_t\eqdef\frac{1}{t}\sum_{s=0}^t \theta_t$, and an analysis of the PR-averaging technique is known from \cite{}.\par
+
 A host of algorithms in machine learning and in particular, the temporal difference class of algorithms arising in reinforcement learning, turn out to be special cases of \eqref{eq:sa}, namley linear stochastic approximation (LSA) algorithms. LSA algorithms assume the general form
 \begin{align}\label{eq:lsaintro}
 \theta_t=\theta_{t-1}+\alpha_t (b_t-A_t \theta_{t-1}),
@@ -16,8 +18,13 @@ In this paper, we want to understand the performance of constant step size with 
 \paragraph{Contributions}:
 \begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
 \item We show that in the case of general LSA, there exists instance dependent constant step size choice such that the mean squared error of the PR-average given by $\err_t=\EE{\norm{\thh_t-\ts}^2}$ is at most $O(\frac{1}{t})$. The error $\err_t$ further can be broken down to a \emph{bias} term (arising due to the initial condition $\theta_0$) that decays at a rate $O(\frac{1}{t^2})$ and a \emph{variance} term (due to the noise) that decays at at rate $O(\frac{1}{t})$.
-\item We also show (via counter example) that not all classes of general LSAs `admit' a constant uniform step size. Further, we also argue that the subclass of LSAs related to linear prediction problem does `admit' a problem independent constant step size.
+\item We also show (via counter example) that not all classes of general LSAs `admit' a constant step-size that is uniform across all the problems in the class. Further, we also argue that the subclass of LSAs related to linear prediction problem does `admit' a problem independent constant step size.
+\item The assumptions in our setting is comparable to those in the asymptotic analysis based on ordinary differential equation (ODE) method by \cite{borkarmeyn,borkarbook}.
+\item Two timescale LSA algorithms are those that use two set of iterates (namely slower and faster) and two separate step-size schedules. Our results also hold for two timescale LSAs as long as the two different step-sizes are held constant with respect to time. Thus our setting not only holds for TD(0) but also extends to GTD/GTD2 and TDC.
+\item On an intuitive level, the error dynamics of the constant step-size plus PR-averaging procedure is similar to the behavior of partial sums of a geometric series. This coupled with the fact that the result also encompasses two timescale LSAs presents a simple and unified view of the various TD algorithms.
+\item The break up of error into bias and variance terms and their respective rates were previously worked out by \cite{bach} in the linear prediction setting, and here we extend the same to the general class of LSAs. Nevertheless, there are certain key differences between the general LSA setting that we consider to the setting considered by \cite{bach}, which are listed as under.
 \end{itemize}
+\begin{comment}
 \paragraph{Implications:}
 \begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
 \item Our results hold under the weak assumption\footnote{When this weak assumption fails to hold, the LSA is unstable and hence the notion of convergence is void.} that all the eigen values of $\EE{A_t}$ have strictly real parts. This assumption holds for all known TD class of RL algorithms.
@@ -32,3 +39,4 @@ In this paper, we want to understand the performance of constant step size with 
 Thus, the above approach does not work, and instead we have resort to an analysis that makes use of only the expected norms of the random matrices involved.
 \item Another significant difference is that in linear least-squares, the ``noise'' has a favorable ``structure''. Again, due to the lack of symmetry, this favorable structure does not apply. \todoc{Again, after the analysis, we should point out how the structured noise would have helped. I am wondering whether a more graceful degradation should happen? Is this really all or nothing?}
 \end{itemize}
+\end{comment}

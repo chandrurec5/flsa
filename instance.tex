@@ -3,8 +3,21 @@ In this section, we derive instance dependent bounds for $L_t$ in \eqref{eq:expl
 \begin{lemma}\label{lm:pd}
 Let $P$ be a positive definite distribution over $\C^{\ncn}$, then there exists an $\alpha_P$ such that $\rhod{P}>0$ and $\rhos{P}>0,~\forall \alpha \in (0,\alpha_P)$.
 \end{lemma}
+\begin{proof}
+\begin{align*}
+\rhos{P}&=\inf_{x:\norm{x}=1}x^* (A_P+A_P^*)x -\alpha x^*\EE{A_t^* A_t} x\\
+&=\inf_{x:\norm{x}=1}x^* (A_P+A_P^*)x -\alpha x^* A^*_P A_P -\alpha x^* \EE{M_t^* M_t} x
+&\geq \lambda_{\min}(A^*+A)-\alpha \norm{A_P}^2-\sigma^2_P
+\end{align*}
+The proof is complete by choosing $\alpha_P<\frac{\lambda_{\min}(A^*+A)}{\norm{A_P}^2+\sigma^2_P}$
+\end{proof}
+
+\begin{lemma}\label{lm:simtran}[Similarity Transformation]
+Let $P^{AS}$ be asymptotically stable, then there exists a $U\in \gln$ such that $P^{AS}_U$ is positive definite.
+\end{lemma}
+
 \begin{theorem}\label{th:pdrate}
-Let $P$ in \Cref{lsadist} be a positive definite distribution over $\C^{\ncn}$. Then
+Let $P$ in \Cref{assmp:lsa}-~\ref{dist} be a positive definite distribution over $\C^{\ncn}$. Then
 \begin{align}
 \EE{\norm{\thh_t-\theta^*}^2}
 \leq
@@ -15,12 +28,9 @@ Let $P$ in \Cref{lsadist} be a positive definite distribution over $\C^{\ncn}$. 
 
 \end{theorem}
 
-\begin{lemma}\label{lm:simtran}[Similarity Transformation]
-Let $P^{AS}\in\P$ be asymptotically stable, then there exists a $U\in \gln$ such that $P^{AS}_U$ is positive definite.
-\end{lemma}
 
 \begin{theorem}\label{thm:simtran}[Change of Basis]
-Let $P$ be as in \Cref{lsadist}. Define $\gamma_t\eqdef U^{-1}\theta_t,\,,\gamma^*\eqdef U^{-1}\theta^*$, and suppose if $P_U$ is positive definite, then
+Let $P$ in \Cref{assmp:lsa}-~\ref{dist} be AS. Define $\gamma_t\eqdef U^{-1}\theta_t,\,,\gamma^*\eqdef U^{-1}\theta^*$, and suppose if $P_U$ is positive definite, then
 \begin{align}
 \EE{\norm{\gh_t-\gamma^*}^2}
 \leq
@@ -39,8 +49,8 @@ Let $P$ in \Cref{lsadist} be asymptotically stable. Then, there exists
 \left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{\norm{U}^2\norm{U^{-1}}^2}{\alpha \rhos{P_U}} \left(\frac{\norm{\theta_0-\theta^*}^2}{(t+1)^2}+ \frac{\alpha^2{\sigma}_1^2+ {\sigma}_2^2 (\alpha^2+\alpha \norm{\theta_0-\theta^*})}{t+1} \right)\,.
 \end{align}
 \end{corollary}
-\subsection{Results Discussion}
-\textbf{Error Recursion and Contraction Maps:}
+\subsection{Proof Ingredients}
+\paragraph{Error Recursion and Contraction Maps:}
 The output $\thh_t$ of the algorithm \eqref{eq:lsa} is the average of the internal states at times $s=0,\ldots,t-1$. Hence, before we proceed to interpret the results in \Cref{lm:pd,thm:pdrate,lm:simtran,thm:simtran,cor:as}, it is worthwhile to spend some effort in trying to understand the dynamics of the internal states by looking at the behavior of $e_t\eqdef \theta_t-\ts$.
 \begin{align}\label{eq:errec}
 \theta_t&=\theta_{t-1}+\alpha(b_t-A_t\theta_{t-1})\nn\\
@@ -52,9 +62,19 @@ From \eqref{errec} it is clear that the error dynamics depends on the $i)$ prope
 \begin{align}\label{eq:spectralrand}
 \EE{\norm{I-\alpha A_t}^2}=1-\alpha \rhos{P}, {\norm{I-\alpha A_P}^2}=1-\alpha \rhod{P}
 \end{align}
-Notice that \eqref{eq:err} places our definitions of $\rhod{P}$ and $\rhos{P}$ in \Cref{def:contract}. Here the subscripts $s$ and $d$ stand for \emph{stochastic} and \emph{deterministic}, since they are associated with the spectral radius of stochastic and deterministic matrices respectively.\\
-\textbf{Positive Definiteness:} The first result in \Cref{lm:pd} shows if $P$ is PD, then there exists a stepsize for which $\rhos{P}, \rhod{P}>0$ which in turn implies that the spectral radii in \eqref{eq:spectralrand} are less than $1$.
-\textbf{Similarity Transformation:} 
+Notice that \eqref{eq:spectralrand} places our definitions of $\rhod{P}$ and $\rhos{P}$ in \Cref{def:contract}. Here the subscripts $s$ and $d$ stand for \emph{stochastic} and \emph{deterministic}, since they are associated with the spectral radius of stochastic and deterministic matrices respectively.\\
+\paragraph{Positive Definiteness:} By expanding \eqref{eq:spectralrand} we get
+\begin{align*}
+\EE{\norm{I-\alpha A_t}^2}=\sup_{x:\norm{x}=1} 1 -\alpha x^* (A_P+A_P^*)x +\alpha^2 \EE{A_t^* A_t},
+\end{align*}
+and thanks to \Cref{lm:pd} we know that when $A_P$ is positive definite it is possible to choose an $\alpha$ such that $\EE{\norm{I-\alpha A_t}}<1$.
+\paragraph{Similarity Transformation:} When $A_{P^{AS}}$ is known only to be AS, it is possible that there exists no choice of $\alpha>0$ for which $\rhos{P^{AS}}>0$ and $\rhod{P^{AS}}>0$ (see \Cref{ex:matrices}). However, it is potentially possible to re-write the recursion in a different basis via a similarity transformation $\gamma_t=U^{-1 }\theta_t$, and $z_t\eqdef U^{-1} e_t$
+\begin{align}\label{eq:errecsimtran}
+z_t&=\underbrace{(I-\alpha J_t)}_{\text{Transformed-Matrix}} z_{t-1}+\underbrace{\alpha U^{-1}(N_t -(M_t)\ts)}_{\text{Transformed-Noise}},
+\end{align}
+where $J_t\sim P_U$ and thanks to \Cref{lm:simtran} we know that $P_U$ is PD and from \Cref{lm:pd} we know that there exists $\alpha$ such that $\EE{\norm{I-\alpha J_t}}<1$. We note here that a similarity transformation does not result in \eqref{eq:errrecsimtran} being a diagonal system. However, \Cref{lm:simtran} side steps non-diagonizablility by taking refuge in Jordon decomposition theorem in linear algebra (see Proof of \Cref{lm:simtran} in the Appendix).
+\subsection{Result Discussion}
+We first discuss implications of \Cref{thm:pdrate}.
 \paragraph{Bias and Variance:} The means-squared error at $t$ is bounded by a sum of two terms. The first term is the bias term given by $\B=(1+4(\alpha\rho_{\alpha})^{-1}) (\alpha\rho_{\alpha})^{-1} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}\Big)$.  The \emph{Bias} term that captures the rate at which the initial condition $\norm{\theta_t-\ts}^2$ is forgotten. The second term is the \emph{Variance} given by $\V=(1+4(\alpha\rho_{\alpha})^{-1}) (\alpha\rho_{\alpha})^{-1} \Big(\frac{\alpha^2\sigma^2}{t+1} \Big)$. The variance term that captures the rate at which noise is rejected. The $\B$ and $\V$ terms capture two different sources of errors. To see this, note that in the absence of noise i.e., when $\zeta_t=0,~\forall t\geq 0$, we have $\E[\norm{H\eb_t}^2]=\B$ and in the presence of noise, i.e., $\zeta\neq 0,\forall t\geq 0$ and the perfect initial condition, i.e., $\theta_t=\ts$, we have $\E[\norm{H\eb_t}^2]=\V$.
 \paragraph{Behaviour for extreme value of $\alpha$:} For smaller values of stepsize, i.e., $\alpha\approx 0$, the bias term blows up, due to the presence of $\alpha^{-1}$ term. This is due to the fact that the stepsizes determine the learning rate and for smaller stepsizes the learning rate is slower. However, in this case the noise term does not blow up, a fact that can appreciated by looking at \eqref{lsergen} where $\alpha$ is seen to multiply the noise term $\zeta_t$. In quantitative terms, we can see that the $\alpha^{-2}$ and $\alpha^2$ terms can each other. For larger values of $\alpha$ i.e., $\alpha\ra \alpha_{\max}$, the bounds blow up again, due to the fact that $\rho_{\alpha}\ra 0$ in this case. This is due to the fact that the effect of both noise and initial conditions decay with the contraction factor of $F_{t,i}$, which gets closer to unity as $\alpha\ra\alpha_{\max}$.
 

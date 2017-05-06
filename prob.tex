@@ -20,8 +20,8 @@ We are interested in the behaviour of \eqref{eq:lsa} under the assumptions prese
 \item \label{dist} $\{A_t\in\C^{\ncn},\, t\geq 0\}$ is an $i.i.d$ sequence distributed according to $P$ which is either AS or PD or SPD.
 \item $\{b_t\}$ is an $i.i.d$ sequence of vectors in $\C^n$ with mean $\E[b_t]=b$.
 q\item \label{matvar} The martingale difference sequences\footnote{$\EE{M_t|\F_{t-1}}=0$ and $\EE{N_t|\F_{t-1}}=0$} $M_t\eqdef A_t-A_P$ and $N_t\eqdef b_t-b$ associated with $A_t$ and $b_t$ satisfy the following
-%\begin{align*}\E\left[ M_t^\dag M_t\mid\F_{t-1}\right]\leq \Sigma^2_P, \, \E[N_t^\dag N_t]=\sigma_b^2.\end{align*}
-\begin{align*}\E\left[ \norm{M_t}^2\mid\F_{t-1}\right]\leq \sigma^2_P, \, \E[N_t^\dag N_t]=\sigma_b^2.\end{align*}
+%\begin{align*}\E\left[ M_t^* M_t\mid\F_{t-1}\right]\leq \Sigma^2_P, \, \E[N_t^* N_t]=\sigma_b^2.\end{align*}
+\begin{align*}\E\left[ \norm{M_t}^2\mid\F_{t-1}\right]\leq \sigma^2_P, \, \E[N_t^* N_t]=\sigma_b^2.\end{align*}
 \item $A_P$ is invertible and there exists a $\ts=A_P^{-1}b$.
 \end{enumerate}
 \end{assumption}
@@ -32,7 +32,7 @@ of the errors is usually measured in some weighted quadratic norm. The expected 
 \begin{align}\label{eq:exploss}
 L_t \doteq \EE{ \norm{\eh_t}_{C}^2 }\,,
 \end{align}
-where recall that for a SPD matrix $C$, $\norm{x}_C^2 = x^\dag C x$. Here, the choice of the matrix $C$ depends on the application.\\
+where recall that for a SPD matrix $C$, $\norm{x}_C^2 = x^* C x$. Here, the choice of the matrix $C$ depends on the application.\\
 \textbf{Challenges:}
 The idea of constant step size and iterate averaging is not new and goes back to \cite{}, where it was first shown that $L_t\ra 0$ as $t\ra\infty$. Recently \cite{bach} revisited the idea in connection to the stochastic gradient descent (SGD) algorithm (which is also an LSA of the form in \eqref{eq:lsa}) to solve linear regression. Much similar to the spirit of \cite{bach}, our aim here is to understand the aspects that effect the behaviour of $L_t$, such as:
 \begin{itemize}

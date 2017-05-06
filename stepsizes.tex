@@ -1,0 +1,45 @@
+\section{Choice of Step-sizes}
+We now argue, in a heuristic manner, as to why constant step-size with PR-averaging might be a principled idea, especially in TD type algorithms. Consider the following LSA with time varying step-sizes $\alpha_t>0$
+\begin{align}
+\theta_t=\theta_{t-1}+\alpha_t(b_t-A_t\theta_{t-1}).
+\end{align}
+It is known from asymptotic results by \cite{borkarbook,kushner}\todoch{Check about Kushner} that in order to handle the noise the step-sizes have to be diminishing i.e., $\alpha_t\ra$, unsummable i.e., $\sum_{t \geq 0}\alpha_t=\infty$ and square summable $\sum_{t\geq 0}\alpha_t^2<\infty$. We now look at two specific diminishing step-size sequences, to illustrate the issues that the diminishing step-sizes presents us with. In what follows, we assume that the maximum eigevalue of $\EE{A_t}$ is less that $1$.
+\begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
+\item \textbf{$\alpha_t=\frac{1}{t}$\footnote{While $\frac{c}{t}$, $c\geq 0$ is more general, it is enough to consider $\frac1t$ by accommodating the multiple $c$ as part of the matrix $A_t$}} is known yield a rate of $\frac{1}{t^{\lambda_{\min}}}$, where $\lambda_{\min}$ is the smallest real part of the eigen values of the matrix $\EE{A_t}$.
+\item \textbf{$\alpha_t=\frac{c}{c+t}$} is another example, where the step size decays at a rate $\frac{1}{t/c}$. The rate of decay of error in this case turns out to be $\frac{c^2\sigma_b^2}{t}$, whenever $c>\frac{1}{\lambda_{\min}}$, which can be ensured only when $\lambda_{\min}$ is known.
+\end{itemize}
+In contrast, in the case of constant step-size with PR-averaging, not knowing the problem instance can result in instability, and when we manage to choose a step-size that results in stable behavior, the rates obtained in \Cref{th:pdrate,cor:as} hold for it. Using this observation, the constant-step size can be set in a more prinicipled manner as showing the pseudocode below.
+\begin{algorithm}[H]
+\caption*{Automatic Tuning of Constant Step-Size}
+\begin{algorithmic}[1]
+\STATE{Initialize: $\theta_0$, $\alpha=1$, $i=1$, $a_0=0$}
+\FOR{$t=1,2,\ldots, $}
+\STATE{$\theta_t=\theta_{t-1}+\alpha (b_t-A_t\theta_{t-1})$}
+\IF{$mod(t,k)==0$}
+\STATE{$a_{i}=\norm{\theta_t}$}
+\IF{$Is-stable(a_0,\ldots,a_i)==0$}
+\STATE{$\alpha=\alpha/2$}
+\ENDIF
+\STATE{$i=i+1$}
+\ENDIF
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\begin{comment}
+In order to calculate the rates we make use of the following asymptotic result by \cite{borkarbook}.
+\begin{theorem}\label{th:borkar}
+Let $\theta_t=\theta_{t-1}+\alpha_t(b_t-A_t\theta_{t-1})$, where $\theta_t,b_t\in\R^d$ and $A_t\in\R^{\dcd}$ that satisfy the conditions in \Cref{assmp:lsa} and $\sum_{t\geq 0}\alpha_t=\infty$, $\sum_{t\geq 0}\alpha^2_t<\infty$. Let $t_{ode}(k)=\eqdef \sum_{i=0}^{k-1}\alpha_n$ and let $\tilde{\theta}(t)$ be the trajectory of the ordinary differential equation $\dot{\theta}(t)=\EE{b_t}-A_P\theta(t)$. Then it follows that
+\begin{align*}
+\lim_{k\ra\infty}\sup\norm{\tilde{\theta_t(t_{ode}(k))}-\theta_t} \ra 0
+\end{align*}
+\end{theorem}
+
+For this discussion, let us consider a simple example where $P$ is a distribution with all the mass concentrated at $A_P=\begin{bmatrix}\lambda_{\min} &0\\ 0 &\lambda_{\max}\end{bmatrix}$, $b_t$ is a zero mean $i.i.d$ sequence with variance $\sigma_2_b$.
+\begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
+\item \textbf{$\alpha_t=\frac{1}{t}$:} In order to ensure stability, we want the eigenvalues of $I-\alpha_t A_P$ to be within unit circle. This restricts the choice of $c$ to be $0<c<\frac{2}{\lambda_{\max}}$. It is straighforward to show that a step-size choice of $\alpha_t=\frac{2}{\lambda_{\max}t}$ will yield a rate of $\frac{1}{t^{2\lambda_{\min}}}$, which can be very bad for small $\lambda_{\min}$.
+\item \textbf{}
+\end{itemize}
+\end{comment}

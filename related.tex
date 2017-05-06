@@ -11,5 +11,36 @@ f(\theta)-f(\ts)=(\theta-\ts)^\top A_P (\theta-\ts)=\EE{\norm{\theta-\ts}^2_{A_P
 \end{align*}
 
 \subsection{Reinforcement Learning}
-\subsection{GTD}
+
+
+
+\paragraph{RL Setting}
+We are presented with data in the form of an $i.i.d$ sequence $(\phi_t,\phi'_t,r_t)\in \R^n\times\R^n\times \R$. Let $\gamma \in (0,1)$ be a fixed constant, we define $\Delta_t\eqdef \phi_t\phi_t^\top-\gamma \phi_t\phi_t^{'\top}$, $C_t=\phi_t\phi_t^\top$ and $b_t=\phi_r r_t$ the various temporal difference learning algorithms can be written as in \Cref{table:td}. In what follows, $\rho_t>0$ is an \emph{importance} sampling factor whose aim is to correct for mismatch in the (behavior) distribution with which the data was collected and the (target) distribution with respect to which one wants to learn. A factor $\rho_t=1,\,\forall t\geq 0$ will mean that no correction is required\footnote{This is known as the \emph{on-policy} case where the behavior is identical to the target. The general setting where $\rho_t>0$ is known as \emph{off-policy}.}.
+\begin{comment}
+\begin{table}
+
+\begin{tabular}{|c|c|c|c|c|}\hline
+Quantity& TD(0) & GTD & GTD2 & TDC \\ \hline
+$b_t$& $\phi_t r_t$ & $\begin{bmatrix}\phi_t r_t\\ \mathbf{0}_{n\times 1} \end{bmatrix}$ &$\begin{bmatrix}\phi_t r_t\\ \mathbf{0}_{n\times 1} \end{bmatrix}$ & $\begin{bmatrix}\phi_t r_t\\ \phi_t r_t \end{bmatrix}$
+\end{tabular}
+\end{table}
+\end{comment}
+\begin{table}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|}\hline
+Algorithm& Update &Stepsize &Rate \\ \hline
+TD(0)& $\begin{aligned}\theta_t&=\theta_{t-1}+\alpha_t (b_t -\Delta_t\theta_{t-1})\\ \thh_t&=\frac{1}{t+1}\sum_{s=0}^t \theta_t\end{aligned}$ &$\begin{aligned}\alpha_t&=O(\frac1{t})^\delta,\\ &\delta\in(1/2,1)\end{aligned}$ &$\EE{\norm{\eh_t}}\leq O(\frac{1}{\sqrt{t}})$ for $\delta\ra 1$ \\ \hline
+GTD& $\begin{aligned} y_{t}&=y_{t-1}+\beta_t(\rho_t b_t -\rho_t \Delta_t \theta_{t-1}- Q_t y_{t-1})\\ \theta_t &=\theta_{t-1}+\alpha_t (\rho_t A^\top_t y_{t-1})\end{aligned}$ & $\begin{aligned}&\beta_t=\eta \alpha_t,\sum_{t\geq 0}\alpha_t=\infty, \\ &\sum_{t\geq 0}\alpha^2_t<\infty \end{aligned}$ & $e_t\ra 0$ w.p.1 \\\hline
+TDC& $\begin{aligned} y_{t}&=y_{t-1}+\beta_t(\rho_t b_t -\rho_t \Delta_t \theta_{t-1}-C_t y_{t-1})\\ \theta_t &=\theta_{t-1}+\alpha_t (\rho_t b_t-\rho_t\Delta_t\theta_{t-1}+ (\Delta^\top_t-C_t)y_{t-1})\end{aligned}$ & $\begin{aligned}&\beta_t,\alpha_t,\frac{\alpha_t}{\beta_t} \ra 0,~\text{as}~t\ra \infty,\\& \sum_{t\geq 0}\alpha_t=\infty, \sum_{t\geq 0}\beta_t=\infty, \\ &\sum_{t\geq 0}\alpha^2_t<\infty, \sum_{t\geq 0}\beta^2_t<\infty \end{aligned}$ & $e_t\ra 0$ w.p.1 \\\hline
+GTD& $\begin{aligned} y_{t}&=\Pi_Y \left(y_{t-1}+\alpha_t(\rho_t b_t -\rho_t \Delta_t \theta_{t-1}-Q_t y_{t-1})\right)\\ \theta_t &=\Pi_{\Theta}\left(\theta_{t-1}+\alpha_t (\rho_t A_t^\top y_{t-1})\right)\\ \thh_t&=\frac{\sum_{s=0}^t \alpha_s\theta_s}{\sum_{s=0}^t \alpha_s}\end{aligned}$ & $\alpha_t =O(\frac{1}{\sqrt{t}})$ & $\norm{A_P\eh_t-b}^2 \leq O(\frac{1}{\sqrt{t}})$ w.h.p\\\hline
+
+\end{tabular}
+}
+\end{table}
+
+1) No bias Variance Split in Korda
+2) Projection, and incorrectness in GTDMP
+3) TDC only SA result
+3) Recent results by LiHongLi (need to say what they say clearly)
+
 \todoch{Use LiHong Li's GTD results, choice of the basis $U$ etc}

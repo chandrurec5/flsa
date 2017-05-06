@@ -1,6 +1,7 @@
 \section{Related Work}
+\begin{comment}
 \subsection{Linear Regression}
-Let $(x_t,y_t)\in \R^n\times \R,\,t\geq 1$ be $i.i.d$ such that $\EE{\norm{x_t}^2}$ and $\EE{y_t^2}$ are finite. Further, we assume bounded data i.e., $\norm{(x_t,y_t)}^2\leq B$ for some positive real number $B>0$. Here, $x_t,\,t\geq 1$ are the features and $y_t$ are real labels and the linear regression problem constitutes minimizing the quadratic loss function $f(\theta)=\EE{\left(\ip{x_t,\theta}-y_t\right)^2}$. The stochastic gradient descent scheme with constant step size $\alpha>0$ to minimize $f(\theta)$ can be given as below:
+Let $(x_t,y_t)\in \R^d\times \R,\,t\geq 1$ be $i.i.d$ such that $\EE{\norm{x_t}^2}$ and $\EE{y_t^2}$ are finite. Further, we assume bounded data i.e., $\norm{(x_t,y_t)}^2\leq B$ for some positive real number $B>0$. Here, $x_t,\,t\geq 1$ are the features and $y_t$ are real labels and the linear regression problem constitutes minimizing the quadratic loss function $f(\theta)=\EE{\left(\ip{x_t,\theta}-y_t\right)^2}$. The stochastic gradient descent scheme with constant step size $\alpha>0$ to minimize $f(\theta)$ can be given as below:
 \begin{align}\label{linreg}
 \theta_t=\theta_{t-1}-\alpha x_t\left(\ip{x_t,\theta_{t-1} -y_t}\right)
 \end{align}
@@ -11,11 +12,11 @@ f(\theta)-f(\ts)=(\theta-\ts)^\top A_P (\theta-\ts)=\EE{\norm{\theta-\ts}^2_{A_P
 \end{align*}
 
 \subsection{Reinforcement Learning}
-
+\end{comment}
 
 
 \paragraph{RL Setting}
-We are presented with data in the form of an $i.i.d$ sequence $(\phi_t,\phi'_t,r_t)\in \R^n\times\R^n\times \R$. Let $\gamma \in (0,1)$ be a fixed constant, we define $\Delta_t\eqdef \phi_t\phi_t^\top-\gamma \phi_t\phi_t^{'\top}$, $C_t=\phi_t\phi_t^\top$ and $b_t=\phi_r r_t$ the various temporal difference learning algorithms can be written as in \Cref{table:td}. In what follows, $\rho_t>0$ is an \emph{importance} sampling factor whose aim is to correct for mismatch in the (behavior) distribution with which the data was collected and the (target) distribution with respect to which one wants to learn. A factor $\rho_t=1,\,\forall t\geq 0$ will mean that no correction is required\footnote{This is known as the \emph{on-policy} case where the behavior is identical to the target. The general setting where $\rho_t>0$ is known as \emph{off-policy}.}.
+We are presented with data in the form of an $i.i.d$ sequence $(\phi_t,\phi'_t,r_t)\in \R^d\times\R^d\times \R$. Let $\gamma \in (0,1)$ be a fixed constant, we define $\Delta_t\eqdef \phi_t\phi_t^\top-\gamma \phi_t\phi_t^{'\top}$, $C_t=\phi_t\phi_t^\top$ and $b_t=\phi_r r_t$ the various temporal difference learning algorithms can be written as in \Cref{table:td}. In what follows, $\rho_t>0$ is an \emph{importance} sampling factor whose aim is to correct for mismatch in the (behavior) distribution with which the data was collected and the (target) distribution with respect to which one wants to learn. A factor $\rho_t=1,\,\forall t\geq 0$ will mean that no correction is required\footnote{This is known as the \emph{on-policy} case where the behavior is identical to the target. The general setting where $\rho_t>0$ is known as \emph{off-policy}.}.
 \begin{comment}
 \begin{table}
 

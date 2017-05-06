@@ -1,7 +1,7 @@
 \section{Linear Algebra Preliminaries}
 We now present some useful results from linear algebra.
 \subsection{Notation}
-Let $B$ be a $\ncn$ block diagonal matrix given by $B=\begin{bmatrix} B_1 &0 &0 &\ldots &0 \\ 0 &B_2 &0 &\ldots &0  \\ \vdots &\vdots &\vdots &\vdots &\vdots \\ 0 &\ldots &0 &0 &B_k \end{bmatrix}$, where $B_i$ is a $n_i \times n_i$ matrix such that $n_i<n$ (w.l.o.g) and $\sum_{i=1}^k n_i=n$. We also denote $B$ as
+Let $B$ be a $\dcd$ block diagonal matrix given by $B=\begin{bmatrix} B_1 &0 &0 &\ldots &0 \\ 0 &B_2 &0 &\ldots &0  \\ \vdots &\vdots &\vdots &\vdots &\vdots \\ 0 &\ldots &0 &0 &B_k \end{bmatrix}$, where $B_i$ is a $n_i \times n_i$ matrix such that $n_i<n$ (w.l.o.g) and $\sum_{i=1}^k n_i=n$. We also denote $B$ as
 \begin{align*}
 B=B_1 \op B_2 \op \ldots B_k=\op_{i=1}^k B_i
 \end{align*}
@@ -11,7 +11,7 @@ We will now recall Jordon decomposition.
 
 \begin{comment}
 \begin{lemma}
-Given a matrix $A\in \C^{\ncn} there exists a \emph{characteristic} polynomial denoted by $\chi_A=(\lambda_1 \I-A)^{n_1}\ldots(\lambda_{k} \I-A)^{n_k}$, where $\lambda_i,\,i=1,\ldots,k (k\leq n)$ are the $k$ distinct eigenvalues of the matrix $A$ such that $\sum_{i=1}^k n_i=n$.
+Given a matrix $A\in \C^{\dcd} there exists a \emph{characteristic} polynomial denoted by $\chi_A=(\lambda_1 \I-A)^{n_1}\ldots(\lambda_{k} \I-A)^{n_k}$, where $\lambda_i,\,i=1,\ldots,k (k\leq n)$ are the $k$ distinct eigenvalues of the matrix $A$ such that $\sum_{i=1}^k n_i=n$.
 \end{lemma}
 \begin{lemma}
 There exists a polynomial known as the \emph{minimal} polynomial denoted by $m_A=(\lambda_1 \I-A)^{n'_1}\ldots(\lambda_k \I-A)^{n'_k}$, where $n'_i\leq n_i,\,i=1\ldots,k$.
@@ -19,27 +19,27 @@ There exists a polynomial known as the \emph{minimal} polynomial denoted by $m_A
 \end{comment}
 
 \begin{lemma}\label{jordon}
-Let $A\in \C^{\ncn}$ and $\{\lambda_i\in \C,i=1,\ldots,k\leq n \}$ denote its $k$ distinct eigenvalues.
-There exists a complex matrix $V\in \C^{\ncn}$ such that $A=V\tL V^{-1}$, where
+Let $A\in \C^{\dcd}$ and $\{\lambda_i\in \C,i=1,\ldots,k\leq n \}$ denote its $k$ distinct eigenvalues.
+There exists a complex matrix $V\in \C^{\dcd}$ such that $A=V\tL V^{-1}$, where
 $\tL=\tL_1\op\ldots\op\tL_k$, where each $\tL_i,\,i=1,\ldots,k$ can further be written as $\tL_i= {\tL}^i_{1}\op \ldots \op {\tL}^i_{{l(i)}}$. Each of ${\tL}^i_{j},j=1,\ldots,l(i)$ is a $d^i_j\times d^i_j$ square matrix such that $\sum_{j=1}^{l(i)} d^i_j =n_i$ and has the special form given by
 ${\tL}^i_{j}=\begin{bmatrix} \lambda_i &1 &0 &\ldots &0 &0\\ 0 &\lambda_i &1 &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\lambda_i &1 \\ 0 &\ldots &0 &0 &0 &\lambda_i \end{bmatrix}$.
 \end{lemma}
 
 \begin{lemma}\label{simtran}
-Let $A\in \C^{\ncn}$ be asymptotically stable. There exists a matrix $U\in \gln$ such that $A=U\Lambda U^{-1}$ and $\Lambda^\dag+\Lambda$ is a real symmetric positive definite matrix.
+Let $A\in \C^{\dcd}$ be asymptotically stable. There exists a matrix $U\in \gln$ such that $A=U\Lambda U^{-1}$ and $\Lambda^\dag+\Lambda$ is a real symmetric positive definite matrix.
 \end{lemma}
 \begin{proof}
-It is trivial to see that for any $\Lambda\in \C^{\ncn}$, $\left(\Lambda^\dag+\Lambda\right)$ is real symmetric. We will use the decomposition of $A=V \tL V^{-1}$ in \Cref{jordon} and also carry over the notations in \Cref{jordon}. Consider the diagonal matrices $D^i_j=\begin{bmatrix} 1  &0 &0 &\ldots &0 &0\\ 0 &\re{\lambda_i} &0 &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re{\lambda}^{d^i_j-1}_i &0 \\ 0 &\ldots &0 &0 &0 &\re{\lambda}^{d^i_j}_i \end{bmatrix},\,\forall j=1,\ldots,l(i)$, $D^i=D^i_1 \op\ldots\op D^i_{l(i)},\,\forall i=1,\ldots,k$ and $D=D^1 \op\ldots\op D^k$.
+It is trivial to see that for any $\Lambda\in \C^{\dcd}$, $\left(\Lambda^\dag+\Lambda\right)$ is real symmetric. We will use the decomposition of $A=V \tL V^{-1}$ in \Cref{jordon} and also carry over the notations in \Cref{jordon}. Consider the diagonal matrices $D^i_j=\begin{bmatrix} 1  &0 &0 &\ldots &0 &0\\ 0 &\re{\lambda_i} &0 &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re{\lambda}^{d^i_j-1}_i &0 \\ 0 &\ldots &0 &0 &0 &\re{\lambda}^{d^i_j}_i \end{bmatrix},\,\forall j=1,\ldots,l(i)$, $D^i=D^i_1 \op\ldots\op D^i_{l(i)},\,\forall i=1,\ldots,k$ and $D=D^1 \op\ldots\op D^k$.
 It follows that $A=(VD) \Lambda (VD)^{-1}$, where $J$ is a matrix such that
 $\Lambda=A_1 \op \ldots \op A_k$, where each $A_i,\,i=1,\ldots,k$ can further be written as
 $A_i=\Lambda^i_{1} \op \ldots \op \Lambda^i_{{l(i)}}$. Each of $\Lambda^i_{j}$ is a $d^i_j\times d^i_j$ square matrix with the special form given by
 $\Lambda^i_{j}=\begin{bmatrix} \lambda_i &\re{\lambda_i} &0 &\ldots &0 &0\\ 0 &\lambda_i &\re{\lambda_i} &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\lambda_i &\re{\lambda_i} \\ 0 &\ldots &0 &0 &0 &\lambda_i \end{bmatrix}$.
 
-Now let $\frac{(\Lambda^\dag+\Lambda)}{2}=\op_{i=1}^k \op_{j=1}^{l(i)}\frac{\Lambda^{i\dag}_{j}+\Lambda^i_{j}}{2}$, where $\frac{\Lambda^{i\dag}_{j}+\Lambda^i_{j}}{2}=\begin{bmatrix} \re{\lambda_i} &\frac{\re{\lambda_i}}{2} &0 &\ldots &0 &0\\ \frac{\re{\lambda_i}}{2} &\re{\lambda_i} &\frac{\re{\lambda_i}}{2} &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re{\lambda_i} &\frac{\re{\lambda_i}}{2} \\ 0 &\ldots &0 &0 &\frac{\re{\lambda_i}}{2} &\re{\lambda_i} \end{bmatrix} $. Then for any $x=(x(i),i=1,\ldots,n)\in \C^n (\neq \mathbf{0})$, there exists a $b\in \{-1,1\}^n$, such that
+Now let $\frac{(\Lambda^\dag+\Lambda)}{2}=\op_{i=1}^k \op_{j=1}^{l(i)}\frac{\Lambda^{i\dag}_{j}+\Lambda^i_{j}}{2}$, where $\frac{\Lambda^{i\dag}_{j}+\Lambda^i_{j}}{2}=\begin{bmatrix} \re{\lambda_i} &\frac{\re{\lambda_i}}{2} &0 &\ldots &0 &0\\ \frac{\re{\lambda_i}}{2} &\re{\lambda_i} &\frac{\re{\lambda_i}}{2} &0 &\ldots &0 \\ 0 &\vdots &\vdots &0 &\re{\lambda_i} &\frac{\re{\lambda_i}}{2} \\ 0 &\ldots &0 &0 &\frac{\re{\lambda_i}}{2} &\re{\lambda_i} \end{bmatrix} $. Then for any $x=(x(i),i=1,\ldots,n)\in \C^d (\neq \mathbf{0})$, there exists a $b\in \{-1,1\}^d$, such that
 \begin{align*}
-x^\dag \frac{(\Lambda^\dag+\Lambda)}{2} x &=\re{\lambda_i} \left(\sum_{i=1}^n \bar{x}{(i)} x(i)+\sum_{i=1}^{n-1} \frac{\bar{x}(i) x(i+1) + x(i)\bar{x}(i+1)}{2}\right) \\
+x^\dag \frac{(\Lambda^\dag+\Lambda)}{2} x &=\re{\lambda_i} \left(\sum_{i=1}^d \bar{x}{(i)} x(i)+\sum_{i=1}^{n-1} \frac{\bar{x}(i) x(i+1) + x(i)\bar{x}(i+1)}{2}\right) \\
 &=\frac{\re{\lambda_i}}{2}\left(\md{x(1)}^2+ \md{x(n)}^2\right)+\frac{\re{\lambda_i}}{2}\left( \sum_{i=1}^{n-1} \md{x(i)}^2+\bar{x}(i) x(i+1) + x(i)\bar{x}(i+1)+\md{x(i+1)}^2 \right)\\
-&>\frac{\re{\lambda_i}}{2}\left(\sum_{i=1}^n \md{x(i)+x(i+1)}^2 \right)\\
+&>\frac{\re{\lambda_i}}{2}\left(\sum_{i=1}^d \md{x(i)+x(i+1)}^2 \right)\\
 &> 0
 \end{align*}
 \end{proof}
@@ -48,13 +48,13 @@ x^\dag \frac{(\Lambda^\dag+\Lambda)}{2} x &=\re{\lambda_i} \left(\sum_{i=1}^n \b
 
 
 \begin{lemma}
-Let $P$ be a positive definite distribution over $\C_B^{\ncn}$, then there exists an $\alpha_P$ such that $\rhod{P}>0$ and $\rhos{P}>0,~\forall \alpha \in (0,\alpha_P)$.
+Let $P$ be a positive definite distribution over $\C_B^{\dcd}$, then there exists an $\alpha_P$ such that $\rhod{P}>0$ and $\rhos{P}>0,~\forall \alpha \in (0,\alpha_P)$.
 \end{lemma}
 \begin{proof}
 Since $P$ is positive definite from \Cref{distpd} it follows that $A_P$ is positive definite. Now
 \begin{align*}
-\rhos{P}&={\inf}_{x\in \C^n\colon\norm{x}=1}\ip{x,\left((A_P+A_P^\dag)-\alpha C_P\right)x}\\
-&\geq {\inf}_{x\in \C^n\colon\norm{x}=1}\ip{x,\left((A_P+A_P^\dag)\right)x}-\alpha B^2\\
+\rhos{P}&={\inf}_{x\in \C^d\colon\norm{x}=1}\ip{x,\left((A_P+A_P^\dag)-\alpha C_P\right)x}\\
+&\geq {\inf}_{x\in \C^d\colon\norm{x}=1}\ip{x,\left((A_P+A_P^\dag)\right)x}-\alpha B^2\\
 &\geq \lambda_{\min}(A_P+A_P^\dag)-\alpha B^2
 \end{align*}
 By choosing $\alpha_P<\frac{\lambda_{\min}(A_P+A_P^\dag)}{B^2}$, it follows that $\rhos{P}>0,\forall \alpha \in (0,\alpha_P)$. Further, by noting that $C_P\succeq A_P^\dag A_P$, it is easy to check that $\rhod{P}>\rhos{P}>0,\,\forall \alpha \in(0,\alpha_P)$.
@@ -62,7 +62,7 @@ By choosing $\alpha_P<\frac{\lambda_{\min}(A_P+A_P^\dag)}{B^2}$, it follows that
 
 
 \begin{theorem}\label{pdrate}
-Let $P$ in \Cref{lsadist} be a positive definite distribution over $\C_B^{\ncn}$. Then
+Let $P$ in \Cref{lsadist} be a positive definite distribution over $\C_B^{\dcd}$. Then
 \begin{align}
 \EE{\norm{\thh_t-\theta^*}^2}
 \leq
@@ -184,7 +184,7 @@ Let $\F_t = \sigma( A_1,\dots,A_t, \zeta_1,\dots,\zeta_t ) $, with $\F_0$ the $\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lemma}[Product unroll lemma]\label{lem:genunroll}
-Let $t>i\ge 1$, $x,y\in \C^n$ be $\F_{i}$-measurable random vectors. Then,
+Let $t>i\ge 1$, $x,y\in \C^d$ be $\F_{i}$-measurable random vectors. Then,
 \begin{align*}
 \E[x^\dag F_{t,i+1}y|\F_i]=x^\dag (I-\alpha H)^{t-i} y\,.
 \end{align*}
@@ -248,7 +248,7 @@ Taking expectation of both sides gives the desired result.
 \end{proof}
 
 \begin{lemma}\label{innerproduct}
-Let $i>j \ge 0$ and let $x\in \R^n$ be an $\F_j$-measurable random vector.
+Let $i>j \ge 0$ and let $x\in \R^d$ be an $\F_j$-measurable random vector.
 Then,
 \begin{align*}
 \E\ip{F_{i,j+1}x,F_{i,j+1}x}\leq (1-\alpha \rho_\alpha)^{i-j}\E\norm{x}^2\,.
@@ -282,7 +282,7 @@ Let $\F_t = \sigma( H_1,\dots,H_t, \zeta_1,\dots,\zeta_t ) $, with $\F_0$ the $\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lemma}[Product unroll lemma]\label{lem:genunroll}
-Let $t>i\ge 1$, $x,y\in \R^n$ be $\F_{i}$-measurable random vectors. Then,
+Let $t>i\ge 1$, $x,y\in \R^d$ be $\F_{i}$-measurable random vectors. Then,
 \begin{align*}
 \E[x^\top F_{t,i+1}y|\F_i]=x^\top (I-\alpha H)^{t-i} y\,.
 \end{align*}
@@ -346,7 +346,7 @@ Taking expectation of both sides gives the desired result.
 \end{proof}
 
 \begin{lemma}\label{innerproduct}
-Let $i>j \ge 0$ and let $x\in \R^n$ be an $\F_j$-measurable random vector.
+Let $i>j \ge 0$ and let $x\in \R^d$ be an $\F_j$-measurable random vector.
 Then,
 \begin{align*}
 \E\ip{F_{i,j+1}x,F_{i,j+1}x}\leq (1-\alpha \rho_\alpha)^{i-j}\E\norm{x}^2\,.

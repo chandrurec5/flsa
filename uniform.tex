@@ -1,11 +1,11 @@
 \section{Uniform stepsizes}
 \begin{definition}
-Call a set of distributions $\P$ over $\C^{\ncn}$
+Call a set of distributions $\P$ over $\C^{\dcd}$
 \emph{weakly admissible} if there exists $\alpha>0$ such that
 $\rhos{P}>0$ holds for all $P\in \P$.
 \end{definition}
 \begin{definition}
-Call a set of distributions $\P$ over $\C^{\ncn}$ \emph{admissible}
+Call a set of distributions $\P$ over $\C^{\dcd}$ \emph{admissible}
 if there exists some $\alpha>0$ such that $\inf_{P\in \P} \rhos{P}>0$.
 The value of $\alpha$ is called a witness.
 \end{definition}
@@ -17,7 +17,7 @@ If $\P$ is weakly admissible, then one can choose a stepsize $\alpha>0$ solely b
 conclude that no matter the joint distribution of $(A_t,b_t)$, as long as the distribution of $A_t$ is an element of $\P$, the conclusions of \cref{maintheorem} hold. Further, if $\P$ is admissible then the error bound stated in  \cref{maintheorem} becomes independent of the instance.
 Hence, an interesting question to investigate is whether a given set $\P$ is (weakly) admissible.
 A hopeful set is the following:
-For $B>0$, let $\P_B$ be the set of distributions over $\C_B^{\ncn}$ where for every $P\in \P_B$ is positive definite.
+For $B>0$, let $\P_B$ be the set of distributions over $\C_B^{\dcd}$ where for every $P\in \P_B$ is positive definite.
 In what follows all distributions will be a subset of $\P_B$ with some $B>0$,
 Note that in most applications the knowledge of a suitable $B>0$ such that $\P\subset \P_B$ is available.
 By appropriately normalizing the matrices involved, we may as well assume that $B=1$.
@@ -47,7 +47,7 @@ and in particular any $0<\alpha < 2/B$ witnesses this.
 Take any $P\in \P_{\text{PSD}}$ and let $H\sim P$.
 Consider the SVD of $H$: $H = U \Lambda U^\top$ where $U$ is orthonormal and $\Lambda$ is diagonal with
 nonnegative elements. Note that $\Lambda \preceq B\, \I$ and thus $\Lambda^2 \preceq B \Lambda$.
-Then for any $x\in \R^n$, $x^\top H^\top H x = x^\top U \Lambda^2 U^\top x \le B x^\top U \Lambda U^\top x = B x^\top H x$.
+Then for any $x\in \R^d$, $x^\top H^\top H x = x^\top U \Lambda^2 U^\top x \le B x^\top U \Lambda U^\top x = B x^\top H x$.
 Taking expectations we find that $x^\top Q_P x \le B x^\top H_P x$.
 Hence, $\rho_\alpha(P) = 2 x^\top H_P x - \alpha x^\top Q_P x \ge (2- \alpha B ) \,x^\top H_P x $.
 Thus, for any $\alpha<2/B$, $\rho_\alpha(P)>0$.

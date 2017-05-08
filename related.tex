@@ -1,47 +1,16 @@
-\section{Related Work}
-\begin{comment}
-\subsection{Linear Regression}
-Let $(x_t,y_t)\in \R^d\times \R,\,t\geq 1$ be $i.i.d$ such that $\EE{\norm{x_t}^2}$ and $\EE{y_t^2}$ are finite. Further, we assume bounded data i.e., $\norm{(x_t,y_t)}^2\leq B$ for some positive real number $B>0$. Here, $x_t,\,t\geq 1$ are the features and $y_t$ are real labels and the linear regression problem constitutes minimizing the quadratic loss function $f(\theta)=\EE{\left(\ip{x_t,\theta}-y_t\right)^2}$. The stochastic gradient descent scheme with constant step size $\alpha>0$ to minimize $f(\theta)$ can be given as below:
-\begin{align}\label{linreg}
-\theta_t=\theta_{t-1}-\alpha x_t\left(\ip{x_t,\theta_{t-1} -y_t}\right)
-\end{align}
-Here $\nabla f(\theta_{t-1})=x_t\left(\ip{x_t,\theta_{t-1} -y_t}\right)$ is the \emph{stochastic gradient} of the objective $f(\theta)$. It follows from the $i.i.d$ assumption on $(x_t,y_t)$ that $A_t=x_t x_t^\top$ and $b_t=y_t x_t$ are also $i.i.d$, and with this identification one can see that \eqref{linreg} is of the form in \eqref{conststep}. In this case $A_P$ is SPD.
-In the linear regression setting, the error of a parameter $\theta$ is measured as the difference between the loss at the said parameter and the loss at the optimum, which has the following form
-\begin{align*}
-f(\theta)-f(\ts)=(\theta-\ts)^\top A_P (\theta-\ts)=\EE{\norm{\theta-\ts}^2_{A_P}}
-\end{align*}
-
-\subsection{Reinforcement Learning}
-\end{comment}
-
-
-\paragraph{RL Setting}
-We are presented with data in the form of an $i.i.d$ sequence $(\phi_t,\phi'_t,r_t)\in \R^d\times\R^d\times \R$. Let $\gamma \in (0,1)$ be a fixed constant, we define $\Delta_t\eqdef \phi_t\phi_t^\top-\gamma \phi_t\phi_t^{'\top}$, $C_t=\phi_t\phi_t^\top$ and $b_t=\phi_r r_t$ the various temporal difference learning algorithms can be written as in \Cref{table:td}. In what follows, $\rho_t>0$ is an \emph{importance} sampling factor whose aim is to correct for mismatch in the (behavior) distribution with which the data was collected and the (target) distribution with respect to which one wants to learn. A factor $\rho_t=1,\,\forall t\geq 0$ will mean that no correction is required\footnote{This is known as the \emph{on-policy} case where the behavior is identical to the target. The general setting where $\rho_t>0$ is known as \emph{off-policy}.}.
-\begin{comment}
-\begin{table}
-
-\begin{tabular}{|c|c|c|c|c|}\hline
-Quantity& TD(0) & GTD & GTD2 & TDC \\ \hline
-$b_t$& $\phi_t r_t$ & $\begin{bmatrix}\phi_t r_t\\ \mathbf{0}_{n\times 1} \end{bmatrix}$ &$\begin{bmatrix}\phi_t r_t\\ \mathbf{0}_{n\times 1} \end{bmatrix}$ & $\begin{bmatrix}\phi_t r_t\\ \phi_t r_t \end{bmatrix}$
-\end{tabular}
-\end{table}
-\end{comment}
+\section{Applications in Reinforcement Learning}
+\paragraph{Definitions:} We are presented with data in the form of an $i.i.d$ sequence $(\phi_t,\phi'_t,r_t)\in \R^d\times\R^d\times \R$. Let $\gamma \in (0,1)$ be a fixed constant, we define $\Delta_t\eqdef \phi_t\phi_t^\top-\gamma \phi_t\phi_t^{'\top}$, $C_t=\phi_t\phi_t^\top$ and $b_t=\phi_r r_t$. In what follows, $\mu_t>0$ is an \emph{importance} sampling factor whose aim is to correct for mismatch in the (behavior) distribution with which the data was collected and the (target) distribution with respect to which one wants to learn. A factor $\mu_t=1,\,\forall t\geq 0$ will mean that no correction is required\footnote{This is known as the \emph{on-policy} case where the behavior is identical to the target. The general setting where $\mu_t>0$ is known as \emph{off-policy}.}.
 \begin{table}
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{|c|c|c|c|c|}\hline
 Algorithm& Update &Stepsize &Rate \\ \hline
 TD(0)& $\begin{aligned}\theta_t&=\theta_{t-1}+\alpha_t (b_t -\Delta_t\theta_{t-1})\\ \thh_t&=\frac{1}{t+1}\sum_{s=0}^t \theta_t\end{aligned}$ &$\begin{aligned}\alpha_t&=O(\frac1{t})^\delta,\\ &\delta\in(1/2,1)\end{aligned}$ &$\EE{\norm{\eh_t}}\leq O(\frac{1}{\sqrt{t}})$ for $\delta\ra 1$ \\ \hline
-GTD& $\begin{aligned} y_{t}&=y_{t-1}+\beta_t(\rho_t b_t -\rho_t \Delta_t \theta_{t-1}- Q_t y_{t-1})\\ \theta_t &=\theta_{t-1}+\alpha_t (\rho_t A^\top_t y_{t-1})\end{aligned}$ & $\begin{aligned}&\beta_t=\eta \alpha_t,\sum_{t\geq 0}\alpha_t=\infty, \\ &\sum_{t\geq 0}\alpha^2_t<\infty \end{aligned}$ & $e_t\ra 0$ w.p.1 \\\hline
-TDC& $\begin{aligned} y_{t}&=y_{t-1}+\beta_t(\rho_t b_t -\rho_t \Delta_t \theta_{t-1}-C_t y_{t-1})\\ \theta_t &=\theta_{t-1}+\alpha_t (\rho_t b_t-\rho_t\Delta_t\theta_{t-1}+ (\Delta^\top_t-C_t)y_{t-1})\end{aligned}$ & $\begin{aligned}&\beta_t,\alpha_t,\frac{\alpha_t}{\beta_t} \ra 0,~\text{as}~t\ra \infty,\\& \sum_{t\geq 0}\alpha_t=\infty, \sum_{t\geq 0}\beta_t=\infty, \\ &\sum_{t\geq 0}\alpha^2_t<\infty, \sum_{t\geq 0}\beta^2_t<\infty \end{aligned}$ & $e_t\ra 0$ w.p.1 \\\hline
-GTD& $\begin{aligned} y_{t}&=\Pi_Y \left(y_{t-1}+\alpha_t(\rho_t b_t -\rho_t \Delta_t \theta_{t-1}-Q_t y_{t-1})\right)\\ \theta_t &=\Pi_{\Theta}\left(\theta_{t-1}+\alpha_t (\rho_t A_t^\top y_{t-1})\right)\\ \thh_t&=\frac{\sum_{s=0}^t \alpha_s\theta_s}{\sum_{s=0}^t \alpha_s}\end{aligned}$ & $\alpha_t =O(\frac{1}{\sqrt{t}})$ & $\norm{A_P\eh_t-b}^2 \leq O(\frac{1}{\sqrt{t}})$ w.h.p\\\hline
+GTD& $\begin{aligned} y_{t}&=y_{t-1}+\beta_t(\mu_t b_t -\mu_t \Delta_t \theta_{t-1}- Q_t y_{t-1})\\ \theta_t &=\theta_{t-1}+\alpha_t (\mu_t A^\top_t y_{t-1})\end{aligned}$ & $\begin{aligned}&\beta_t=\eta \alpha_t,\sum_{t\geq 0}\alpha_t=\infty, \\ &\sum_{t\geq 0}\alpha^2_t<\infty \end{aligned}$ & $e_t\ra 0$ w.p.1 \\\hline
+TDC& $\begin{aligned} y_{t}&=y_{t-1}+\beta_t(\mu_t b_t -\mu_t \Delta_t \theta_{t-1}-C_t y_{t-1})\\ \theta_t &=\theta_{t-1}+\alpha_t (\mu_t b_t-\mu_t\Delta_t\theta_{t-1}+ (\Delta^\top_t-C_t)y_{t-1})\end{aligned}$ & $\begin{aligned}&\beta_t,\alpha_t,\frac{\alpha_t}{\beta_t} \ra 0,~\text{as}~t\ra \infty,\\& \sum_{t\geq 0}\alpha_t=\infty, \sum_{t\geq 0}\beta_t=\infty, \\ &\sum_{t\geq 0}\alpha^2_t<\infty, \sum_{t\geq 0}\beta^2_t<\infty \end{aligned}$ & $e_t\ra 0$ w.p.1 \\\hline
+GTD& $\begin{aligned} y_{t}&=\Pi_Y \left(y_{t-1}+\alpha_t(\mu_t b_t -\mu_t \Delta_t \theta_{t-1}-Q_t y_{t-1})\right)\\ \theta_t &=\Pi_{\Theta}\left(\theta_{t-1}+\alpha_t (\mu_t A_t^\top y_{t-1})\right)\\ \thh_t&=\frac{\sum_{s=0}^t \alpha_s\theta_s}{\sum_{s=0}^t \alpha_s}\end{aligned}$ & $\alpha_t =O(\frac{1}{\sqrt{t}})$ & $\norm{A_P\eh_t-b}^2 \leq O(\frac{1}{\sqrt{t}})$ w.h.p\\\hline
 
 \end{tabular}
 }
+\label{tb:rates}
 \end{table}
-
-1) No bias Variance Split in Korda
-2) Projection, and incorrectness in GTDMP
-3) TDC only SA result
-3) Recent results by LiHongLi (need to say what they say clearly)
-
-\todoch{Use LiHong Li's GTD results, choice of the basis $U$ etc}
+\paragraph{Related Work in RL} The various temporal difference learning algorithms can be written as in \Cref{table:td}. The TD(0) algorithm is an on-policy algorithm ($\mu_t=1$) and is unstable in the general {off-policy} setting. The gradient temporal difference (GTD) algorithm \cite{} is stable in off-policy setting as well. Recent work by \cite{korda-prashanth} derive finite time bounds for the TD(0) for two different cases of step-sizes one without PR averaging and other with PR averaging. In the case without PR averaging, \cite{korda-prashanth} consider step-sizes of the form $\frac{c_0c}{c+t}$, where $c_0$ and $c$ are problem dependent positive constants, to dervie a rate of $O(\frac{1}{t})$ for the MSE.  In the case with PR averaging (row $1$ of \Cref{tb:rates}), \cite{korda-prashanth} consider step-size of the from $c_0\left(\frac{c}{c+t}\right)^\delta,\,\delta \in (1/2,1)$ where $c_0, c$ are problem independent positive constants, and show that this choice yeilds a rate of $O(\frac{1}{t})$ for $\delta \ra 1$ and $t\geq t_0$ (where $t_0$ is a problem dependent time instant). A possible limiting feature of the results by \cite{korda-prashanth} is that either the problem knowledge is required or the bounds hold only after a problem dependent time. A centered TD(0) variant is also considered by \cite{korda-prashanth}, however, a projection operator is required to keep the iterates bounded. Also, the bounds by \cite{korda-prashanth} don't have an explicit bias variance decomposition. The works on GTD and TDC by \cite{gtdfirst,tdc} show only asymptotic convergence w.p.1. Recently, the work by \cite{dtdmp} shows a rate of $\frac{1}{\sqrt{t}}$ for GTD with use of projection operation, and also proposed a variant namely GTD-Mirror-prox based on stochastic mirror-prox ideas which achieves $\frac{1}{\sqrt{t}}$ rate without use of projection. In comparison, we don't use of projections, our bounds hold for all time $t$, and the bounds are dependent on the problem instance only to the extent of choosing a step-size that leads to stable behavior, in which case we show that $O\frac{1}{t}$ rate holds (the scaling factor hidden in the $O$ expression is problem dependent). Further, our results provide explicit bias variance decomposition.

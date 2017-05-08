@@ -1,20 +1,17 @@
 \section{Problem Setup}
-We consider the linear stochastic approximation (LSA) algorithm with constant step size and PR-averaging of the iterates.
+We consider the linear stochastic approximation (LSA) algorithm with constant step-size (CS) and Polyak-Ruppert (PR) averaging of the iterates.
 \begin{subequations}\label{eq:lsa}
 \begin{align}
 \label{conststep}&\text{LSA:} &\theta_t&=\theta_{t-1}+\alpha(b_t-A_t\theta_{t-1}),\\
 \label{iteravg}&\text{PR-Average:} &\thh_t&=\frac{1}{t+1}{\sum}_{s=0}^{t}\theta_i,
 \end{align}
 \end{subequations}
-where $\thh_t, \theta_t \in \C^{d}$. The algorithm updates a pair of parameters $\theta_t,\tb_t\in \C^{\dcd}$ incrementally, in discrete time steps $t=1,2,\dots$
-based on data $b_t\in \C^d$, $A_t\in \C^{n\times n}$\footnote{In almost all practical instances, the iterates $\theta_t,\thh_t\in \R^d$ and $A_t\in \R^{\dcd}, b_t\in \R^d$. However, it serves well for our analysis to make the general assumption that these qunatites are complex valued.}. Here $\alpha>0$ is a positive step-size parameter; the only tuning parameter of the algorithm besides the
-initial value $\theta_0$. The iterate $\theta_t$ is treated as an internal state of the algorithm, while $\th_t$ is the output at time step $t$. The update of $\theta_t$ alone is considered a form of constant stepsize LSA. Note that the computation of $\theta_t$ can also be performed in an incremental fashion using $O(n)$ storage.
-
-Owning to the special form of $A_t$, sometimes the matrix-vector product $A_t \theta_{t-1}$
-can be efficiently computed in $O(n)$ time.
-This happens for example when $A_t$ is rank one; examples of this kind arising in reinforcemnet learning \cite{} and linear prediction \cite{} will be presented in a later sections (\Cref{sec:rl,sec:lp}). The significance of efficient computation of the matrix-vector product is that then an update of the algorithm
-can be implemented in $O(n)$ time and $O(n)$ storage, which makes the algorithm particularly attractive in large-scale computations when $n$ is in the range of thousands or more.
-We are interested in the behaviour of \eqref{eq:lsa} under the assumptions presented in \Cref{assmp:lsa} In what follows, we make use of the $\sigma$-field given by $\F_{t-1}=\{\theta_0,A_1,\ldots, A_{t-1}, b_1,\ldots, b_{t-1}\}$.
+where\footnote{In almost all practical instances, the iterates $\theta_t,\thh_t\in \R^d$ and $A_t\in \R^{\dcd}, b_t\in \R^d$. However, it serves well for our analysis to consider these qunatites to be complex valued.} $\thh_t, \theta_t \in \C^{d}$. The algorithm updates a pair of parameters $\theta_t,\tb_t\in \C^{\dcd}$ incrementally, in discrete time steps $t=1,2,\dots$
+based on data $b_t\in \C^d$, $A_t\in \C^{\dcd}$. Here $\alpha>0$ is a positive step-size parameter; the only tuning parameter of the algorithm besides the
+initial value $\theta_0$. The iterate $\theta_t$ is treated as an internal state of the algorithm, while $\thh_t$ is the output at time step $t$. The update of $\theta_t$ alone is considered a form of constant step-size LSA.\par
+Note that the computation of $\theta_t$ can also be performed in an incremental fashion using $O(d)$ storage. Owning to the special form of $A_t$, sometimes the matrix-vector product $A_t \theta_{t-1}$ can be efficiently computed in $O(d)$ time. This happens for example when $A_t$ is rank one; examples of this kind arising in reinforcemnet learning \cite{} and linear prediction \cite{} will be presented in a later sections (\Cref{sec:rl,sec:lp}). The significance of efficient computation of the matrix-vector product is that then an update of the algorithm
+can be implemented in $O(d)$ time and $O(d)$ storage, which makes the algorithm particularly attractive in large-scale computations when $n$ is in the range of thousands or more.\par
+We are interested in the behaviour of \eqref{eq:lsa} under the assumptions presented in \Cref{assmp:lsa}. In what follows, we make use of the $\sigma$-field given by $\F_{t-1}=\{\theta_0,A_1,\ldots, A_{t-1}, b_1,\ldots, b_{t-1}\}$.
 \begin{assumption}\label{assmp:lsa}
 \begin{enumerate}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
 \item \label{dist} $\{A_t\in\C^{\dcd},\, t\geq 0\}$ is an $i.i.d$ sequence distributed according to $P$ which is either AS or PD or SPD.
@@ -25,14 +22,9 @@ q\item \label{matvar} The martingale difference sequences\footnote{$\EE{M_t|\F_{
 \item $A_P$ is invertible and there exists a $\ts=A_P^{-1}b$.
 \end{enumerate}
 \end{assumption}
-\textbf{Performance Metric:}
-The ``aim'' of the updates in \eqref{eq:lsa} is to estimate $\ts$ based on the noisy versions $(A_t,b_t)$ of $(A_P,b)$.
-There are various ways of quantifying the error $\eh_t \doteq \thh_t- \ts$ of estimating $\ts$ using $\thh_t$, but the magnitude
-of the errors is usually measured in some weighted quadratic norm. The expected loss for time step $t$ then becomes
-\begin{align}\label{eq:exploss}
-L_t \doteq \EE{ \norm{\eh_t}_{C}^2 }\,,
-\end{align}
-where recall that for a SPD matrix $C$, $\norm{x}_C^2 = x^* C x$. Here, the choice of the matrix $C$ depends on the application.\\
+%For the rest of the paper we denote the errors of the internal and the output variables of \eqref{eq:lsa} at time $t$ by $e_t\eqdef \theta_t-\ts$ and $\eh_t\eqdef \thh_t-\ts$ respectively.
+\paragraph{Performance Metric:}  We are interested in the behavior of the mean squared error (MSE) at time $t$ given\footnote{ We note here that $\EE{\norm{\thh_t-\ts}_C^2}$ which measures the MSE in the quadratic norm with respect to a positive definite matrix $C\succ 0$. However, unless $C$ has some special structure, it is not possible to exploit this generality in our bounds. Further, when data is bounded $\norm{C}^2$ is also bounded and it is straightforward to see that $\EE{\norm{\thh_t-\ts}}^2_C\leq \norm{C}^2\EE{\norm{\thh_t-\ts}^2}$. So, for the purpose of stating our results we will not use the general quadratic norm, however, will use it when we discuss the work by \cite{bach} in the linear regression setting, where its usage is relevant.} by $\EE{\norm{\thh_t-\ts}^2}$. We wish to understand how the MSE is affected by the choice of $\alpha$ and the spectral properties of $A_P$. Another aspect of interest is to understand the contribution of the \emph{bias} (caused by the initial condition $\theta_0$) and the \emph{variance} (caused by $\sigma^2_P,\sigma^2_b$) to the MSE.\par
+\begin{comment}
 \textbf{Challenges:}
 The idea of constant step size and iterate averaging is not new and goes back to \cite{}, where it was first shown that $L_t\ra 0$ as $t\ra\infty$. Recently \cite{bach} revisited the idea in connection to the stochastic gradient descent (SGD) algorithm (which is also an LSA of the form in \eqref{eq:lsa}) to solve linear regression. Much similar to the spirit of \cite{bach}, our aim here is to understand the aspects that effect the behaviour of $L_t$, such as:
 \begin{itemize}
@@ -43,3 +35,4 @@ The idea of constant step size and iterate averaging is not new and goes back to
 Most resutls in the past including those that of \cite{bach} consider an SGD algorithm for quadratic loss minimization, where the matrix $A_P$ is SPD and the noise has additional strucutral properties (we discuss this briefly in \Cref{sec:lp}). As it turns out these nice properties are lost when $A_P$ is AS or PD (a property that is holds in RL settings). While from the standpoint of the tools and techniques used, we use techniques much similar to \cite{bach}, however, as mentioned, the fact that we no longer are dealing with gradient systems (that involve to SPD matrices) but general vector fields (that involve AS or PD matrices), poses important challenges.
 Many RL algorithms \cite{} are LSA algorithms that need only $O(n)$ updates. However, there is a lot of variability in their analyses. The analysis as well as the results in this paper are useful from the perspective that it presents a single unified way of understand the various LSA-RL algorithms. We now present and discuss the main results of this paper in the next section. The comparison with existing literature is done in two separate sections, one to compare our results with \cite{bach} in the linear predictions setting (\Cref{sec:lp}) and the other to compare our results with prior results in RL literature \cite{}.
 \todoch{Mention impotance of forgetting the bias etc. Mention that we really don't have control over $\norm{U}$}
+\end{comment}

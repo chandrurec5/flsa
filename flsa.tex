@@ -1,7 +1,7 @@
 \documentclass{article}
 \input{pack.tex}
 % if you need to pass options to natbib, use, e.g.:
-% \PassOptionsToPackage{numbers, compress}{natbib}
+ \PassOptionsToPackage{numbers, compress}{natbib}
 % before loading nips_2017
 %
 % to avoid loading the natbib package, add option nonatbib:
@@ -23,9 +23,27 @@
 %\usepackage{varioref}
 %\usepackage{thmtools}
 \usepackage{aliascnt}
+\newcommand{\tcite}[1]{\citeauthor{#1}~\citeyear{#1}}
 \usepackage{titlecaps,cleveref}
 \usepackage{amsmath,amssymb,graphicx}
 \crefname{assumption}{Assumption}{Assumption}
+
+% BIBLIOGRAHY -----------------------------------------------------------------------------
+% Option 1: bibtex natbib
+%\usepackage[numbers]{natbib}
+%\usepackage[colorlinks=true,linkcolor=blue,citecolor=purple,pagebackref=true]{hyperref}
+% Option 2: biblatex
+%\usepackage[backend=bibtex,natbib=true,backref=false]{biblatex}
+%\usepackage[backend=bibtex,style=ieee,natbib=true,backref=false]{biblatex}
+%\addbibresource{ref.bib}
+% Adding back references to bib entries:
+%\DefineBibliographyStrings{english}{%
+%backrefpage = {page},% originally "cited on page"
+%backrefpages = {pages},% originally "cited on pages"
+%}
+% Title, authors, etc. -------------------------------------------------------------------------
+
+
 
 \title{Linear Stochastic Approximation- Constant Step-Size and Iterate Averaging}
 
@@ -86,9 +104,11 @@
 \input{stepsizes}
 \input{related}
 %\input{linal}
-
-\bibliographystyle{plain}
+%\input{illustrate}
+\bibliographystyle{plainnat}
 \bibliography{ref}
+%\printbibliography
+
 
 
 

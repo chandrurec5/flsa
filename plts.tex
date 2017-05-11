@@ -1,0 +1,35 @@
+
+\FloatBarrier
+\begin{figure}[htp]
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ccc}
+\begin{tikzpicture}[scale=0.3,font=\Large]
+    \begin{axis}[
+        xlabel=$t$,
+         ylabel=$\norm{\thh_t-\ts}^2$, legend style={at={(0.5,-0.1)},anchor=north}
+]
+    \addplot[only marks,mark=square,red] plot file {./exp/as};
+    \end{axis}
+    \end{tikzpicture}
+&
+\begin{tikzpicture}[scale=0.3,font=\Large,]
+\begin{axis}[
+xlabel=$t$,
+ylabel=$\norm{\thh_t-\ts}^2$, legend style={at={(0.5,-0.1)},anchor=north}
+]
+\addplot[only marks,mark=square,red] plot file {./exp/pd};
+\end{axis}
+\end{tikzpicture}
+
+&
+\begin{tikzpicture}[scale=0.3,font=\Large]
+\begin{axis}[
+xlabel=$t$,
+ylabel=$\norm{\thh_t-\ts}^2$, legend style={at={(0.5,-0.1)},anchor=north}
+]
+\addplot[only marks,mark=square,red] plot file {./exp/spd};
+\end{axis}
+\end{tikzpicture}
+\end{tabular}
+}
+\end{figure}

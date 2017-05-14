@@ -18,11 +18,8 @@ Our study is motivated by the problem \emph{policy evaluation} \cite{dann} using
 We now list our contributions in this paper
 %While asymptotically diminishing step-sizes are common in RL literature \cite{ilstd,gtdmp,korda-prashanth}, the constant step-size choice has also been used in the past \cite{gtd2}.
 %\begin{itemize}[leftmargin=*]%, before = \leavevmode\vspace{-\baselineskip}]
- \begin{center}Algorithm\end{center}
 \paragraph{Instance Dependent Bounds} We show that for a fixed $P$, there exists a $\alpha_P>0$ such that the mean squared error (MSE) of the LSA with CS-PR is at most $O(\frac{1}{t})$, whenever $\alpha\in (0,\alpha_P)$. The MSE can further be broken down to a \emph{bias} term (arising due to the initial condition $\theta_0$) that decays at a rate $O(\frac{1}{t^2})$ and a \emph{variance} term (due to the noise) that decays at at rate $O(\frac{1}{t})$.
-\begin{center} Structure in Data\end{center}
 \paragraph{Uniform Step-Sizes:} We also show (via counter example) that there is a class $\P$ that does not `admit' a single constant step-size $\alpha_{\P}$ that guarantees uniform performance $\forall P\in \P$. This is a negative result in the context of RL. However,
 we also argue that the subclass $\P_{LR}$ related to SGD for linear regression does `admit' a problem independent constant step-size, thereby recovering a part of the result by \citet{bach}.
-\begin{center} Meta-Parameter $\alpha$\end{center}
 \paragraph{Automatic Step-Size:} We argue informally that for any given $P$, a constant step-size can be chosen in an `automated' fashion, and the performance of CS-PR is comparable to other popular step-size choices used for LSA in RL literature.
 \paragraph{Organization:}

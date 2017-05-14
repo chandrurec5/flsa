@@ -1,4 +1,8 @@
 \section{Automatic Tuning of Step-Sizes}
+It is straightforwatd to see from \eqref{eq:lsaintro} that $\alpha_t$ cannot be asymptotically increasing. We now present some heuristic arguments in favour of a constant step-size over asymptotically diminishing step-sizes in \eqref{eq:lsaintro}.
+It has been observed that when the step-sizes of form $\alpha_t=\frac{c}{t}$ or $\alpha_t=\frac{c}{c+t}$ (for some $c>0$) are used, the MSE, $\EE{\norm{\theta_t-\ts}^2}$, is not robust to the choice of $c>0$ \cite{korda-prashanth,bach-moulines}. In particular only a $O(\frac{1}{t^{\mu c}/2})$ decay can be achieved for the MSE, where $\mu$ is the smallest positive part of the $A_P$ \cite{bach-moulines}. Note that, in the case of LSA with CS-PR, \Cref{th:rate} guarantees a $O(\frac{1}{t})$ rate of decay for the MSE and the problem dependent quantities affect only the constants and not the exponent. Also, in the case of important TD algorithms such as GTD/GTD2/TDC, while the theoretical analysis uses diminishing step-sizes, the experimental results are with a constant step-size or with CS and PR averaging \cite{gtd2,gtdmp}. Independently, \citet{dann} also observe in their experiments that a constant step-size is better than diminishing step-sizes.\par
+Motivated by \Cref{th:rate} and also by the usage of constant step-size in practice \cite{dann,gtd2,gtdmp}, we suggest a heuristic algorithm to tune the constant step-size (see \Cref{alg:tuning}).
+
 \begin{comment}
 We now argue, in a heuristic manner, as to why constant step-size with PR-averaging might be a principled idea, especially in TD type algorithms. Consider the following LSA with time varying step-sizes $\alpha_t>0$
 \begin{align}
@@ -16,24 +20,22 @@ In \Cref{sec:uniform} we showed a negative result that for the general class of 
 recall from our discussion in \Cref{sec:mainresults} that as $\alpha\ra\alpha_P$ (or $\alpha\ra\alpha_{P_U}$), the MSE blows up and for $\alpha>\alpha_P$ the LSA is unstable because the spectral norm of the random matrix $I-\alpha A_t$ is no longer less that unity. Combining these facts, we conclude that if the step-size is incorrect for a particular instance then we would observe instability, a fact that can be used to reset the step-size to a smaller value, and this procedure can be continued in an iterative fashion to find the right choice of step-size for a given problem. We formalize this idea in the form of a step-size tuning algorithm in \Cref{alg:tuning}
 \end{comment}
 \begin{algorithm}[H]
-\caption*{Automatic Tuning of Constant Step-Size}
+\caption{Automatic Tuning of Constant Step-Size}
 \begin{algorithmic}[1]
-\STATE{Initialize: $\theta_0$, $\alpha=1$, $i=1$, $\rho_0=0$}
+\STATE{Initialize: $\theta_0$, $\alpha=\alpha_{\max}$, $k$, $T$ }
 \FOR{$t=1,2,\ldots, $}
-\STATE{$\theta_t=\theta_{t-1}+\alpha (b_t-A_t\theta_{t-1})$}
-\IF{$t (mod k)==0$}
-\STATE{$\rho_{i}=\norm{\theta_t}$}
-\IF{IsUnstable($\{\rho_j,j=1,\ldots,i\}$)==1}
+\STATE{$\theta_t=\theta_{t-1}+\alpha (b_t-A_t\theta_{t-1}), \thh_t=\thh_{t-1}+\frac{1}{t+1}(\theta_t-\thh_{t-1})$}
+\IF{$IsUnstable(\norm{\theta_t},\ldots,\norm{\theta_{(t-kT)\wedge 0}})=1$}
 \STATE{$\alpha=\alpha/2$}
-\ENDIF
-\STATE{$i=i+1$}
 \ENDIF
 \ENDFOR
 \end{algorithmic}
 \label{alg:tuning}
 \end{algorithm}
+In \Cref{alg:tuning} $T>0$ is a time epoch and $k$ is a given integer and $\alpha_{\max}>0$ is the maximum step-size that is allowable. It is easy to show using a Gronwall argument that in \Cref{alg:tuning} $\norm{\theta_t}\leq (1-e^{\beta t})$, where ($\beta>0)$) $\beta<0$ implies (in)stability of iterates. Using this fact, we observe that the sequence $r_i=\frac{\norm{\theta_{(t-kT+iT)\wedge 0}}}{\norm{\theta_{(t-kT+(i-1)T)\wedge 0}}},i=1,\ldots,k$ should be `roughly' (making allowance for the presistent noise) decreasing and converge to $1$. The $IsUnstable()$ routine in \Cref{alg:tuning} can take this sequence of $r_i$s as input, and in the case of instability, the step-size can be scaled down by a factor of $2$ (or any constant factor).
 \begin{comment}
-In \Cref{alg:tuning} IsUnstable$(\rho_j,j=1,\ldots,i\}$) is a routine whose input is $\norm{\theta_t}$ measured at time instances $k$ apart. It is easy to show from Gronwall type arguments that the $\norm{\theta_t}\leq (1-exp{\beta t})$, where $\beta>0$ implies stability and $\beta<0$ imples instability. From this Gronwall based inequality, we observe that when the iterates are stable the ratio $\frac{\rho_{k+1}}{\rho_k},k=1,\ldots,i-1$ should be `roughly' decreasing (because there is the iterates are persistently corrupted by noise) and should converge to $1$. This condition on the sequence $\frac{\rho_{k+1}}{\rho_k}$ can be checked in practice with appropriate tolerances.
+In \Cref{alg:tuning} IsUnstable$(\rho_j,j=1,\ldots,i\}$) is a routine whose input is $\norm{\theta_t}$ measured at time instances $k$ apart.
+It is easy to show from Gronwall type arguments that the $\norm{\theta_t}\leq (1-exp{\beta t})$, where $\beta>0$ implies stability and $\beta<0$ imples instability. From this Gronwall based inequality, we observe that when the iterates are stable the ratio $\frac{\rho_{k+1}}{\rho_k},k=1,\ldots,i-1$ should be `roughly' decreasing (because there is the iterates are persistently corrupted by noise) and should converge to $1$. This condition on the sequence $\frac{\rho_{k+1}}{\rho_k}$ can be checked in practice with appropriate tolerances.
 \end{comment}
 \begin{comment}
 In order to calculate the rates we make use of the following asymptotic result by \cite{borkarbook}.

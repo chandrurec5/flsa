@@ -12,15 +12,9 @@ Consider the one dimensional case where $A_t=\rho$ for some $0<\rho<1$, $b_t$ a 
 \end{align*}
 \end{example}
 The above example helps to interpret the error dynamics of \Cref{eq:lsa} in terms of sum of a geometric series with common factor $\alpha\rho$.
+\begin{comment}
 \begin{example}
 Consider deterministic problems $P^1$, $P^2$ and $P^3$ with $A_{P^1}=\begin{bmatrix} 10 &100\\ 0 &10\end{bmatrix}$, $A_{P^2}=\begin{bmatrix} 10 &9.99\\ 0 &10\end{bmatrix}$, $A_{P^3}=\begin{bmatrix} 10 &0 \\ 0 &10\end{bmatrix}$, $\sigma^2_{A_{P^i}}=\sigma_{b_{P^i}}=0,\,i=1,2,3$. Note that $P^1$, $P^2$ and $P^3$ are respectively H, PD, SPD respectively.
 \end{example}
-\begin{comment}
-We now list the following observations:
-\begin{itemize}%[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
-\item In all the three instance, $0<\alpha<\frac2{10}$ ensures that the error $\norm{\eh_t}\ra 0$ as $t\ra\infty$. Thus the range of $\alpha$ is uniform across $P^i,i=1,2,3$.
-\item $\rhos{P^1}=\rhod{P^1}<0$, and hence one cannot apply results of \Cref{th:pdrate}. However, with  $U=\begin{bmatrix}1 &0 \\ 0 &0.2-\epsilon\end{bmatrix}$ for some $\epsilon>0$ we have $P^1_U$ to be the distribution concentrated on the matrix $A_{P^1_U}=\begin{bmatrix} 10 &20 \\ 0 &10\end{bmatrix}$ and one can apply the results of \Cref{thm:simtran,cor:as}. Notice that the condition number $\norm{U}{U^-1}\approx 5$.
-\end{itemize}
-\end{comment}
 \input{plts}
-
+\end{comment}

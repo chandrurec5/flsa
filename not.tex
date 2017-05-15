@@ -9,7 +9,7 @@ We will use $\ip{\cdot,\cdot}$ to denote the inner products: $\ip{x,y}=x^* y$.
 
 
  %Also, by $A_{ij}$ we denote the entry of matrix $A$ in the $i^{th}$ row and $j^{th}$ column.
-We use $\R^{\dcd}$ and $\C^{\dcd}$ to denote $\dcd$ matrices with real and complex entries respectively. The notation for (conjugage) transpose carries over from vectors.
+We use $\R^{\dcd}$ and $\C^{\dcd}$ to denote $\dcd$ matrices with real and complex entries respectively. The notation for (conjugate) transpose carries over from vectors.
 The norm of the matrix $A$ in given by $\norm{A}\eqdef \sup_{x\in \C^d:\norm{x}=1} \norm{Ax}$. For any $x\in\C^d$, we denote the general quadratic norm with respect to a hermitian matrix $C$ by $\norm{x}^2_C\eqdef x^*\, C \,x$. We use $\cond{A}=\norm{A}\norm{A^{-1}}$ to denote the condition number of the matrix $A$. We denote the identity matrix in $\C^{\dcd}$ by $\I$ and the set of invertible $\dcd$ complex matrices by $\gln$.
 \begin{comment}
 We use $A\succeq 0$ to denote that the
@@ -39,7 +39,7 @@ Note that $\rhod{P}>\rhos{P}$.
 Let $P=(P^V,P^M)$ as in \Cref{def:dist}; $b\sim P^V$ and $A\sim \P^M$ be random variables distributed according to $P^V$ and $P^M$. For $U\in \gln$ define $P_U=(P_U^V,P_U^M)$ to be the distributions of $U^{-1}b$ and $U^{-1}AU$.
 \end{definition}
 \begin{definition}
-We call a matix $A\in \C^{\dcd}$ to be \emph{Hurwitz} (H) if all eigenvalues of $A$ have positive real parts. We call a matrix $A\in \C^{\dcd}$ to be \emph{Positive Definite} (PD) if $\ip{x,Ax} >0,\,\forall x\neq 0 \in \C^{d}$.  We call a matrix $A\in \C^{\dcd}$ to be \emph{Symmetric Positive Definite} (SPD) is it is symmetric i.e., $A^\top=A$ and PD.
+We call a matrix $A\in \C^{\dcd}$ to be \emph{Hurwitz} (H) if all eigenvalues of $A$ have positive real parts. We call a matrix $A\in \C^{\dcd}$ to be \emph{Positive Definite} (PD) if $\ip{x,Ax} >0,\,\forall x\neq 0 \in \C^{d}$.  We call a matrix $A\in \C^{\dcd}$ to be \emph{Symmetric Positive Definite} (SPD) is it is symmetric i.e., $A^\top=A$ and PD.
 \end{definition}
 \begin{definition}\label{distpd}
 We call a distribution $P$ to be H/PD/SPD if $A_P$ is H/PD/SPD.

@@ -12,7 +12,7 @@ Algorithm& Update & Remark\\ \hline
 TD(0)& $\begin{aligned}\theta_t&=\theta_{t-1}+\alpha_t (b_t -\Delta_t\theta_{t-1})\end{aligned}$ & \cite{korda-prashanth}:$\alpha_t=O(\frac{1}{t})^\beta,\beta\in(0,1)$; PR-avg; $\EE{\norm{\eh_t}}= O(\frac{1}{\sqrt{t}}).$ \\ \hline
 GTD/GTD2& $\begin{aligned} y_{t}&=y_{t-1}+\beta_t(\mu_t b_t -\mu_t \Delta_t \theta_{t-1}- Q_t y_{t-1})\\ \theta_t &=\theta_{t-1}+\alpha_t (\mu_t A^\top_t y_{t-1})\end{aligned}$
 & \cite{gtd2}: $\beta_t=\eta \alpha_t,\sum_{t\geq 0}\alpha_t=\infty, \sum_{t\geq 0}\alpha^2_t<\infty$; $e_t\ra 0$ as $t\ra\infty$ w.p.1. \cite{gtdmp}:
-$\alpha_t=\beta_t=O(\frac{1}{\sqrt{t}})$; Projection+PR; $\,e_t =O(\frac{1}{{t}^{\frac{1}{4}}})$ w.h.p.\\\hline
+$\alpha_t=\beta_t=O(\frac{1}{\sqrt{t}})$; Projection+PR; $\,\norm{e_t} =O(\frac{1}{{t}^{\frac{1}{4}}})$ w.h.p.\\\hline
 TDC& $\begin{aligned} y_{t}&=y_{t-1}+\beta_t(\mu_t b_t -\mu_t \Delta_t \theta_{t-1}-C_t y_{t-1})\\ \theta_t &=\theta_{t-1}+\alpha_t (\mu_t b_t-\mu_t\Delta_t\theta_{t-1}+ (\Delta^\top_t-C_t)y_{t-1})\end{aligned}$ & \cite{gtd2}: $\beta_t=\eta \alpha_t,\sum_{t\geq 0}\alpha_t=\infty, \sum_{t\geq 0}\alpha^2_t<\infty$; $e_t\ra 0$ as $t\ra\infty$ w.p.1. \\\hline
 \end{tabular}
 }

@@ -54,7 +54,7 @@ Let $P$ be a distribution over $\R^d\times \R^{\dcd}$ satisfying \Cref{assmp:lsa
 \end{align*}
 \end{theorem}
 $\forall \alpha\in (0,\alpha_{P_U})$.
-\begin{theorem}[Lower Bound]
+\begin{theorem}[Lower Bound]\label{th:lb}
 There exists a distribution $P$ over $\R^d\times \R^{\dcd}$ satisfying \Cref{assmp:lsa}, such that $\alpha_P>0$, such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in (0,\alpha_P)$ and
 \begin{align*}
 \EE{\norm{\thh_t-\ts}^2} &\geq \frac{1}{(t+1)^2}(\alpha)^{-2}(\rhod{P}\rhos{P})^{-1}\Big( \big(1-(1-\alpha \rhos{P})^t\big) \norm{\theta_0-\ts}^2 \\&+ \sum_{s=1}^t \big(1-(1-\alpha \rhos{P})^{(t-s)}\big) \big(\alpha^2(\sigma_A^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_A^2\norm{\ts})\norm{\theta_0-\ts}\big) \Big)

@@ -1,10 +1,10 @@
 \section{Main Results}\label{sec:mainresults}
-In this section, we derive instance dependent bounds that are valid for a given problem $P$ (satisfying \Cref{assmp:lsa}) and in the \Cref{sec:uniform}, address the question of deriving uniform bounds $\forall\,P\in \P$, where $\P$ is a class of distributions (problems). Here, we only present the main results followed by a discussion and the detailed proofs can be found in \Cref{sec:appendix}.
-\begin{lemma}\label{lm:pd}
-Let $P$ be positive definite, then there exists an $\alpha_P>0$ and $U\in \gln$ such that $\rhod{P_U}>0$ and $\rhos{P_U}>0,~\forall \alpha \in (0,\alpha_P)$.
-\end{lemma}
-\begin{lemma}\label{lm:simtran}[Similarity Transformation]
-Let $P$ be Hurwitz, then there exists a $U\in \gln$ such that $P_U$ is positive definite.
+In this section, we derive instance dependent bounds that are valid for a given problem $P$ (satisfying \Cref{assmp:lsa}) and in the \Cref{sec:uniform}, we address the question of deriving uniform bounds $\forall\,P\in \P$, where $\P$ is a class of distributions (problems). Here, we only present the main results followed by a discussion and the detailed proofs can be found in \Cref{sec:proofs}. In what follows, for the sake of brevity, we drop the subscript $P$ in the quantities $\EEP{\cdot}$, $\sigma^2_{A_P}$ and $\sigma^2_{b_P}$.
+%\begin{lemma}\label{lm:simtran}[Similarity Transformation]
+%Let $P$ be Hurwitz, then there exists a $U\in \gln$ such that $P_U$ is positive definite.
+%\end{lemma}
+\begin{lemma}\label{lm:hur}
+Let $P$ be a distribution over $\R^d\times \R^{\dcd}$ satisfying \Cref{assmp:lsa}, then there exists an $\alpha_{P_U}>0$ and $U\in \gln$ such that $\rhod{P_U}>0$ and $\rhos{P_U}>0,~\forall \alpha \in (0,\alpha_{P_U})$.
 \end{lemma}
 \begin{comment}
 \begin{proof}
@@ -45,19 +45,19 @@ where $\gh_t=\frac{1}{t+1}\sum_{s=0}^t \gamma_s$.
 \end{comment}
 
 \begin{theorem}\label{th:rate}
-Let $P$ be Hurwitz, then there exists $U\in\gln$ and $\alpha_{P_U}>0$ such that
+Let $P$ be a distribution over $\R^d\times \R^{\dcd}$ satisfying \Cref{assmp:lsa}, then there exists $U\in\gln$ and $\alpha_{P_U}>0$ such that
 \begin{align*}
 \EE{\norm{\thh_t-\ts}^2}
 \leq
 \left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{\cond{U}^2}{\alpha \rhos{P_U}}
-\left(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2(\sigma_P^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_P^2\norm{\ts})\norm{\theta_0-\ts}}{t+1} \right)\,.
+\left(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2(\sigma_A^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_A^2\norm{\ts})\norm{\theta_0-\ts}}{t+1} \right)\,,
 \end{align*}
 \end{theorem}
-
+$\forall \alpha\in (0,\alpha_{P_U})$.
 \begin{theorem}[Lower Bound]
-There exists a $P$ Hurwitz, $\alpha_P>0$, such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in (0,\alpha_P)$ and
+There exists a distribution $P$ over $\R^d\times \R^{\dcd}$ satisfying \Cref{assmp:lsa}, such that $\alpha_P>0$, such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in (0,\alpha_P)$ and
 \begin{align*}
-\EE{\norm{\eh_t}^2} &\geq \frac{1}{(t+1)^2}(\alpha)^{-2}(\rhod{P}\rhos{P})^{-1}\Big( \big(1-(1-\alpha \rhos{P})^t\big) \norm{\theta_0-\ts}^2 \\&+ \sum_{s=1}^t \big(1-(1-\alpha \rhos{P})^{(t-s)}\big) \alpha^2 \sigma^2_b \Big)
+\EE{\norm{\thh_t-\ts}^2} &\geq \frac{1}{(t+1)^2}(\alpha)^{-2}(\rhod{P}\rhos{P})^{-1}\Big( \big(1-(1-\alpha \rhos{P})^t\big) \norm{\theta_0-\ts}^2 \\&+ \sum_{s=1}^t \big(1-(1-\alpha \rhos{P})^{(t-s)}\big) \big(\alpha^2(\sigma_A^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_A^2\norm{\ts})\norm{\theta_0-\ts}\big) \Big)
 \end{align*}
 
 \begin{comment}
@@ -94,7 +94,7 @@ Note that in this example, $\rhos{P^0}=\rhod{P^0}=\lambda_{\min} -\alpha \lambda
 
 \subsection{Result Discussion}
 \begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
-\item \textbf{Role of $U$:} When the given problem $P$ is positive definite, it is straightforward to produce an $\alpha_P>0$ such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in(0,\alpha_P)$. However, the problem $P$ being Hurwitz does not guarantee positive definiteness (see \Cref{ex:pdas}). This can be remedied by a similarity transformation using an appropriate $U$ that transforms a Hurwitz problem $P$ to a positive definite problem $P_U$. To see this, let $\gamma_t\eqdef U^{-1 }\theta_t$ be a basis transformation, and let us re-write \eqref{conststep} in $\gamma_t$ by pre-multiplying \eqref{constste[} by $U^{-1}$ as shown below:
+\item \textbf{Role of $U$:} When the given problem $P$ is positive definite, it is straightforward to produce an $\alpha_P>0$ such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in(0,\alpha_P)$. However, the problem $P$ being Hurwitz does not guarantee positive definiteness (see \Cref{ex:pdas}). This can be remedied by a similarity transformation using an appropriate $U$ that transforms a Hurwitz problem $P$ to a positive definite problem $P_U$. To see this, let $\gamma_t\eqdef U^{-1 }\theta_t$ be a basis transformation, and let us re-write \eqref{conststep} in terms of $\gamma_t$ by pre-multiplying by $U^{-1}$ as shown below:
 \begin{align*}
 U^{-1}\theta_t&=U^{-1}\theta_{t-1}+\alpha(U^{-1} b_t- U^{-1}A_t U U^{-1}\theta_{t-1}),\\
 \gamma_t&=\gamma_{t-1}+\alpha(U^{-1} b_t- J_t\gamma_{t-1}),
@@ -116,8 +116,8 @@ From \eqref{errec} it is clear that the error dynamics depends on the $i)$ prope
 \end{align}
 Note that \eqref{eq:spectralrand} explicitly connects $\rhod{P}$ and $\rhos{P}$ in \Cref{def:dist} to the spectral norms matrices $H_t$ and $H_P$. For the MSE to be bounded, we need the spectral norms to be less than unity, which in turn translates to the requirement that $\rhos{P}>0$ and $\rhod{P}>0$. If $P$ is Hurwitz, we can argue on similar lines by first transforming it into a positive definite problem $P_U$ and replacing $\rhos{P}$ and $\rhod{P}$ by $\rhos{P_U}$ and $\rhod{P_U}$, and introducing $\cond{U}$ to account for the forward ($\gamma=U^{-1}\theta$) and reverse ($\theta=U\gamma$) transformations using $U^{-1}$ and $U$ respectively.
 \item \textbf{Constants} {$\alpha$, $\rhos{P}$ and $\rhod{P}$} do not affect the exponents $\frac{1}{t}$ for variance and $\frac{1}{t^2}$ for bias terms.
-\item \textbf{Bias and Variance:} The means-squared error at $t$ is bounded by a sum of two terms. The first term is the bias term given by $\B=\left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{\cond{U}^2}{\alpha \rhos{P_U}}\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}$.  The \emph{bias} term that captures the rate at which the initial condition $\norm{\theta_0-\ts}^2$ is forgotten. The second term is the \emph{variance} given by $\V=\left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{\cond{U}^2}{\alpha \rhos{P_U}} \frac{\alpha^2(\sigma_P^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_P^2\norm{\ts})\norm{\theta_0-\ts}}{t+1} $. The variance term that captures the rate at which noise is rejected.
-\item \textbf{Behaviour for extreme value of $\alpha$:} For smaller values of step-size, i.e., $\alpha\approx 0$, the bias term blows up, due to the presence of $\alpha^{-1}$ term. This is due to the fact that the stepsizes determine the learning rate and for smaller stepsizes the learning rate is slower. However, in this case the noise term does not blow up, a fact that can appreciated by looking at \Cref{th:rate} where $\alpha$ is seen to multiply the variances $\sigma^2_P$ and $\sigma^2_b$. In quantitative terms, we can see that the $\alpha^{-2}$ and $\alpha^2$ terms can each other. For larger values of $\alpha$ i.e., $\alpha\ra \alpha_{P}$ (or $\alpha_{P_U}$ as the case may be), the bounds blow up again, due to the fact that $\rhos{P}\ra 0$ in this case.
+\item \textbf{Bias and Variance:} The means-squared error at $t$ is bounded by a sum of two terms. The first term is the bias term given by $\B=\left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{\cond{U}^2}{\alpha \rhos{P_U}}\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}$.  The \emph{bias} term that captures the rate at which the initial condition $\norm{\theta_0-\ts}^2$ is forgotten. The second term is the \emph{variance} given by $\V=\left(1+\frac2{\alpha\rhod{P_U}}\right)\frac{\cond{U}^2}{\alpha \rhos{P_U}} \frac{\alpha^2(\sigma_A^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_A^2\norm{\ts})\norm{\theta_0-\ts}}{t+1} $. The variance term that captures the rate at which noise is rejected.
+\item \textbf{Behaviour for extreme value of $\alpha$:} For smaller values of step-size, i.e., $\alpha\approx 0$, the bias term blows up, due to the presence of $\alpha^{-1}$ term. This is due to the fact that the stepsizes determine the learning rate and for smaller stepsizes the learning rate is slower. However, in this case the noise term does not blow up, a fact that can appreciated by looking at \Cref{th:rate} where $\alpha$ is seen to multiply the variances $\sigma^2_A$ and $\sigma^2_b$. In quantitative terms, we can see that the $\alpha^{-2}$ and $\alpha^2$ terms can each other. For larger values of $\alpha$ i.e., $\alpha\ra \alpha_{P}$ (or $\alpha_{P_U}$ as the case may be), the bounds blow up again, due to the fact that $\rhos{P}\ra 0$ in this case.
 \item \textbf{Lower Bound} in \Cref{th:lb} shows that the factor $\rhos{P}\rhod{P}$ appearing in the upper bound in \Cref{th:rate} is inevitable for general LSA with CS-PR. However, there are specific examples such as SGD for the linear regression problem considered by \citet{bach} where this factor can be avoided (for further remarks see \Cref{sec:related}).
 \end{itemize}
 \input{illustrate}

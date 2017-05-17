@@ -1,32 +1,9 @@
 \section{Notations and Definitions}\label{sec:def}
-We denote the sets real and complex numbers by $\R$ and $\C$ respectively. For $x=a+ib\in \C$, we denote its real and imaginary parts by $\re{x}=a$ and $\im{x}=b$ respectively.
-For any $x\in \C$ we denote its modulus $\md{x}=\sqrt{\re{x}^2+\im{x}^2}$ and its complex conjugate by $\bar{x}=a-ib$.
-We denote $d$-dimensional vector spaces over $\R$ and $\C$ by $\R^{d}$ and $\C^{d}$ respectively.
-We denote the transpose of $x\in \C^{d}$ by $x^\top$ and the conjugate transpose by $x^*={\bar{x}}^\top$.
-We will use $\ip{\cdot,\cdot}$ to denote the inner products: $\ip{x,y}=x^* y$.
-%We denote the transpose of $x\in \C^{d}, A\in \C^{\dcd}$ by $x^\top$ and $A^\top$ respectively.
-%Further, by $x^*$ denotes the conjugate transpose, i.e., $x^*=\bar{x}^\top$ (the same convention carries over to matrices as well).
-
-
- %Also, by $A_{ij}$ we denote the entry of matrix $A$ in the $i^{th}$ row and $j^{th}$ column.
-We use $\R^{\dcd}$ and $\C^{\dcd}$ to denote $\dcd$ matrices with real and complex entries respectively. The notation for (conjugate) transpose carries over from vectors.
-The norm of the matrix $A$ in given by $\norm{A}\eqdef \sup_{x\in \C^d:\norm{x}=1} \norm{Ax}$. For any $x\in\C^d$, we denote the general quadratic norm with respect to a hermitian matrix $C$ by $\norm{x}^2_C\eqdef x^*\, C \,x$. We use $\cond{A}=\norm{A}\norm{A^{-1}}$ to denote the condition number of the matrix $A$. We denote the identity matrix in $\C^{\dcd}$ by $\I$ and the set of invertible $\dcd$ complex matrices by $\gln$.
-\begin{comment}
-We use $A\succeq 0$ to denote that the
-square matrix $A$ is hermitian and positive semidefinite (HPD):
-$A = A^*$, $\inf_x x^* A x\ge 0$.
-For $A,B$ HPD matrices, $A\succeq B$ holds if $A-B\succeq 0$.
-We also use $A\succ B$ similarly to denote that $A-B \succ 0$.
-We also use $\preceq$ and $\prec$ analogously.
-\end{comment}
+We denote the sets real and complex numbers by $\R$ and $\C$ respectively. For $x\in \C$ we denote its modulus and complex conjugate by $\md{x}$ and $\bar{x}$ respectively. We denote $d$-dimensional vector spaces over $\R$ and $\C$ by $\R^{d}$ and $\C^{d}$ respectively, and use $\R^{\dcd}$ and $\C^{\dcd}$ to denote $\dcd$ matrices with real and complex entries respectively. We denote the transpose of $x$ by $x^\top$ and the conjugate transpose by $x^*={\bar{x}}^\top$. We will use $\ip{\cdot,\cdot}$ to denote the inner products: $\ip{x,y}=x^* y$. For $x\in\C^d$, we denote the general quadratic norm with respect to a Hermitian matrix $C$ by $\norm{x}^2_C\eqdef x^*\, C \,x$.
+The norm of the matrix $A$ is given by $\norm{A}\eqdef \sup_{x\in \C^d:\norm{x}=1} \norm{Ax}$.  We use $\cond{A}=\norm{A}\norm{A^{-1}}$ to denote the condition number of the matrix $A$. We denote the identity matrix in $\C^{\dcd}$ by $\I$ and the set of invertible $\dcd$ complex matrices by $\gld$.
 For a positive real number $B>0$, we denote by $\C^{d}_B=\{b\in \C^d\mid \norm{b}\leq B\}$ and by $\C^{\dcd}_B=\{A\in \C^{\dcd}\mid \norm{A}\leq B\}$ the set of complex vectors and matrices whose norms are bounded $B$.
-%We denote by $\C^{\dcd}_B=\{A\in \C^{\dcd}\mid \md{A_{ij}}\leq B,\,\forall i,j=1,\ldots,n\}$ and  $\R^{\dcd}_B=\{A\in \R^{\dcd}\mid \md{A_{ij}}\leq B,\,\forall i,j=1,\ldots,n\}$.
-%We use $\P$ to denote the set of probability distribution over $\C^{\dcd}$.
-%We denote the set of distributions over $\C_B^{\dcd}$ by $\P$.
-Let $P$ be a distribution over $C^{\dcd}$, we use $A\sim P$ to denote $A$ is distributed according to $P$. For $U\in \gln$, we denote by $P_U$ the distribution of $U^{-1}\,A\,U$, where $A\sim P$. $\E$ denotes mathematical expectation.
-\begin{comment}
- We use $A\sim P$ to denote the fact that the random variable $A$ is distributed according to distribution $P$. Let the random matrix $A\sim P$, and $U\in \gln$, we use $P_U$ to denote the distribution of the random matrix $U^{-1}A U$.
-\end{comment}
+We use $\left(\cdot\right)\sim P$ to denote the fact that $\left(\cdot\right)$ is distributed according to probability distribution $P$.
+$\E$ denotes mathematical expectation.
 \begin{definition}\label{def:dist}
 Let $P=(P^V,P^M)$ denote a $2$-tuple of probability distributions; $P^V$ over $\C^{d}$ and $P^M$ over $\C^{\dcd}$. Define
 \begin{align*}
@@ -36,13 +13,13 @@ A_P&=\int M dP^M(M),\quad C_P=\int M^* M dP^M(M), \quad b_P=\int V dP^V(V)\\
 \end{definition}
 Note that $\rhod{P}>\rhos{P}$.
 \begin{definition}\label{def:simdist}
-Let $P=(P^V,P^M)$ as in \Cref{def:dist}; $b\sim P^V$ and $A\sim \P^M$ be random variables distributed according to $P^V$ and $P^M$. For $U\in \gln$ define $P_U=(P_U^V,P_U^M)$ to be the distributions of $U^{-1}b$ and $U^{-1}AU$.
+Let $P=(P^V,P^M)$ as in \Cref{def:dist}; $b\sim P^V$ and $A\sim \P^M$ be random variables distributed according to $P^V$ and $P^M$. For $U\in \gld$ define $P_U\eqdef(P_U^V,P_U^M)$, to be the distributions of $U^{-1}b$ and $U^{-1}AU$.
 \end{definition}
 \begin{definition}
 We call a matrix $A\in \C^{\dcd}$ to be \emph{Hurwitz} (H) if all eigenvalues of $A$ have positive real parts. We call a matrix $A\in \C^{\dcd}$ to be \emph{Positive Definite} (PD) if $\ip{x,Ax} >0,\,\forall x\neq 0 \in \C^{d}$.  We call a matrix $A\in \C^{\dcd}$ to be \emph{Symmetric Positive Definite} (SPD) is it is symmetric i.e., $A^\top=A$ and PD.
 \end{definition}
 \begin{definition}\label{distpd}
-We call a distribution $P$ to be H/PD/SPD if $A_P$ is H/PD/SPD.
+We call the distribution $P$ in \Cref{def:dist} to be H/PD/SPD if $A_P$ is H/PD/SPD.
 \end{definition}
 \begin{example}
 The matrices $\begin{bmatrix}0.1 &-1\\ 1 & 0.1\end{bmatrix}$, $\begin{bmatrix} 0.1 & 0.1 \\ 0 & 0.1\end{bmatrix}$ and $\begin{bmatrix}0.1 &0 \\ 0 & 0.1\end{bmatrix}$ are examples of H, PD and SPD respectively.

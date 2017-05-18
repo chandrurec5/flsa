@@ -28,7 +28,7 @@ We let $A_P$ be the expectation of $A_t$, $b_P$ be the expectation of $b_t$, as 
 %where $P^b$ is a distribution over $\R^d$ and $P^A$ is a distribution over $\R^{\dcd}$. 
 \todoc{I got rid off $P^b$ and $P^A$. There were $P^V$ and $P^M$ previously.. Confusing.}
 We assume that $P$ is Hurwitz.
-\item \label{matvar} The martingale difference sequences\footnote{$\EE{M_t|\F_{t-1}}=0$ and $\EE{N_t|\F_{t-1}}=0$} $M_t\eqdef A_t-A_{P}$ and $N_t\eqdef b_t-b_{P}$ associated with $A_t$ and $b_t$ satisfy the following
+\item \label{matvar} The martingale difference sequences\footnote{$\EE{M_t|\F_{t-1}}=0$ and $\EE{N_t|\F_{t-1}}=0$} $M_t\eqdef A_t-A_{P}$ and $N_t\eqdef b_t-b_{P}$ associated with $A_t$ and $b_t$ satisfy the following \todoc{This would be the place to state if we make assumptions above the correlations between $M_t$ and $N_t$.}
 \begin{align*}
 	\E\left[ \norm{M_t}^2\mid\F_{t-1}\right]\leq \sigma^2_{A_P}\,, \qquad 
 	\E[N_t^* N_t]=\sigma^2_{b_P}\,.
@@ -40,12 +40,11 @@ with some $\sigma^2_{A_P}$ and $\sigma^2_{b_P}$. \todoc{Could not these just be 
 %For the rest of the paper we denote the errors of the internal and the output variables of \eqref{eq:lsa} at time $t$ by $e_t\eqdef \theta_t-\ts$ and $\eh_t\eqdef \thh_t-\ts$ respectively.
 \paragraph{Performance Metric:}  
 We are interested in the behavior of the mean squared error (MSE) at time $t$ given%
-\footnote{ $\EEP{\norm{\thh_t-\ts}_C^2}$, the MSE with respect to a PD Hermitian matrix $C$ is desirable.
-However, we cannot exploit the use of $C$ unless it is connected to $P$ in a special way. 
-For more discussion, see \cref{sec:related}.}
+\footnote{More generally, one can be interested in $\EEP{\normsm{\thh_t-\ts}_C^2}$, the MSE with respect to a PD Hermitian matrix $C$. Since in general it is not possible to exploit the presence of $C$ unless it is connected to $P$ in a special way,
+here we restrict ourselves to $C = \I$. For more discussion, including the discussion of the case of SGD for linear least-squares when $C$ and $P$ are favourably connected see \cref{sec:related}.}
  by $\EE{\normsm{\thh_t-\ts}^2}$. \todoc{Move up footnote. Polish..}
 \begin{comment}
-\footnote{We note here that $\EE{P\norm{\thh_t-\ts}_C^2}$ which measures the MSE in the quadratic norm with respect to a positive definite matrix $C\succ 0$. However, unless $C$ has some special structure, it is not possible to exploit this generality in our bounds. Further, when data is bounded $\norm{C}^2$ is also bounded and it is straightforward to see that $\EEP{\norm{\thh_t-\ts}}^2_C\leq \norm{C}^2\EEP{\norm{\thh_t-\ts}^2}$. So, for the purpose of stating our results we will not use the general quadratic norm, however, will use it when we discuss the work by \cite{bach} in the linear regression setting, where its usage is relevant.}
+\footnote{We note here that $\E[\normsm{\thh_t-\ts}_C^2]$, which measures the MSE in the quadratic norm with respect to a positive definite matrix $C\succ 0$. However, unless $C$ has some special structure, it is not possible to exploit this generality in our bounds. Further, when data is bounded $\norm{C}^2$ is also bounded and it is straightforward to see that $\EEP{\norm{\thh_t-\ts}}^2_C\leq \norm{C}^2\EEP{\norm{\thh_t-\ts}^2}$. So, for the purpose of stating our results we will not use the general quadratic norm, however, will use it when we discuss the work by \cite{bach} in the linear regression setting, where its usage is relevant.}
 \end{comment}
 %We wish to understand how the MSE is affected by the choice of $\alpha$ and the spectral properties of $A_P$. Another aspect of interest is to understand the contribution of the \emph{bias} (caused by the initial condition $\theta_0$) and the \emph{variance} (caused by $\sigma^2_P,\sigma^2_b$) to the MSE.\par
 \todoch{Mention importance of forgetting the bias etc. Mention that we really don't have control over $\norm{U}$}

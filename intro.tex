@@ -26,7 +26,7 @@ This idea goes back to  \citet{ruppert} and \citet{polyak-judisky} who considere
 \paragraph{Motivation and Contribution:} Recently, \citet{bach} considered stochastic gradient descent (SGD)\footnote{SGD is an LSA of the form in \eqref{eq:lsaintro}.} with CS-PR for the linear regression problem with quadratic loss and \iid sampling. They showed that one can calculate a constant step-size from only a bound on the magnitude of the noisy data so that the leading term as $t\to\infty$
 \todoc{There is a subtlety here, because, if I believe you, 
 \citet{bach} sells their result as a non-asymptotic result. How can they do this?
-Can we be more explicit where in the paper $C_P'/t^2$ shows up -- see the notation below? We must be very explicit here.
+Can we be more explicit where in the paper $C_{P',\alpha}/t^2$ shows up -- see the notation below? We must be very explicit here.
 The reviewers may not like this.
 }
  in the mean-squared (regression) error after $t$ updates is at most $\frac{C}{t}$ with a constant $C>0$ that depends \emph{only} on the bound on the data, and is in particular independent of the eigenspectrum of $\E[A_t]$, a property which is not shared by other step-size tunings and variations of the basic SGD method.
@@ -47,23 +47,23 @@ For the first time in the literature,
 we show that (under our stated assumptions) there exists an $\alpha_P>0$ such that 
 for any $\alpha\in (0,\alpha_P)$,
 the MSE %of a given LSA with CS-PR
-is at most $\frac{C_P}{t}+\frac{C_P'}{t^2}$ with some positive constants $C_P,C_P'$ that we explicitly compute from $P$.
+is at most $\frac{C_{P,\alpha}}{t}+\frac{C_{P',\alpha}}{t^2}$ with some positive constants $C_{P,\alpha},C_{P',\alpha}$ that we explicitly compute from $P$.
 %The MSE can further be broken down to a \emph{bias} term (arising due to the initial condition $\theta_0$) that decays at a rate $O(\frac{1}{t^2})$ and a \emph{variance} term (due to the noise) that decays at at rate $O(\frac{1}{t})$.
 \item \textbf{Uniform Bounds}:
 It is of major interest to know whether for a given class $\P$ of distributions 
 one can choose some step-size $\alpha$ 
-such that $C_P$ from above is uniformly bounded (i.e., replicating the result of \citet{bach}).%
-\footnote{Of course, the term $C_P'/t^2$ needs to be controlled, as well. Just like \citet{bach}, here we focus on $C_P$, which is justified if one considers the MSE as $t\to\infty$. Further justification is that we actually find a negative result. See above.}
+such that $C_{P,\alpha}$ from above is uniformly bounded (i.e., replicating the result of \citet{bach}).%
+\footnote{Of course, the term $C_{P',\alpha}/t^2$ needs to be controlled, as well. Just like \citet{bach}, here we focus on $C_{P,\alpha}$, which is justified if one considers the MSE as $t\to\infty$. Further justification is that we actually find a negative result. See above.}
 %It is of interest to know that for a given LSA with CS-PR and a given class $\P$ of distributions, whether it is possible to ensure uniform performance $\forall P\in \P$. 
 We show via an example that in general this is not possible.
 %that there is a class $\P$ that does not `admit' a constant step-size $\alpha_{\P}$ that guarantees uniform performance $\forall P\in \P$. 
-In particular, the example applies to RL, hence, we get a negative result for RL, which states that from only bounds on the data one cannot choose a step-size to guarantee that $C_P$ of CS-PR is uniformly bounded over $\P$.
+In particular, the example applies to RL, hence, we get a negative result for RL, which states that from only bounds on the data one cannot choose a step-size $\alpha$ to guarantee that $C_{P,\alpha}$ of CS-PR is uniformly bounded over $\P$.
 We also define a subclass  $\P_{\text{SPD},B}$ of problems, related to SGD for linear regression, that does `admit' a uniform constant step-size, thereby recovering a part of the result by \citet{bach}. \todoc{Why only part? We may need to explain the difference.} Our study thus sheds light on what structural assumptions are key to achieve a uniform bound for CS-PR.
 \item \textbf{Automatic Step-Size}: 
 The above negative result implies that in RL one needs to choose the constant step-size based on properties of the instance $P$ to avoid the explosion of the MSE.
 To circumvent this, we propose a natural step-size tuning method to guarantee instance-dependent boundedness.
 We experimentally evaluate the proposed method and find that it is indeed able to achieve its goal on a set of synthetic examples
-where no constant step-size is available to prevent exploding MSE.
+where no constant step-size is available to prevent exploding MSE. Further, it is empirically demonstrated that the method is able to find a step-size, which is close to the theoretically recommended stepsize which results in the fastest convergence. \todoc{True??}
 \end{itemize}
 %\paragraph{Implications:} 
 In addition to TD($0$), our results directly can be applied to a host of \emph{off-policy} TD algorithms such as GTD/GTD2/TDC with CS-PR. \todoc{How about TD($\lambda$)? Will we discuss this somewhere? Maybe in the organization section this can be mentioned.}

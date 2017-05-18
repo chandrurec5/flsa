@@ -28,7 +28,7 @@ We let $A_P$ be the expectation of $A_t$, $b_P$ be the expectation of $b_t$, as 
 %where $P^b$ is a distribution over $\R^d$ and $P^A$ is a distribution over $\R^{\dcd}$. 
 \todoc{I got rid off $P^b$ and $P^A$. There were $P^V$ and $P^M$ previously.. Confusing.}
 We assume that $P$ is Hurwitz.
-\item \label{matvar} The martingale difference sequences\footnote{$\EE{M_t|\F_{t-1}}=0$ and $\EE{N_t|\F_{t-1}}=0$} $M_t\eqdef A_t-A_{P}$ and $N_t\eqdef b_t-b_{P}$ associated with $A_t$ and $b_t$ satisfy the following \todoc{This would be the place to state if we make assumptions above the correlations between $M_t$ and $N_t$.}
+\item \label{matvar} The martingale difference sequences\footnote{That is, $\EE{M_t|\F_{t-1}}=0$ and $\EE{N_t|\F_{t-1}}=0$ and $M_t,N_t$ are $\F_t$ measurable, $t\ge 0$. \todoc[inline]{This means, $\F_0$ should be the trivial $\sigma$-algebra.}} $M_t\eqdef A_t-A_{P}$ and $N_t\eqdef b_t-b_{P}$ associated with $A_t$ and $b_t$ satisfy the following \todoc{This would be the place to state if we make assumptions above the correlations between $M_t$ and $N_t$.}
 \begin{align*}
 	\E\left[ \norm{M_t}^2\mid\F_{t-1}\right]\leq \sigma^2_{A_P}\,, \qquad 
 	\E[N_t^* N_t]=\sigma^2_{b_P}\,.

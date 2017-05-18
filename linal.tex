@@ -367,9 +367,9 @@ By choosing $\alpha<\frac2{\lambda_{\max}}$, in this case it is straightforward 
 \end{align*}
 
 \begin{align*}
-\EE{\norm{\eh_t}^2}\geq \EE{\eh^2_t(1)}=\frac{1}{(t+1)^2}(\alpha \lambda_{\min})^{-2}\big[\left(1-(1-\alpha \lambda_{\min})^{t+1}\right)^2 \theta^2_0(1)+ \frac{1}{(t+1)^2}\sum_{s=1}^t\left(1-(1-\alpha \lambda_{\min})^{t+1-s}\right)^2 b^2_s(1) \big]
+\EE{\norm{\eh_t}^2}\geq \EE{\eh^2_t(1)}\stackrel{(b)}{=}\frac{1}{(t+1)^2}(\alpha \lambda_{\min})^{-2}\big[\left(1-(1-\alpha \lambda_{\min})^{t+1}\right)^2 \theta^2_0(1)+ \frac{1}{(t+1)^2}\sum_{s=1}^t\left(1-(1-\alpha \lambda_{\min})^{t+1-s}\right)^2 b^2_s(1) \big]
 \end{align*}
-Note that in this example, $\rhos{P}=\rhod{P}=2\lambda_{\min} -\alpha \lambda_{\min}^2=\lambda_{\min}(2-\alpha \lambda_{\min})$, and $\norm{\ts}=0$ and $\sigma^2_A=0$. Further, the result follows by noting the fact that noting the fact that $\norm{b_t}^2=b_t(1)^2$ and $\norm{\theta_t}^2=\theta_t(1)^2$.
+Here $(a)$ and $(b)$ follows from the $i.i.d$ assumption. Note that in this example, $\rhos{P}=\rhod{P}=2\lambda_{\min} -\alpha \lambda_{\min}^2=\lambda_{\min}(2-\alpha \lambda_{\min})$, and $\norm{\ts}=0$ and $\sigma^2_A=0$. Further, the result follows by noting the fact that noting the fact that $\norm{b_t}^2=b_t(1)^2$ and $\norm{\theta_t}^2=\theta_t(1)^2$.
 %\begin{align}
 %\EE{\norm{\eh_t}^2}\geq \frac{1}{(t+1)^2}(\alpha \lambda_{\min})^{-2}(1-\alpha \lambda_{\min}^t) \theta^2_0(1)
 %\end{align}
@@ -377,3 +377,19 @@ Note that in this example, $\rhos{P}=\rhod{P}=2\lambda_{\min} -\alpha \lambda_{\
 
 
 
+\paragraph{Proof of \Cref{lm:notwad}}
+Fix an arbitrary $\alpha>0$. We show that there exists $P\in \P$ such that $\rho_\alpha(P)<0$.
+For $\epsilon \in (0,1/2)$ let $P=(P^V,P^M)$ be the distribution such that $P^M$ is supported on $\{-I,I\}$ and takes on the value of $I$ with probability $1/2+\epsilon$. Then $A_P = 2\epsilon I \succ 0$, hence $P\in \P_1$. Further, $Q_P = I$.
+Hence, $\rhos{P} = 4\epsilon-\alpha$. Hence, if $\epsilon<\alpha/4$, $\rho_\alpha(P)<0$.
+
+\paragraph{Proof of \Cref{lm:ppsdbwd}}
+Since $\P_{\text{PSD},B}$ is supported on the set of positive semi-definite matrices, we know for any $A\in \R^{\dcd}$ that is PSD, we can consider the SVD of $A$: $A = U \Lambda U^\top$ where $U$ is orthonormal and $\Lambda$ is diagonal with
+nonnegative elements. Note that $\Lambda \preceq B\, \I$ and thus $\Lambda^2 \preceq B \Lambda$.
+Then for any $x\in \R^d$, $x^\top A^\top A x = x^\top U \Lambda^2 U^\top x \le B x^\top U \Lambda U^\top x = B x^\top A x$.
+Taking expectations we find that $x^\top C_P x \le B x^\top A_P x$.
+Hence, $\rhos{P_{\text{PSD},B}} = 2 x^\top A_P x - \alpha x^\top C_P x \ge (2- \alpha B ) \,x^\top A_P x $.
+Thus, for any $\alpha<2/B$, $\rho_\alpha(P)>0$.
+
+
+\paragraph{Proof of \Cref{lm:ppsdbna}}
+Consider the case when the smallest eigenvalue of $A_P$ is $0$.

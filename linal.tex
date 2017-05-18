@@ -56,7 +56,7 @@ In this subsection, we re-write \eqref{eq:lsa} and \Cref{assmp:lsa} to accomodat
 where $\thh_t, \theta_t \in \C^{d}$. We now assume,
 \begin{assumption}\label{assmp:lsacmplx}
 \begin{enumerate}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
-\item \label{dist} $(b_t, A_t)\sim (P^b,P^A), t\geq 0$ is an $i.i.d$ sequence, where $P^b$ is a distribution over $\C^d$ and $P^A$ is a distribution over $\C^{\dcd}$. We assume that $P$ is positive definite.
+\item \label{dist} $(b_t, A_t)\sim (P^b,P^A), t\geq 0$ is an \iid sequence, where $P^b$ is a distribution over $\C^d$ and $P^A$ is a distribution over $\C^{\dcd}$. We assume that $P$ is positive definite.
 \item \label{matvar} The martingale difference sequences\footnote{$\EE{M_t|\F_{t-1}}=0$ and $\EE{N_t|\F_{t-1}}=0$} $M_t\eqdef A_t-A_{P}$ and $N_t\eqdef b_t-b_{P}$ associated with $A_t$ and $b_t$ satisfy the following
 \begin{align*}\E\left[ \norm{M_t}^2\mid\F_{t-1}\right]\leq \sigma^2_{A_P}, \, \E[N_t^* N_t]=\sigma^2_{b_P}.\end{align*}
 \item $A_P$ is invertible and there exists a $\ts=A^{-1}_Pb_P$.
@@ -354,7 +354,7 @@ There exists a distribution $P$ over $\R^d\times \R^{\dcd}$ satisfying \Cref{ass
 \end{comment}
 \paragraph{Proof of \Cref{th:lb}}
 
-Consider the LSA with $(b_t,A_t)\sim P$ such that $b_t=(N_t,0)\top\in\R^2$ is a zero mean $i.i.d$ random variable with variance $\sigma^2_b$, and $A_t=A,\,\forall t\geq 0$, where $A=A_P=\begin{bmatrix} \lambda_{\min} &0\\ 0& \lambda_{\max}\end{bmatrix}$, for some $\lambda_{\max}>\lambda_{\min}>0$. Note that in this example $\ts=0$.
+Consider the LSA with $(b_t,A_t)\sim P$ such that $b_t=(N_t,0)\top\in\R^2$ is a zero mean \iid random variable with variance $\sigma^2_b$, and $A_t=A,\,\forall t\geq 0$, where $A=A_P=\begin{bmatrix} \lambda_{\min} &0\\ 0& \lambda_{\max}\end{bmatrix}$, for some $\lambda_{\max}>\lambda_{\min}>0$. Note that in this example $\ts=0$.
 By choosing $\alpha<\frac2{\lambda_{\max}}$, in this case it is straightforward to write the expression for $\eh_t$ explicitly as below:
 \begin{align*}
 \eh_t&=\frac{1}{t+1}\sum_{s=0}^t e_t = \frac{1}{t+1}\sum_{s=0}^t (I-\alpha A_P)^{t-s} e_0 + \sum_{s=1}^t \sum_{i=s}^t (I-\alpha A_P)^{i-s} b_s\\
@@ -369,7 +369,7 @@ By choosing $\alpha<\frac2{\lambda_{\max}}$, in this case it is straightforward 
 \begin{align*}
 \EE{\norm{\eh_t}^2}\geq \EE{\eh^2_t(1)}\stackrel{(b)}{=}\frac{1}{(t+1)^2}(\alpha \lambda_{\min})^{-2}\big[\left(1-(1-\alpha \lambda_{\min})^{t+1}\right)^2 \theta^2_0(1)+ \frac{1}{(t+1)^2}\sum_{s=1}^t\left(1-(1-\alpha \lambda_{\min})^{t+1-s}\right)^2 b^2_s(1) \big]
 \end{align*}
-Here $(a)$ and $(b)$ follows from the $i.i.d$ assumption. Note that in this example, $\rhos{P}=\rhod{P}=2\lambda_{\min} -\alpha \lambda_{\min}^2=\lambda_{\min}(2-\alpha \lambda_{\min})$, and $\norm{\ts}=0$ and $\sigma^2_A=0$. Further, the result follows by noting the fact that noting the fact that $\norm{b_t}^2=b_t(1)^2$ and $\norm{\theta_t}^2=\theta_t(1)^2$.
+Here $(a)$ and $(b)$ follows from the \iid assumption. Note that in this example, $\rhos{P}=\rhod{P}=2\lambda_{\min} -\alpha \lambda_{\min}^2=\lambda_{\min}(2-\alpha \lambda_{\min})$, and $\norm{\ts}=0$ and $\sigma^2_A=0$. Further, the result follows by noting the fact that noting the fact that $\norm{b_t}^2=b_t(1)^2$ and $\norm{\theta_t}^2=\theta_t(1)^2$.
 %\begin{align}
 %\EE{\norm{\eh_t}^2}\geq \frac{1}{(t+1)^2}(\alpha \lambda_{\min})^{-2}(1-\alpha \lambda_{\min}^t) \theta^2_0(1)
 %\end{align}

@@ -69,9 +69,9 @@ The initial convergence analysis for GTD/GTD2/TDC was only asymptotic in nature 
 
 The most relevant to our results are those by \citet{korda-prashanth} in TD(0) and by \citet{gtdmp} in GTD. For the TD(0) case,  diminishing step-sizes $\alpha_t=O(\frac{1}{t})^\beta,\beta \in(0,1)$ with PR averaging is showed to exhibit a rate of $O(\frac{1}{t})$ decay for the MSE when $\beta\ra 1$ \cite{korda-prashanth}. 
 In the case of GTD/GTD2 diminishing step-sizes $\alpha_t=O(\frac{1}{\sqrt{t}})$, projection of iterates and PR-averaging leads to a rate of $O(\frac{1}{\sqrt{t}})$ 
-for the prediction error $\norm{A_P\thh_t-b_P}^2$ with high probability \cite{gtdmp}. 
+for the prediction error $\normsm{A_P\thh_t-b_P}^2$ with high probability \cite{gtdmp}. 
 \citet{gtdmp} also suggest a new version of GTD based on stochastic mirror prox ideas, called the GTD-Mirror-Prox, 
-which also shown to achieve an $O(\frac{1}{\sqrt{t}})$ rate for $\norm{A_P\thh_t-b_P}^2$ with high probability under similar step-size choice that was used by them for the GTD.
+which also shown to achieve an $O(\frac{1}{\sqrt{t}})$ rate for $\normsm{A_P\thh_t-b_P}^2$ with high probability under similar step-size choice that was used by them for the GTD.
 
 All previous results on these RL algorithms assume that \Cref{assmp:lsa} holds (the Hurwitz assumption is satisfied by definition for on-policy TD(0), while it holds by design for the others). \todoc{Are we sure?
 How about TDC? How about GTD-Mirror-Prox?}

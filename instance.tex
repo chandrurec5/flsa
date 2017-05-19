@@ -69,7 +69,7 @@ Note that $\nu$ depends on $P_U$ and $\alpha$, while $v^2$ in addition also depe
 \begin{theorem}[Lower Bound]\label{th:lb}
 There exists a distribution $P$ over $\R^d\times \R^{\dcd}$ satisfying \Cref{assmp:lsa}, such that
 there exists $\alpha_P>0$ so that $\rhos{P}>0$ and $\rhod{P}>0$ hold for all $\alpha\in (0,\alpha_P)$ and
-for any $t\ge 0$, \todoc{$t\ge 1$?}
+for any $t\ge 1$, \todoc{$t\ge 1$?}
 \begin{align*}
 \EE{\normsm{\thh_t-\ts}^2} 
 &\geq \frac{1}{\alpha^2 \, \rhod{P}\rhos{P}} \,\left\{ \frac{\beta_t \norm{\theta_0-\ts}^2}{(t+1)^2} 
@@ -114,18 +114,18 @@ In what follows, we discuss the specific details of these results.
 %\vspace*{0.5em}
 %\subsection{Result Discussion}
 %\begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
-\textbf{Role of $U$}: $U$ is helpful in transforming the recursion in $\theta_t$ to $\gamma_t=U^{-1}\theta_t$, which helps in ensuring $\rhos{P_U}>0$. Such similarity transformation have also been considered in analysis of RL algorithms \cite{lihong}. The condition number $\cond{U}$ appears in our bound because $\theta_t$ is recovered from $\gamma_t$ using
-$\theta_t=U\gamma_t$. Of course, when the problem $P$ is positive definite, we can let $U=\I$ in \Cref{th:rate}.
-More generally, one can always take $U$ in the result that leads to the smallest bound.
+\textbf{Role of $U$}: $U$ is helpful in transforming the recursion in $\theta_t$ to $\gamma_t=U^{-1}\theta_t$, which helps in ensuring $\rhos{P_U}>0$. Such similarity transformation have also been considered in analysis of RL algorithms \cite{lihong}.
+%The condition number $\cond{U}$ appears in our bound because $\theta_t$ is recovered from $\gamma_t$ using $\theta_t=U\gamma_t$. Of course, when the problem $P$ is positive definite, we can let $U=\I$ in \Cref{th:rate}.
+More generally, one can always take $U$ in the result that leads to the smallest bound.\par
 \begin{comment}
 \textbf{Role of $U$}: When the given problem $P$ is positive definite, it is straightforward to produce an $\alpha_P>0$ such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in(0,\alpha_P)$ by considering the definitions of $\rhos{P}$ and $\rhod{P}$.
 However, the problem $P$ being Hurwitz does not guarantee positive definiteness. % (see \Cref{ex:pdas}). 
 \todoc{I commented out the examples.}
 Following  \cite{lihong}, we remedy this 
 by applying a similarity transformation using an appropriate $U$ that transforms a Hurwitz problem $P$ to a positive definite problem $P_U$. This can be done because any Hurwitz matrix is similar to a PD matrix. 
-Taking $U$ to be this similarity matrix, we transform  \eqref{conststep} by premultiplying it by $U^{-1}$ and introducing a new variable $\gamma_t\eqdef U^{-1 }\theta_t$.
+Taking $U$ to be this similarity matrix, we transform  \eqref{conststep} by pre-multiplying it by $U^{-1}$ and introducing a new variable $\gamma_t\eqdef U^{-1 }\theta_t$.
 \if0
-To see how this works, let $\gamma_t\eqdef U^{-1 }\theta_t$. Premultiplying 
+To see how this works, let $\gamma_t\eqdef U^{-1 }\theta_t$. Pre-multiplying 
  \eqref{conststep} by $U^{-1}$ and plugging in $\gamma_t$, we get
 \begin{align*}
 %U^{-1}\theta_t&=U^{-1}\theta_{t-1}+\alpha(U^{-1} b_t- U^{-1}A_t U U^{-1}\theta_{t-1}),\\
@@ -155,16 +155,18 @@ The output $\thh_t$ of the algorithm \eqref{eq:lsa} is the average of the intern
 e_t&=e_{t-1}+\alpha(b_t-A_t e_t -A_t\ts)\nn\\
 e_t&=\underbrace{((I-\alpha A_t))}_{\text{Random-Matrix}} e_{t-1}+\underbrace{\alpha(N_t -(M_t)\ts)}_{\text{Noise}}
 \end{align}
-From \eqref{errec} it is clear that the error dynamics depends on the $i)$ properties of the random matrix, $ii)$ properties of the noise. In the absence of the noise term in \eqref{eq:errec}, we have $e_t=(I-\alpha A_t) e_{t-1}=\Pi_{s=1}(I-\alpha A_s) e_0$, i.e., the initial error is get multiplied by a product of random matrices. In such a scenario, we can guess that whether or not the algorithm forgets the bias $\norm{\theta_0-\ts}$, depends on whether the matrix product is contracting. One way to characterize this contracting property is to look at the spectral radius of the random matrix, which is given by
+From \eqref{errec} it is clear that the error dynamics depends on the $i)$ properties of the random matrix, $ii)$ properties of the noise. In the absence of the noise term in \eqref{eq:errec}, we have $e_t=(I-\alpha A_t) e_{t-1}=\Pi_{s=1}(I-\alpha A_s) e_0$, i.e., the initial error is get multiplied by a product of random matrices. In such a scenario, we can guess that whether or not the algorithm forgets the bias $\norm{\theta_0-\ts}$, depends on whether the matrix product is contracting. One way to characterize this contracting property is to look at the spectral radius of the random matrix, which is given by $\EE{\norm{I-\alpha A_t}^2}=1-\alpha \rhos{P},  {\norm{I-\alpha A_P}^2}=1-\alpha \rhod{P}\,,$
 \end{comment}
+\begin{comment}
 \begin{align}\label{eq:spectralrand}
 \EE{\norm{I-\alpha A_t}^2}=1-\alpha \rhos{P}, \quad  {\norm{I-\alpha A_P}^2}=1-\alpha \rhod{P}\,,
 \end{align}
+\end{comment}
 justifying the appearance of $\rhos{P}$ and $\rhod{P}$.
 %Note that \eqref{eq:spectralrand} explicitly connects $\rhod{P}$ and $\rhos{P}$ in \Cref{def:dist} to the spectral norms matrices $H_t$ and $H_P$. 
 For the MSE to be bounded, we need the spectral norms to be less than unity, implying the conditions $\rhos{P}>0$ and $\rhod{P}>0$. If $P$ is Hurwitz, we can argue on similar lines by first transforming $P$ into a positive definite problem $P_U$ and replacing $\rhos{P}$ and $\rhod{P}$ by $\rhos{P_U}$ and $\rhod{P_U}$, and introducing $\cond{U}$ to account for the forward ($\gamma=U^{-1}\theta$) and reverse ($\theta=U\gamma$) transformations using $U^{-1}$ and $U$ respectively.
 
-\textbf{Constants} {$\alpha$, $\rhos{P}$ and $\rhod{P}$} do not affect the exponents $\frac{1}{t}$ for variance and $\frac{1}{t^2}$ for bias terms.%
+\textbf{Constants} {$\alpha$, $\rhos{P}$ and $\rhod{P}$} do not affect the exponents $\frac{1}{t}$ for variance and $\frac{1}{t^2}$ for bias terms. This property is not enjoyed by all step-size schemes, for instance, step-sizes that diminish at $O(\frac{c}{t})$ are know to exhibit $O(\frac{1}{t^{\mu c/2}})$ ($\mu$ is the smallest real part of eigenvalue of $A_P$), and hence the exponent of the rates are not robust to the choice of $c>0$ \cite{bach-moulines,korda-prashanth}.
 \todoc{Why is this a great thing? Refer to other works etc.}
 
 \textbf{Bias and Variance}: The MSE at time $t$ is bounded by a sum of two terms. The first \emph{bias} term is given by $\B=\nu \,\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}$, bounding how fast the initial error $\norm{\theta_0-\ts}^2$ is forgotten. 
@@ -181,4 +183,4 @@ the $(\rhos{P}\rhod{P})^{-1}$ appearing in $\nu = \nu_{P_u,\alpha}$ cannot be re
 Note however that there are specific examples, such as SGD for linear least-squares,
 where this latter factor can in fact be avoided (for further remarks see \Cref{sec:related}).
 
-\input{illustrate}
+%\input{illustrate}

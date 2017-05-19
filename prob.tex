@@ -9,8 +9,8 @@ We consider linear stochastic approximation algorithm (LSAs) with constant step-
 \end{subequations}
 The algorithm updates a pair of parameters $\theta_t,\tb_t\in \R^{d}$ incrementally, in discrete time steps $t=1,2,\dots$
 based on data $b_t\in \R^d$, $A_t\in \R^{\dcd}$. Here $\alpha>0$ is a positive step-size parameter; the only tuning parameter of the algorithm besides the
-initial value $\theta_0$. The iterate $\theta_t$ is treated as an internal state of the algorithm, while $\thh_t$ is the output at time step $t$. The update of $\theta_t$ alone is considered a form of constant step-size LSA.
-
+initial value $\theta_0$. The iterate $\theta_t$ is treated as an internal state of the algorithm, while $\thh_t$ is the output at time step $t$. The update of $\theta_t$ alone is considered a form of constant step-size LSA. Sometimes $A_t$ will have a special form and then the matrix-vector product $A_t \theta_{t-1}$ can also be computed in $O(d)$ time, a scenario common in reinforcement learning\cite{sutton,konda-tsitsiklis,gtd,gtd2,gtdmp}. This makes the algorithm particularly attractive in large-scale computations when $d$ is in the range of thousands, or millions, or more, as may be required by modern applications (e.g., \citep{LiMaTaBo16})
+\begin{comment}
 Note that the computation of $\theta_t$ can also be performed in an incremental fashion using $O(d)$ storage. 
 Moreover, sometimes $A_t$ will have a special form and then the matrix-vector product $A_t \theta_{t-1}$ can also be computed in $O(d)$ time. This happens for example when $A_t$ is rank one.
 When the data $(b_t,A_t)$ is sparse, further speedups are possible.
@@ -18,7 +18,7 @@ Examples of this kind arise in reinforcement learning \cite{sutton,konda-tsitsik
 for details see \cref{sec:related}.
 The significance of efficient computation of the matrix-vector product is that an update of the algorithm
 can then be implemented in $O(d)$ time (or less, in case of sparse data) and $O(d)$ storage, which makes the algorithm particularly attractive in large-scale computations when $d$ is in the range of thousands, or millions, or more, as may be required by modern applications (e.g., \citep{LiMaTaBo16})
-
+\end{comment}
 In what follows, for $t\ge1$ we make use of the $\sigma$-fields $\F_{t-1}\eqdef\{\theta_0,A_1,\ldots, A_{t-1}, b_1,\ldots, b_{t-1}\}$; $\F_{-1}$ is the trivial $\sigma$ algebra. \todoc{You wrote $\F_0$ holds all random variables, an unusual choice. And it does not work, I think and the index should be $-1$. The martingale property breaks otherwise with the first time step.}
 We are interested in the behaviour of \eqref{eq:lsa} under the following assumption:
 \begin{assumption}\label{assmp:lsa}
@@ -35,18 +35,17 @@ Also, why write $N_t^* N_t$ instead of $\norm{N_t}^2$???}
 \todoc{This would be the place to state if we make assumptions above the correlations between $M_t$ and $N_t$.}
 \begin{align*}
 	\E\left[ \norm{M_t}^2\mid\F_{t-1}\right]\leq \sigma^2_{A_P}\,, \qquad 
-	\E[N_t^* N_t]=\sigma^2_{b_P}\,.
+\E\left[\norm{N_t}^2\mid\F_{t-1}\right]\leq\sigma^2_{b_P}\,.
 \end{align*}
-with some $\sigma^2_{A_P}$ and $\sigma^2_{b_P}$. \todoc{Could not these just be $\sigma^2_A$, $\sigma^2_b$, or with $M$ and $V$?}
+with some $\sigma^2_{A_P}$ and $\sigma^2_{b_P}$. Further, we assume $\EE{M_t N_t}=0$ \todoc{Could not these just be $\sigma^2_A$, $\sigma^2_b$, or with $M$ and $V$?}
 \item $A_P$ is invertible and thus the vector $\ts=A^{-1}_Pb_P$ is well-defined. \todoc{Bertsekas looked at the case when $\ts$ is well-defined but $A_P$ is not invertible. Future work..?}
 \end{enumerate}
 \end{assumption}
 %For the rest of the paper we denote the errors of the internal and the output variables of \eqref{eq:lsa} at time $t$ by $e_t\eqdef \theta_t-\ts$ and $\eh_t\eqdef \thh_t-\ts$ respectively.
 \paragraph{Performance Metric:}  
-We are interested in the behavior of the mean squared error (MSE) at time $t$ given%
-\footnote{More generally, one can be interested in $\EEP{\normsm{\thh_t-\ts}_C^2}$, the MSE with respect to a PD Hermitian matrix $C$. Since in general it is not possible to exploit the presence of $C$ unless it is connected to $P$ in a special way,
+We are interested in the behavior of the mean squared error (MSE) at time $t$ given by $\EE{\normsm{\thh_t-\ts}^2}$. {More generally, one can be interested in $\EEP{\normsm{\thh_t-\ts}_C^2}$, the MSE with respect to a PD Hermitian matrix $C$. Since in general it is not possible to exploit the presence of $C$ unless it is connected to $P$ in a special way,
 here we restrict ourselves to $C = \I$. For more discussion, including the discussion of the case of SGD for linear least-squares when $C$ and $P$ are favourably connected see \cref{sec:related}.}
- by $\EE{\normsm{\thh_t-\ts}^2}$. \todoc{Move up footnote. Polish..}
+\todoc{Move up footnote. Polish..}
 \begin{comment}
 \footnote{We note here that $\E[\normsm{\thh_t-\ts}_C^2]$, which measures the MSE in the quadratic norm with respect to a positive definite matrix $C\succ 0$. However, unless $C$ has some special structure, it is not possible to exploit this generality in our bounds. Further, when data is bounded $\norm{C}^2$ is also bounded and it is straightforward to see that $\EEP{\norm{\thh_t-\ts}}^2_C\leq \norm{C}^2\EEP{\norm{\thh_t-\ts}^2}$. So, for the purpose of stating our results we will not use the general quadratic norm, however, will use it when we discuss the work by \cite{bach} in LSE, where its usage is relevant.}
 \end{comment}

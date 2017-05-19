@@ -1,18 +1,23 @@
+%!TEX root =  flsa.tex
 \section{Automatic Tuning of Step-Sizes}
 It is straightforward to see from \eqref{eq:lsaintro} that $\alpha_t$ cannot be asymptotically increasing. We now present some heuristic arguments in favour of a constant step-size over asymptotically diminishing step-sizes in \eqref{eq:lsaintro}.
-It has been observed that when the step-sizes of form $\alpha_t=\frac{c}{t}$ or $\alpha_t=\frac{c}{c+t}$ (for some $c>0$) are used, the MSE, $\EE{\norm{\theta_t-\ts}^2}$, is not robust to the choice of $c>0$ \cite{korda-prashanth,bach-moulines}. In particular only a $O(\frac{1}{t^{\mu c}/2})$ decay can be achieved for the MSE, where $\mu$ is the smallest positive part of the $A_P$ \cite{bach-moulines}. Note that, in the case of LSA with CS-PR, \Cref{th:rate} guarantees a $O(\frac{1}{t})$ rate of decay for the MSE and the problem dependent quantities affect only the constants and not the exponent. Also, in the case of important TD algorithms such as GTD/GTD2/TDC, while the theoretical analysis uses diminishing step-sizes, the experimental results are with a constant step-size or with CS and PR averaging \cite{gtd2,gtdmp}. Independently, \citet{dann} also observe in their experiments that a constant step-size is better than diminishing step-sizes.\par
-We would like to remind that in \Cref{sec:uniform} we showed that weak admissibility might not hold for all problem classes, and hence a uniform choice for the constant step-size might not be possible, However, motivated by \Cref{th:rate} and also by the usage of constant step-size in practice \cite{dann,gtd2,gtdmp}, we suggest a heuristic algorithm to tune the constant step-size (see \Cref{alg:tuning}).
+It has been observed that when the step-sizes of form $\alpha_t=\frac{c}{t}$ or $\alpha_t=\frac{c}{c+t}$ (for some $c>0$) are used, the MSE, $\EE{\normsm{\theta_t-\ts}^2}$, is not robust to the choice of $c>0$ \cite{korda-prashanth,bach-moulines}. In particular only a $O(\frac{1}{t^{{\mu c}/2}})$ decay can be achieved for the MSE, where $\mu$ is the smallest positive part of the eigenvalues of \todoc{I added: ``eigenvalues of''} $A_P$ \cite{bach-moulines}. Note that, in the case of LSA with CS-PR, \Cref{th:rate} guarantees a $O(\frac{1}{t})$ rate of decay for the MSE and the problem dependent quantities affect only the constants and not the exponent. Also, in the case of important TD algorithms such as GTD/GTD2/TDC, while the theoretical analysis uses diminishing step-sizes, the experimental results are with a constant step-size or with CS and PR averaging \cite{gtd2,gtdmp}. Independently, \citet{dann} also observe in their experiments that a constant step-size is better than diminishing step-sizes.\par
+We would like to remind that in \Cref{sec:uniform} we showed that weak admissibility might not hold for all problem classes, and hence a uniform choice for the constant step-size might not be possible, However, motivated by \Cref{th:rate} and also by the usage of constant step-size in practice \cite{dann,gtd2,gtdmp}, we suggest a natural algorithm to tune the constant step-size, shown as \Cref{alg:tuning}:
 \begin{algorithm}[H]
 \caption{Automatic Tuning of Constant Step-Size}
 \begin{algorithmic}[1]
 \STATE{Initialize: $\theta_0$, $\alpha=\alpha_{\max}$, $k$, $T$ }
 \FOR{$t=1,2,\ldots, $}
 \STATE{$\theta_t=\theta_{t-1}+\alpha (b_t-A_t\theta_{t-1}), \thh_t=\thh_{t-1}+\frac{1}{t+1}(\theta_t-\thh_{t-1})$}
-\IF{$IsUnstable(\norm{\theta_t},\ldots,\norm{\theta_{(t-kT)\wedge 0}})=1$}
+\IF{$IsUnstable(\normsm{\thh_t},\ldots,\normsm{\thh_{(t-kT)\wedge 0}})=\mathrm{True}$}
 \STATE{$\alpha=\alpha/2$}
 \ENDIF
 \ENDFOR
 \end{algorithmic}
 \label{alg:tuning}
 \end{algorithm}
-In \Cref{alg:tuning} $T>0$ is a time epoch and $k$ is a given integer and $\alpha_{\max}>0$ is the maximum step-size that is allowable. It is easy to show using a Gronwall argument that in \Cref{alg:tuning} $\norm{\theta_t}\leq (1-e^{\beta t})$, where ($\beta>0)$) $\beta<0$ implies (in)stability of iterates. Using this fact, we observe that the sequence $r_i=\frac{\norm{\theta_{(t-kT+iT)\wedge 0}}}{\norm{\theta_{(t-kT+(i-1)T)\wedge 0}}},i=1,\ldots,k$ should be `roughly' (making allowance for the persistent noise) decreasing and converge to $1$. The $IsUnstable()$ routine in \Cref{alg:tuning} can take this sequence of $r_i$s as input, and in the case of instability, the step-size can be scaled down by a factor of $2$ (or any constant factor).
+In \Cref{alg:tuning}, $T>0$ is a time epoch and $k$ is a given integer and $\alpha_{\max}>0$ is the maximum step-size that is allowable. From the Gronwall-Bellman lemma it follows that in \Cref{alg:tuning} $\norm{\theta_t}\leq C(1+e^{\beta t})$ with some $C>0$, where the sign of $\beta$ determines whether the iterates are bounded. 
+Using this fact, we observe that the sequence $r_i=\frac{\normsm{\thh_{(t-kT+iT)\wedge 0}}}{\normsm{\thh_{(t-kT+(i-1)T)\wedge 0}}},i=1,\ldots,k$ should be ``roughly'' (making allowance for the persistent noise) decreasing and converge to $1$ when the step-size is large enough so that the iterates stay bounded and eventually converge. 
+The idea is that the $IsUnstable()$ routine in \Cref{alg:tuning} calculates $\{r_i\}_i$ based on its input and returns true when any of these is larger than a preset constant $c>1$. By choosing a larger the constant $c$, the probability of false detection of a run-away event decreases rapidly, while still controlling for the probability of altogether missing a run-away event.
+
+

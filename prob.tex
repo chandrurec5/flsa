@@ -19,7 +19,7 @@ for details see \cref{sec:related}.
 The significance of efficient computation of the matrix-vector product is that an update of the algorithm
 can then be implemented in $O(d)$ time (or less, in case of sparse data) and $O(d)$ storage, which makes the algorithm particularly attractive in large-scale computations when $d$ is in the range of thousands, or millions, or more, as may be required by modern applications (e.g., \citep{LiMaTaBo16})
 
-In what follows, for $t\ge1$ we make use of the $\sigma$-fields $\F_{t-1}\eqdef\{\theta_0,A_1,\ldots, A_{t-1}, b_1,\ldots, b_{t-1}\}$; $\F_0$ holds all random variables. \todoc{A bit unusual as a choice.}
+In what follows, for $t\ge1$ we make use of the $\sigma$-fields $\F_{t-1}\eqdef\{\theta_0,A_1,\ldots, A_{t-1}, b_1,\ldots, b_{t-1}\}$; $\F_{-1}$ is the trivial $\sigma$ algebra. \todoc{You wrote $\F_0$ holds all random variables, an unusual choice. And it does not work, I think and the index should be $-1$. The martingale property breaks otherwise with the first time step.}
 We are interested in the behaviour of \eqref{eq:lsa} under the following assumption:
 \begin{assumption}\label{assmp:lsa}
 \begin{enumerate}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
@@ -28,7 +28,11 @@ We let $A_P$ be the expectation of $A_t$, $b_P$ be the expectation of $b_t$, as 
 %where $P^b$ is a distribution over $\R^d$ and $P^A$ is a distribution over $\R^{\dcd}$. 
 \todoc{I got rid off $P^b$ and $P^A$. There were $P^V$ and $P^M$ previously.. Confusing.}
 We assume that $P$ is Hurwitz.
-\item \label{matvar} The martingale difference sequences\footnote{That is, $\EE{M_t|\F_{t-1}}=0$ and $\EE{N_t|\F_{t-1}}=0$ and $M_t,N_t$ are $\F_t$ measurable, $t\ge 0$. \todoc[inline]{This means, $\F_0$ should be the trivial $\sigma$-algebra.}} $M_t\eqdef A_t-A_{P}$ and $N_t\eqdef b_t-b_{P}$ associated with $A_t$ and $b_t$ satisfy the following \todoc{This would be the place to state if we make assumptions above the correlations between $M_t$ and $N_t$.}
+\item \label{matvar} The martingale difference sequences\footnote{That is, $\EE{M_t|\F_{t-1}}=0$ and $\EE{N_t|\F_{t-1}}=0$ and $M_t,N_t$ are $\F_t$ measurable, $t\ge 0$.} $M_t\eqdef A_t-A_{P}$ and $N_t\eqdef b_t-b_{P}$ associated with $A_t$ and $b_t$ satisfy the following 
+\todoc{So there is conditioning for $M_t$, and no conditions for $N_t$? Interesting. Maybe comment on this
+that this is not a mistake.
+Also, why write $N_t^* N_t$ instead of $\norm{N_t}^2$???}
+\todoc{This would be the place to state if we make assumptions above the correlations between $M_t$ and $N_t$.}
 \begin{align*}
 	\E\left[ \norm{M_t}^2\mid\F_{t-1}\right]\leq \sigma^2_{A_P}\,, \qquad 
 	\E[N_t^* N_t]=\sigma^2_{b_P}\,.
@@ -44,7 +48,7 @@ We are interested in the behavior of the mean squared error (MSE) at time $t$ gi
 here we restrict ourselves to $C = \I$. For more discussion, including the discussion of the case of SGD for linear least-squares when $C$ and $P$ are favourably connected see \cref{sec:related}.}
  by $\EE{\normsm{\thh_t-\ts}^2}$. \todoc{Move up footnote. Polish..}
 \begin{comment}
-\footnote{We note here that $\E[\normsm{\thh_t-\ts}_C^2]$, which measures the MSE in the quadratic norm with respect to a positive definite matrix $C\succ 0$. However, unless $C$ has some special structure, it is not possible to exploit this generality in our bounds. Further, when data is bounded $\norm{C}^2$ is also bounded and it is straightforward to see that $\EEP{\norm{\thh_t-\ts}}^2_C\leq \norm{C}^2\EEP{\norm{\thh_t-\ts}^2}$. So, for the purpose of stating our results we will not use the general quadratic norm, however, will use it when we discuss the work by \cite{bach} in the linear regression setting, where its usage is relevant.}
+\footnote{We note here that $\E[\normsm{\thh_t-\ts}_C^2]$, which measures the MSE in the quadratic norm with respect to a positive definite matrix $C\succ 0$. However, unless $C$ has some special structure, it is not possible to exploit this generality in our bounds. Further, when data is bounded $\norm{C}^2$ is also bounded and it is straightforward to see that $\EEP{\norm{\thh_t-\ts}}^2_C\leq \norm{C}^2\EEP{\norm{\thh_t-\ts}^2}$. So, for the purpose of stating our results we will not use the general quadratic norm, however, will use it when we discuss the work by \cite{bach} in LSE, where its usage is relevant.}
 \end{comment}
 %We wish to understand how the MSE is affected by the choice of $\alpha$ and the spectral properties of $A_P$. Another aspect of interest is to understand the contribution of the \emph{bias} (caused by the initial condition $\theta_0$) and the \emph{variance} (caused by $\sigma^2_P,\sigma^2_b$) to the MSE.\par
 \todoch{Mention importance of forgetting the bias etc. Mention that we really don't have control over $\norm{U}$}

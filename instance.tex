@@ -8,7 +8,7 @@ In what follows, for the sake of brevity, we drop the subscript $P$ in the quant
 %\end{lemma}
 We start with a lemma, which is needed to meaningfully state our main result:
 \begin{lemma}\label{lm:hur}
-Let $P$ be a distribution over $\R^d\times \R^{\dcd}$ satisfying \Cref{assmp:lsa}. 
+Let $P$ be a distribution over $\R^d\times \R^{\dcd}$ satisfying \Cref{assmp:lsa}. \todoc{Is it important that the distribution is over real-valued stuff? Would the results work for complexed-valued data? I would think so.}
 Then there exists an $\alpha_{P_U}>0$ and $U\in \gln$ such that $\rhod{P_U}>0$ and $\rhos{P_U}>0$
 holds for all $\alpha \in (0,\alpha_{P_U})$. 
 \end{lemma}
@@ -115,7 +115,8 @@ In what follows, we discuss the specific details of these results.
 %\subsection{Result Discussion}
 %\begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
 \textbf{Role of $U$}: When the given problem $P$ is positive definite, it is straightforward to produce an $\alpha_P>0$ such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in(0,\alpha_P)$ by considering the definitions of $\rhos{P}$ and $\rhod{P}$. 
-However, the problem $P$ being Hurwitz does not guarantee positive definiteness (see \Cref{ex:pdas}). 
+However, the problem $P$ being Hurwitz does not guarantee positive definiteness. % (see \Cref{ex:pdas}). 
+\todoc{I commented out the examples.}
 Following  \cite{lihong}, we remedy this 
 by applying a similarity transformation using an appropriate $U$ that transforms a Hurwitz problem $P$ to a positive definite problem $P_U$. This can be done because any Hurwitz matrix is similar to a PD matrix. 
 Taking $U$ to be this similarity matrix, we transform  \eqref{conststep} by premultiplying it by $U^{-1}$ and introducing a new variable $\gamma_t\eqdef U^{-1 }\theta_t$.

@@ -163,8 +163,8 @@ For the MSE to be bounded, we need the spectral norms to be less than unity, imp
 \textbf{Constants} {$\alpha$, $\rhos{P}$ and $\rhod{P}$} do not affect the exponents $\frac{1}{t}$ for variance and $\frac{1}{t^2}$ for bias terms.%
 \todoc{Why is this a great thing? Refer to other works etc.}
 
-\textbf{Bias and Variance}: The MSE at time $t$ is bounded by a sum of two terms. The first \emph{bias} term is given by $\B=\nu_{P_U,\alpha} \,\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}$, bounding how fast the initial error $\norm{\theta_0-\ts}^2$ is forgotten. 
-The second \emph{variance} term is  given by $\V=\nu_{P_U,\alpha}\, \frac{\alpha^2(\sigma_A^2\norm{\ts}^2+\sigma_b^2)+\alpha (\sigma_A^2\norm{\ts})\norm{\theta_0-\ts}}{t+1} $ and captures the rate at which noise is rejected.
+\textbf{Bias and Variance}: The MSE at time $t$ is bounded by a sum of two terms. The first \emph{bias} term is given by $\B=\nu \,\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}$, bounding how fast the initial error $\norm{\theta_0-\ts}^2$ is forgotten. 
+The second \emph{variance} term is  given by $\V=\nu\, \frac{v^2}{t+1} $ and captures the rate at which noise is rejected.
 
 \textbf{Behaviour for extreme values of $\alpha$}: 
 As $\alpha\to 0$, the bias term blows up, due to the presence of $\alpha^{-1}$ there. This is unavoidable (see also \cref{th:lb}) and is due to the slow forgetting of initial conditions for small $\alpha$. Small step-sizes are however useful to suppress noise, as seen from that in our bound $\alpha$ is seen to multiply the variances $\sigma^2_A$ and $\sigma^2_b$. In quantitative terms, we can see that the $\alpha^{-2}$ and $\alpha^2$ terms are trading off the two types of errors. 
@@ -173,7 +173,7 @@ For larger values of $\alpha$ with $\alpha_P$ chosen so that $\rhos{P}\ra 0$ as 
 \textbf{The lower bound} of \Cref{th:lb} shows that the upper bound of \cref{th:rate} is tight in a number of ways.
 In particular, the coefficients of both the $1/t$ and $1/t^2$ terms inside $\{ \cdot \}$ are essentially matched.
 Further, we also see that
-the $(\rhos{P}\rhod{P})^{-1}$ appearing in $\nu_{P_u,\alpha}$ cannot be removed from the upper bound. 
+the $(\rhos{P}\rhod{P})^{-1}$ appearing in $\nu = \nu_{P_u,\alpha}$ cannot be removed from the upper bound. 
 Note however that there are specific examples, such as SGD for linear least-squares,
 where this latter factor can in fact be avoided (for further remarks see \Cref{sec:related}).
 

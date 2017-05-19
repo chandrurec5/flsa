@@ -32,7 +32,7 @@ In this paper, we study LSAs with CS-PR (thereby extending prior work by \citet{
 in an effort to understand the effectiveness of the CS-PR technique beyond SGD.
 Of particular interest is whether a similar result to that  \citet{bach} holds
 for the TD class of LSA algorithms used in RL.
-For simplicity, we still consider the \iid case. Our restrictions on the common distribution is that the ``noise variance'' should be bounded (as we consider squared errors), and that the matrix $\E[A_t]$ must be Hurwitz, i.e., all its eigenvalues have positive real parts. This latter assumption can be shown to be necessary for the stability of the LSA iterations. \todoc{Add citation. Or remove/comment out the sentence.}
+For simplicity, we still consider the \iid case. Our restrictions on the common distribution is that the ``noise variance'' should be bounded (as we consider squared errors), and that the matrix $\E[A_t]$ must be Hurwitz, i.e., all its eigenvalues have positive real parts. %This latter assumption can be shown to be necessary for the stability of the LSA iterations. \todoc{Add citation. Or remove/comment out the sentence.}
 One setting that fits our assumption is \emph{policy evaluation} \cite{dann} using linear value function approximation from experience replay \cite{lin} in a batch setting \cite{lange} in RL using the TD class of algorithms \cite{sutton,konda-tsitsiklis,gtd,gtd2,gtdmp}. 
 
 Our \textbf{main contributions} are as follows:
@@ -62,11 +62,12 @@ For further details, see \cref{sec:related}.
 The above negative result implies that in RL one needs to choose the constant step-size based on properties of the instance $P$ to avoid the explosion of the MSE.
 To circumvent this, we propose a natural step-size tuning method to guarantee instance-dependent boundedness.
 We experimentally evaluate the proposed method and find that it is indeed able to achieve its goal on a set of synthetic examples
-where no constant step-size is available to prevent exploding MSE. Further, it is empirically demonstrated that the method is able to find a step-size, which is close to the theoretically recommended stepsize which results in the fastest convergence. \todoc{True??}
+where no constant step-size is available to prevent exploding MSE. %Further, it is empirically demonstrated that the method is able to find a step-size, which is close to the theoretically recommended stepsize which results in the fastest convergence. \todoc{True??}
 \end{itemize}
 %\paragraph{Implications:} 
-In addition to TD($0$), our results directly can be applied to a host of \emph{off-policy} TD algorithms such as GTD/GTD2/TDC with CS-PR. \todoc{How about TD($\lambda$)? Will we discuss this somewhere? Maybe in the organization section this can be mentioned.}
-In the case of TDC only asymptotic bounds were known \cite{gtd2} and our results are a first step 
-\todoc{Why only a step? What is missing?} towards proving finite time bounds. Also, our results show that the GTD class of algorithms guarantee a $O(\frac{1}{t})$ rate for MSE (without use of projections), improving on a previous result by \citet{gtdmp} that guaranteed a $O(\frac{1}{\sqrt{t}})$ rate for this class for the projected version of the algorithm. \todoc{And projections are problematic on their own. Will we discuss this somewhere. Or should the projection issue be a footnote here?}
+In addition to TD($0$), our results directly can be applied to other \emph{off-policy} TD algorithms such as GTD/GTD2 with CS-PR. \todoc{How about TD($\lambda$)? Will we discuss this somewhere? Maybe in the organization section this can be mentioned.}
+%In the case of TDC only asymptotic bounds were known \cite{gtd2} and our results are a first step
+%\todoc{Why only a step? What is missing?} towards proving finite time bounds.
+In particular, our results show that the GTD class of algorithms guarantee a $O(\frac{1}{t})$ rate for MSE (without use of projections), improving on a previous result by \citet{gtdmp} that guaranteed a $O(\frac{1}{\sqrt{t}})$ rate for this class for the projected version of the algorithm. \todoc{And projections are problematic on their own. Will we discuss this somewhere. Or should the projection issue be a footnote here?}
 \todoc{How about Prashanth's paper? Should we mention it somewhere? The reviewers will push back if we don't.}
-\paragraph{Organization:} The paper is organized as follows \todoc{Do not forget to fill this in.}
+%\paragraph{Organization:} The paper is organized as follows \todoc{Do not forget to fill this in.}

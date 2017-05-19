@@ -19,5 +19,6 @@ We would like to remind that in \Cref{sec:uniform} we showed that weak admissibi
 In \Cref{alg:tuning}, $T>0$ is a time epoch and $k$ is a given integer and $\alpha_{\max}>0$ is the maximum step-size that is allowable. From the Gronwall-Bellman lemma it follows that in \Cref{alg:tuning} $\norm{\theta_t}\leq C(1+e^{\beta t})$ with some $C>0$, where the sign of $\beta$ determines whether the iterates are bounded. 
 Using this fact, we observe that the sequence $r_i=\frac{\normsm{\thh_{(t-kT+iT)\wedge 0}}}{\normsm{\thh_{(t-kT+(i-1)T)\wedge 0}}},i=1,\ldots,k$ should be ``roughly'' (making allowance for the persistent noise) decreasing and converge to $1$ when the step-size is large enough so that the iterates stay bounded and eventually converge. 
 The idea is that the $IsUnstable()$ routine in \Cref{alg:tuning} calculates $\{r_i\}_i$ based on its input and returns true when any of these is larger than a preset constant $c>1$. By choosing a larger the constant $c$, the probability of false detection of a run-away event decreases rapidly, while still controlling for the probability of altogether missing a run-away event.
+We ran numerical experiments on LSAs with $A_{P}=\begin{bmatrix} 1 &-10\\ 10 &1\end{bmatrix}$, and varied $\sigma_A=0,2,5,10,20$, $\sigma_b=0$ and $b_t=b$ was chosen such that $\ts=(1,1)^\top$.
 
 

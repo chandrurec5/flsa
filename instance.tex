@@ -114,7 +114,11 @@ In what follows, we discuss the specific details of these results.
 %\vspace*{0.5em}
 %\subsection{Result Discussion}
 %\begin{itemize}[leftmargin=*, before = \leavevmode\vspace{-\baselineskip}]
-\textbf{Role of $U$}: When the given problem $P$ is positive definite, it is straightforward to produce an $\alpha_P>0$ such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in(0,\alpha_P)$ by considering the definitions of $\rhos{P}$ and $\rhod{P}$. 
+\textbf{Role of $U$}: $U$ is helpful in transforming the recursion in $\theta_t$ to $\gamma_t=U^{-1}\theta_t$, which helps in ensuring $\rhos{P_U}>0$. Such similarity transformation have also been considered in analysis of RL algorithms \cite{lihong}. The condition number $\cond{U}$ appears in our bound because $\theta_t$ is recovered from $\gamma_t$ using
+$\theta_t=U\gamma_t$. Of course, when the problem $P$ is positive definite, we can let $U=\I$ in \Cref{th:rate}.
+More generally, one can always take $U$ in the result that leads to the smallest bound.
+\begin{comment}
+\textbf{Role of $U$}: When the given problem $P$ is positive definite, it is straightforward to produce an $\alpha_P>0$ such that $\rhos{P}>0$ and $\rhod{P}>0,\,\forall \alpha\in(0,\alpha_P)$ by considering the definitions of $\rhos{P}$ and $\rhod{P}$.
 However, the problem $P$ being Hurwitz does not guarantee positive definiteness. % (see \Cref{ex:pdas}). 
 \todoc{I commented out the examples.}
 Following  \cite{lihong}, we remedy this 
@@ -134,7 +138,7 @@ Now, since any Hurwitz matrix is similar to a PD matrix with an appropriate simi
 The condition number $\cond{U}$ appears in our bound because $\theta_t$ is recovered from $\gamma_t$ using
 $\theta_t=U\gamma_t$. Of course, when the problem $P$ is positive definite, we can let $U=\I$ in \Cref{th:rate}. 
 More generally, one can always take $U$ in the result that leads to the smallest bound.
-
+\end{comment}
 \textbf{Role of $\rhos{P}$ and $\rhod{P}$}: 
 When $P$ is positive definite, we can expand the MSE as 
 \begin{align}

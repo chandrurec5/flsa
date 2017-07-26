@@ -1,0 +1,121 @@
+\documentclass{article}
+\input{pack}
+% if you need to pass options to natbib, use, e.g.:
+ \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading nips_2017
+%
+% to avoid loading the natbib package, add option nonatbib:
+% \usepackage[nonatbib]{nips_2017}
+
+\usepackage{nips_2017}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+% \usepackage[final]{nips_2017}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+%\usepackage{varioref}
+%\usepackage{thmtools}
+\usepackage{aliascnt}
+\newcommand{\tcite}[1]{\citeauthor{#1}~\citeyear{#1}}
+\usepackage{titlecaps}
+\usepackage[capitalize]{cleveref}
+\usepackage{amsmath,amssymb,graphicx}
+\crefname{assumption}{Assumption}{Assumption}
+
+% BIBLIOGRAHY -----------------------------------------------------------------------------
+% Option 1: bibtex natbib
+%\usepackage[numbers]{natbib}
+%\usepackage[colorlinks=true,linkcolor=blue,citecolor=purple,pagebackref=true]{hyperref}
+% Option 2: biblatex
+%\usepackage[backend=bibtex,natbib=true,backref=false]{biblatex}
+%\usepackage[backend=bibtex,style=ieee,natbib=true,backref=false]{biblatex}
+%\addbibresource{ref.bib}
+% Adding back references to bib entries:
+%\DefineBibliographyStrings{english}{%
+%backrefpage = {page},% originally "cited on page"
+%backrefpages = {pages},% originally "cited on pages"
+%}
+% Title, authors, etc. -------------------------------------------------------------------------
+
+
+
+\title{Issues with Fast LSTD using stochastic approximation: Finite time analysis and application to traffic control}
+
+% The \author macro works with any number of authors. There are two
+% commands used to separate the names and addresses of multiple
+% authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to
+% break the lines. Using \AND forces a line break at that point. So,
+% if LaTeX puts 3 of 4 authors names on the first line, and the last
+% on the second line, try using \AND instead of \And before the third
+% author name.
+
+\author{
+%  David S.~Hippocampus\thanks{Use footnote for providing further
+%    information about author (webpage, alternative
+%    address)---\emph{not} for acknowledging funding agencies.} \\
+%  Department of Computer Science\\
+%  Cranberry-Lemon University\\
+%  Pittsburgh, PA 15213 \\
+%  \texttt{hippo@cs.cranberry-lemon.edu} \\
+  %% examples of more authors
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \AND
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+}
+
+\begin{document}
+% \nipsfinalcopy is no longer used
+
+\maketitle
+In what follows we describe the issues with \citet{flstd}. The complete proofs of \cite{flstd} are available in the arxiv version in \cite{flstda}.
+\section{Bounded Linear Space Assumption}
+\citet{flstda} assume that the linear space is bounded (see assumption \textbf{$(A3)$} of \cite{flstd} and \cite{flstda}) and they invoke it in Lemma~7 (see pages 15 and 16, \cite{flstda}) to show that $f_i(\theta_{i-1})$ is a bounded random variable. We suspect the following shortcomings with assumption \textbf{$(A3)$}
+\begin{itemize}
+\item Is it not strong to assume the boundedness of the iterates? What if the iterates of the algorithm are not even stable? (we do know that the algorithm diverges for incorrect choice of step-sizes)
+\item For the sake of an argument let us also additionally assume that the iterates are bounded by a projection step (which  \citet{flstda} don't mention explicitly). Then would the recursion unfold the same way as it does in Equation (26) of \cite{flstda} (or Equation (13) of \cite{flstd})? How are we to ensure decay/contraction (as shown in Equation (27) of \cite{flstda}) at each step (since projection might be non-contracting)?
+\item The recursion eventually (see Equation (26) of \cite{flstda}) has only \emph{additive noise} and not \emph{multiplicative noise} as analyzed in our submission. The additive noise is captured in the form of the $H_\beta^2$ term in Equation (28) of \cite{flstd}. This reduction to additive noise is possible due to \textbf{$(A3)$}.
+\end{itemize}
+\section{Relation between Covariance Matrix and $\bar{A}_T$ matrix}
+\citet{flstda} assume positive definiteness of \textbf{$(A4)$} covariance matrix $\frac{1}{T}\Phi^\top_T \Phi_T$. However, unlike regression problems, in reinforcement learning problems what appears in the recursion (see Equation (6)) is not the covariance matrix, but a different matrix $\bar{A}_T=\frac{1}{T}\sum_{i=1}^T \phi(s_i)(\phi(s_i)-\beta\phi(s_i'))^\top$ defined in pages 2, 4 (below Equation (5)), 8 and 16 of \cite{flstda}. Usually, without a sampling assumption known as the `on-policy' case (see \cite{gtd} for a discussion on `on-policy' vs `off-policy') the eigenvalues of $\bar{A}_T$ cannot be guaranteed to have all positive real parts. While \citet{flstda} mention the `on-policy' sampling in the introduction, there is no explicit sampling assumption in the list of assumption. This is worrisome for the following reasons
+\begin{itemize}
+\item \textbf{$(A4)$} deals only with the covariance matrix and it is not clear how that alone is sufficient to say that $\bar{A}_n-(1-\beta)\mu$ is positive definite (see below Equation (26) page 16 of \cite{flstda}). 
+\item For the sake of the argument, let us suppose that $(1-\beta)\mu$ is the smallest eigenvalue of $\bar{A}_n$. However, the problem here is that $\bar{A}_n$ is not symmetric in general and it is typical in reinforcement learning applications to say a non-symmetric matrix $M$ is positive definite if $x^\top M x>0$ for all real valued vectors $x$. While it follows from this notion of positive definiteness of $M$ that all the eigenvalues of $M$ have positive real parts, there could still be eigenvalues with complex conjugate parts. Hence to assume that the smallest eigenvalue of $\bar{A}_n$ to be $(1-\beta)\mu$ might be problematic (because there could be other complex eigenvalues with smaller magnitude). While it might be true in practice that the smallest eigenvalue of $\bar{A}_n$, is greater than $(1-\beta)\mu$ to our knowledge there is no proof for this fact in literature.
+\end{itemize}
+\section{Blow Up}
+We would like to note that the rate expression in Corollary~4 of \cite{flstda} (or Corollary~2 of \cite{flstd}) contains a constant $C$. The authors do mention that the sampling error blows up as $\alpha \rightarrow 1$, however, it also looks like even constant $C=\sum_{n=1}^\infty \exp(-\mu cn^{1-\alpha})$ blows up as $\alpha\rightarrow 1$, in which case it is not clear whether a $1/\sqrt{n}$ rate is achieved.
+\bibliographystyle{plainnat}
+\bibliography{issuesref}
+%\newpage
+%\input{linal}
+
+
+
+
+%$f_m(\theta_{m-1})=(\theta^\top \phi(s_{i_m})-(r_{i_m}+\beta\theta^\top \phi(s_{i_{m+1}})))$
+\end{document}

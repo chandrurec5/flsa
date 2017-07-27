@@ -73,7 +73,7 @@ which also shown to achieve an $O(\frac{1}{\sqrt{t}})$ rate for $\normsm{A_P\thh
 
 All previous results on these RL algorithms assume that \Cref{assmp:lsa} holds (the Hurwitz assumption is satisfied by definition for on-policy TD(0), while it holds by design for the others). \todoc{Are we sure?
 How about TDC? How about GTD-Mirror-Prox?}
-Thus, \Cref{th:rate} applies to all of TD(0)/GTD/GTD2/ with CS-PR in all cases considered in the literature.
+Thus, \Cref{th:rate} applies to all of TD(0)/GTD/GTD2 with CS-PR in all cases considered in the literature.
 %Finite time performance of TDC was unknown in prior literature and our work provides a first step by understanding TDC with CS-PR. \todoc{I think this could be considered a major result if the Hurwitz condition can be shown to hold.}
 In particular, our results show that the error in the GTD class of algorithms decay at the $O(\frac{1}{t})$ rate (even without use of projection or mirror maps) instead of $O(\frac{1}{\sqrt{t}})$, a major improvement on previously published results. In comparison to the TD(0) results by \citet{korda-prashanth}, \Cref{th:rate} is better in that it provides the bias/variance decomposition. %Further, their results are specific to TD(0) where $A_P$ is known to be positive definite, and it is unclear whether it extends in a straightforward manner to the GTD class or TDC. \todoc{Would not the similarity transform idea work? Why not? A comment is needed.}
 While the $i.i.d$ assumption is made in much of prior work \cite{gtd2,gtdmp}, however, it is important to note that \citet{korda-prashanth} handle the Markov noise case which is not dealt with in this paper. \todoc{How about others? We should mention if others also assume iid.}

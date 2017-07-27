@@ -359,16 +359,19 @@ Consider the LSA with $(b_t,A_t)\sim P$ such that $b_t=(N_t,0)\top\in\R^2$ is a 
 By choosing $\alpha<\frac2{\lambda_{\max}}$, in this case it is straightforward to write the expression for $\eh_t$ explicitly as below:
 \begin{align*}
 \eh_t&=\frac{1}{t+1}\sum_{s=0}^t e_t = \frac{1}{t+1}\sum_{s=0}^t (I-\alpha A_P)^{t-s} e_0 + \sum_{s=1}^t \sum_{i=s}^t (I-\alpha A_P)^{i-s} b_s\\
-&=\frac{1}{t+1}(\alpha A_P)^{-1}\left[\left(I-(I-\alpha A_P)^{t+1}\right)e_0 + \sum_{s=1}^t \left(I-(I-\alpha A_P)^{t+1-s}\right) b_s\right]
+&=\frac{1}{t+1}(\alpha A_P)^{-1}\left[\left(I-(I-\alpha A_P)^{t+1}\right)e_0 + \sum_{s=1}^t \left(I-(I-\alpha A_P)^{t+1-s}\right) b_s\right]\,.
 \end{align*}
-
+Thus,
 \begin{align*}
-\EE{\norm{\eh_t}^2}&\stackrel{(a)}{=}\frac{1}{(t+1)^2}\left[\norm{(\alpha A_P)^{-1}\left(I-(I-\alpha A_P)^{t+1}\right)e_0}^2 + \sum_{s=1}^t \norm{(\alpha A_P)^{-1}\left(I-(I-\alpha A_P)^{t+1-s}\right)b_s}^2\right]
+\EE{\norm{\eh_t}^2}&\stackrel{(a)}{=}\frac{1}{(t+1)^2}\Big[\norm{(\alpha A_P)^{-1}\left(I-(I-\alpha A_P)^{t+1}\right)e_0}^2 \\ 
+&+\sum_{s=1}^t \norm{(\alpha A_P)^{-1}\left(I-(I-\alpha A_P)^{t+1-s}\right)b_s}^2\Big]\,,
 %&\leq\frac{1}{(t+1)^2}\alpha^2\norm{A_P^{-1}}^2\norm{e_0}^2
 \end{align*}
-
+and hence
 \begin{align*}
-\EE{\norm{\eh_t}^2}\geq \EE{\eh^2_t(1)}\stackrel{(b)}{=}\frac{1}{(t+1)^2}(\alpha \lambda_{\min})^{-2}\big[\left(1-(1-\alpha \lambda_{\min})^{t+1}\right)^2 \theta^2_0(1)+ \frac{1}{(t+1)^2}\sum_{s=1}^t\left(1-(1-\alpha \lambda_{\min})^{t+1-s}\right)^2 b^2_s(1) \big]
+\EE{\norm{\eh_t}^2}
+& \geq \EE{\eh^2_t(1)}\stackrel{(b)}{=}\frac{1}{(t+1)^2}(\alpha \lambda_{\min})^{-2}\Big[\left(1-(1-\alpha \lambda_{\min})^{t+1}\right)^2 \theta^2_0(1)\\
+& + \frac{1}{(t+1)^2}\sum_{s=1}^t\left(1-(1-\alpha \lambda_{\min})^{t+1-s}\right)^2 b^2_s(1) \Big]\,.
 \end{align*}
 Here $(a)$ and $(b)$ follows from the \iid assumption. Note that in this example, $\rhos{P}=\rhod{P}=2\lambda_{\min} -\alpha \lambda_{\min}^2=\lambda_{\min}(2-\alpha \lambda_{\min})$, and $\norm{\ts}=0$ and $\sigma^2_A=0$. Further, the result follows by noting the fact that noting the fact that $\norm{b_t}^2=b_t(1)^2$ and $\norm{\theta_t}^2=\theta_t(1)^2$.
 %\begin{align}

@@ -46,7 +46,7 @@
 
 
 
-\title{Issues with Fast LSTD using stochastic approximation: Finite time analysis and application to traffic control}
+\title{Finite Time Bounds for Temporal Difference Learning with Function Approximation: Roadblocks and Errors in current state-of-the-art results}
 
 % The \author macro works with any number of authors. There are two
 % commands used to separate the names and addresses of multiple
@@ -93,12 +93,18 @@
 % \nipsfinalcopy is no longer used
 
 \maketitle
-In what follows we describe the issues with \citet{flstd}. The complete proofs of \cite{flstd} are available in the arxiv version in \cite{flstda}.
+\begin{abstract}
+Learning the value function from the samples of a given policy is an important problem in reinforcement learning (RL). This problem is also known as the `on-policy' learning setting, where in samples in the form of state transitions are presented to the learner. It is well known that the temporal difference (TD(0)) algorithm has been used for this problem. At each iteration, TD(0) corrects its iterates by making an incremental step in the direction of the \emph{temporal-difference} feedback obtained from the data presented to the learner. In the limit, the TD algorithm converges to the solution of the projected Bellman equation. It is of interest to derive finite time bounds (probability as well as in expectation) for the error i.e., difference between the TD estimate at time $t$ and the final TD solution. This technical report discusses the possible roadblocks in attempting a finite time error analysis for TD by closely examining two important (\cite{flstda,lstdicml}) \emph{state-of-the-art} results in literature that turn out to be erroneous.
+\end{abstract}
+\section{Introduction}
+This report focusses on the specific technical details related to the TD(0) reinforcement learning algorithm. As a result, the report is not self contained and its scope is limited to an audience who are interested in RL and TD(0). Further, this report will also borrow notation freely from other sources \cite{flstda,lstdicmla}; the aim here is to quickly get to the heart of the technicalities (we request the reader to look at \cite{flstda,lstdicmla} for detailed notation).\par
+Finite time error analysis of TD(0) has attracted the interest of researchers in the recent past. The TD(0) algorithm has its share of similarities and differences with the stochastic gradient descent (SGD) algorithm for linear regression. The similarities are that both TD and SGD are stochastic approximation algorithms, they make use of noisy feedback to update their parameters and are incremental algorithms that use step-sizes. However, the critical difference is that TD(0) is not a gradient descent algorithm i.e., the temporal difference error does not correspond to a gradient of any function. We believe this non-gradient nature of the TD(0) manifests itself at various places when an analysis is attempted.\par
+For the purpose of our discussion use \cite{flstda} and \cite{lstdicmla} which are arxiv versions (containing detailed proofs) of \cite{flstd} and \cite{lstdicml} respectively. Unfortunately, both state-of-the-art results \cite{flstd,lstdicml} have issues in the form of bugs in the proof. In what follows, we re-use the notions from \cite{flstda,lstdicmla}. %While the arguments presented below are about technical issues in the analysis, we don't provide any proofs as such and hence the presentation turns out to be a commentary of the prior results.\par
+%The report is organized as follows. In \Cref{sec:flstd} we discuss the issues with the approach in \cite{flstda} and in \Cref{sec:lstdicml} the roadblocks as seen in \cite{lstdicmla} are presented. Both sections have other subsections which deal with the various separate difficulties.
 
-\section{Problems with the Proof}
+\section{Expected Error Bound}
 
-\subsection{Expected Error Bound}
-
+\subsection{Bugs in ``Fast LSTD using stochastic approximation: Finite time analysis and application to traffic control"}
 The proof of Theorem 1 can be found in section A.2, starting on page 16 of \cite{flstda}.
 The proof up to Eq. (26) is correct (in the definition of $M_{n+1}$, $F_n$ should be $F$).
 However, after this display, we are told that by (A4), which ensures that $\frac1T \sum_{t=1}^T \phi_t \phi_t^\top \succ \mu I$ for some $\mu>0$, $\bar A_n = \frac1n \sum_{i=1}^n \phi_i (\phi_i - \beta \phi_i')^\top$ is such that $\bar A_n - (1-\beta) \mu I $ is positive definite. 
@@ -108,11 +114,17 @@ In general, (A4) does \emph{not} imply that  $\bar A_n - (1-\beta) \mu I $ is po
 \end{quote}
 Take for example $n=1$. We would need that $\phi_1 (\phi_1 - \beta \phi_1')^\top - (1-\beta) \mu I$ is positive definite.
 It is easy to construct examples where this is not true. (Note that the matrices involved are \emph{not} symmetric. Unfortunately, none of the two papers defines what is meant by positive definite in this case. We assume that the definition used is that a square, real-valued matrix $A$ is called positive definite if $x^\top A x\ge 0$ for any $x$ real-valued vector of appropriate dimension.)
-
 In fact, we don't see whether this holds even when $n=T$ and we in fact suspect that this claim is false in full generality.
+\subsection{Bugs in ``On TD(0) with function approximation: Concentration bounds and a centered variant with exponential convergence''}
+In page 10 of \cite{lstdicmla} the expression for $\mathbf{E}[a_{j+1}^\top a_{j+1}]$ contains quadratic probability terms. 
+
+
+
+
+
 
 \section{Problems with the Proof: High Probability Bound}
-
+\subsection{Bugs in ``Fast LSTD using stochastic approximation: Finite time analysis and application to traffic control"}
 The proof of the high probability bound starts on page 14, in section A.1.
 The first problem happens in the display on the bottom of this page in the proof of Lemma 6.
 Here, we are told that for $A = \phi \phi^\top - \beta \phi (\phi')^\top$ (we are dropping indices to remove clutter),
@@ -136,7 +148,7 @@ The first equality of their display states (in equivalent form) that
 A^\top A = \norm{\phi}^2 ( \phi \phi^\top - 2\beta \phi (\phi')^\top +\beta^2 \phi' (\phi')^\top )\,.
 \end{align*}
 We see that while this is closer to the correct result, here the mistake is that $-2\beta \phi  (\phi')^\top$ is replacing $-\beta(\phi (\phi')^\top + \phi' \phi^\top)$.
-
+\begin{comment}
 We also have a hard time following the rest of the proof of this lemma.
 In fact, we have a simple proof for a result similar to stated in this lemma.
 This works by observing that one needs to 
@@ -148,18 +160,26 @@ $A_t = \phi_t (\phi_t -\beta \phi_t')^\top$, $b_t = r_{i_t} \phi_t$ and
 Invoking (A3) then indeed gives some version of Lemma 7.
 By making an appropriate assumption (similar to those used in our paper), 
 $\prod_{s=t+1}^n \norm{I-\gamma_s \bar A_T}_2 $ can be controlled.
+\end{comment}
+\subsection{Bugs in ``On TD(0) with function approximation: Concentration bounds and a centered variant with exponential convergence''}
+In page 14 the expression below "A is a possibly random matrix..." is not entirely justified (personal communication with one of the authors). 
 
- 
 \section{Bounded Linear Space Assumption}
+\subsection{Bugs in ``Fast LSTD using stochastic approximation: Finite time analysis and application to traffic control"}
 \citet{flstda} assume that the parameter vector stays such that the value function $\Phi \theta$ (with their notation) will be bounded in $L^\infty$-norm (see assumption \textbf{$(A3)$} of \cite{flstd} and \cite{flstda}). This assumption is critical in establishing Lemma~7 (see pages 15 and 16, \cite{flstda}).
 We suspect the following shortcomings with assumption \textbf{$(A3)$}
 \begin{itemize}
-\item The assumption is stated in a somewhat sloppy fashion. We take the authors meant to say that $\sup_n \norm{\Phi \theta_n}_\infty<+\infty$ holds almost surely. This seems like a strong assumption! Would not one of the main question be whether this assumption even holds? We see in our paper that for some cases, the iterates can blow up if the step-size is inappropriately selected!
+\item The assumption is stated in a somewhat sloppy fashion. We take the authors meant to say that $\sup_n \norm{\Phi \theta_n}_\infty<+\infty$ holds almost surely. This seems like a strong assumption! Would not one of the main question be whether this assumption even holds?
+% We see in our paper that for some cases, the iterates can blow up if the step-size is inappropriately selected!
 \item One possibility would be to modify the algorithm by adding a projection step to guarantee boundedness.
-It is still unclear to us whether this alone would ensure convergence of the error to zero. In any case, the analysis is invalidated if a projection step is present (basically, the algebraic identities will all fail to hold).
+It is still unclear  whether this alone would ensure convergence of the error to zero. In any case, the expected error bound analysis is invalidated if a projection step is present (basically, the algebraic identities will all fail to hold).
+
 %For the sake of an argument let us also additionally assume that the iterates are bounded by a projection step (which  \citet{flstda} don't mention explicitly). Then would the recursion unfold the same way as it does in Equation (26) of \cite{flstda} (or Equation (13) of \cite{flstd})? How are we to ensure decay/contraction (as shown in Equation (27) of \cite{flstda}) at each step (since projection might be non-contracting)?
 %\item The recursion eventually (see Equation (26) of \cite{flstda}) has only \emph{additive noise} and not \emph{multiplicative noise} as analyzed in our submission. The additive noise is captured in the form of the $H_\beta^2$ term in Equation (28) of \cite{flstd}. This reduction to additive noise is possible due to \textbf{$(A3)$}.
 \end{itemize}
+\subsection{Bugs in ``On TD(0) with function approximation: Concentration bounds and a centered variant with exponential convergence''}
+\citet{gugan} mention that (citing a personal communication with \citet{lstdicmla}) \cite{lstdicmla} assume implicitly the projection step in all the high probability bounds in \cite{lstdicmla}. While this implicit projection in itself does not affect the high probability bound proofs directly, it is important to note that the set to which the iterates needs to be projected has to contain the TD(0) solution, a condition that cannot be guaranteed.
+
 \section{Relation between Covariance Matrix and $\bar{A}_T$ matrix}
 \citet{flstda} assume positive definiteness of \textbf{$(A4)$} covariance matrix $\frac{1}{T}\Phi^\top_T \Phi_T$. However, unlike regression problems, in reinforcement learning problems what appears in the recursion (see Equation (6)) is not the covariance matrix, but a different matrix $\bar{A}_T=\frac{1}{T}\sum_{i=1}^T \phi(s_i)(\phi(s_i)-\beta\phi(s_i'))^\top$ defined in pages 2, 4 (below Equation (5)), 8 and 16 of \cite{flstda}. Usually, without a sampling assumption known as the `on-policy' case (see \cite{gtd} for a discussion on `on-policy' vs `off-policy') the eigenvalues of $\bar{A}_T$ cannot be guaranteed to have all positive real parts. While \citet{flstda} mention the `on-policy' sampling in the introduction, there is no explicit sampling assumption in the list of assumption. In fact, we doubt that the proposed algorithm will converge without extra assumption (as discussed above).
 \if0

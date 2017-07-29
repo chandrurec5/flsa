@@ -1,13 +1,16 @@
 \documentclass{article}
+\usepackage[a4paper]{geometry}
 \input{pack}
+\newcommand{\Prob}[1]{\mathbb{P}\left(#1\right)}
 % if you need to pass options to natbib, use, e.g.:
- \PassOptionsToPackage{numbers, compress}{natbib}
+ \PassOptionsToPackage{compress}{natbib}
+ \usepackage{natbib}
 % before loading nips_2017
 %
 % to avoid loading the natbib package, add option nonatbib:
 % \usepackage[nonatbib]{nips_2017}
 
-\usepackage{nips_2017}
+%\usepackage{nips_2017}
 
 % to compile a camera-ready version, add the [final] option, e.g.:
 % \usepackage[final]{nips_2017}
@@ -46,7 +49,7 @@
 
 
 
-\title{Finite Time Bounds for Temporal Difference Learning with Function Approximation: Roadblocks and bugs in  state-of-the-art results}
+\title{Finite Time Bounds for Temporal Difference Learning with Function Approximation: Bugs in state-of-the-art results}
 
 % The \author macro works with any number of authors. There are two
 % commands used to separate the names and addresses of multiple
@@ -59,6 +62,9 @@
 % author name.
 
 \author{
+Chandrashekar Lakshmi Narayanan
+\and
+Csaba Szepesv\'ari 
 %  David S.~Hippocampus\thanks{Use footnote for providing further
 %    information about author (webpage, alternative
 %    address)---\emph{not} for acknowledging funding agencies.} \\
@@ -94,30 +100,70 @@
 
 \maketitle
 \begin{abstract}
-Learning the value function from the samples of a given policy is an important problem in reinforcement learning (RL). This problem is also known as the `on-policy' learning setting, where in samples in the form of state transitions are presented to the learner. It is well known that the temporal difference (TD(0)) algorithm has been used for this problem. At each iteration, TD(0) corrects its iterates by making an incremental step in the direction of the \emph{temporal-difference} feedback obtained from the data presented to the learner. In the limit, the TD algorithm converges to the solution of the projected Bellman equation. It is of interest to derive finite time bounds (probability as well as in expectation) for the error i.e., difference between the TD estimate at time $t$ and the final TD solution. This technical report discusses the possible roadblocks in attempting a finite time error analysis for TD by closely examining two important (\cite{flstda,lstdicml}) \emph{state-of-the-art} results in literature that turn out to be erroneous.
+This short report lists some problems with the recent papers by \cite{flstd,lstdicml}, whose longer version containing the proofs are available on arxiv \citep{flstda,lstdicmla}.
 \end{abstract}
 \section{Introduction}
-This report focusses on the specific technical details related to the TD(0) reinforcement learning algorithm. As a result, the report is not self contained and its scope is limited to an audience who are interested in RL and TD(0). Further, this report will also borrow notation freely from other sources \cite{flstda,lstdicmla}; the aim here is to quickly get to the heart of the technicalities (we request the reader to look at \cite{flstda,lstdicmla} for detailed notation).\par
-Finite time error analysis of TD(0) has attracted the interest of researchers in the recent past. The TD(0) algorithm has its share of similarities and differences with the stochastic gradient descent (SGD) algorithm for linear regression. The similarities are that both TD and SGD are stochastic approximation algorithms, they make use of noisy feedback to update their parameters and are incremental algorithms that use step-sizes. However, the critical difference is that TD(0) is not a gradient descent algorithm i.e., the temporal difference error does not correspond to a gradient of any function. We believe this non-gradient nature of the TD(0) manifests itself at various places when an analysis is attempted.\par
-For the purpose of our discussion use \cite{flstda} and \cite{lstdicmla} which are arxiv versions (containing detailed proofs) of \cite{flstd} and \cite{lstdicml} respectively. Unfortunately, both state-of-the-art results \cite{flstd,lstdicml} have issues in the form of bugs in the proof. In what follows, we re-use the notions from \cite{flstda,lstdicmla}. %While the arguments presented below are about technical issues in the analysis, we don't provide any proofs as such and hence the presentation turns out to be a commentary of the prior results.\par
+This short report lists some problems with the proofs of the claims in two recent papers  by \cite{flstd,lstdicml}.
+As the problems seem serious, our conclusion is that to obtain results similar to those claimed in these two works, the assumptions of the stated claims need to be considerably strengthened and the form of the results will also need to be adjusted in significant ways.
+
+The report is not self contained and its scope is limited to an audience who are interested in RL and TD(0) and specifically the above-mentioned papers.
+Furthermore, since \cite{flstd,lstdicml} omitted the proofs, we will instead discuss their longer version in what follows, which have identical statements but include the proofs. The longer version of the paper by \cite{flstd} is \citep{flstda}, while the longer version
+of \cite{lstdicml} is \citep{lstdicmla}.
+We will  borrow the notation directly from these works.
+%While the arguments presented below are about technical issues in the analysis, we don't provide any proofs as such and hence the presentation turns out to be a commentary of the prior results.\par
 %The report is organized as follows. In \Cref{sec:flstd} we discuss the issues with the approach in \cite{flstda} and in \Cref{sec:lstdicml} the roadblocks as seen in \cite{lstdicmla} are presented. Both sections have other subsections which deal with the various separate difficulties.
 
 \section{Expected Error Bound}
 
-\subsection{Bugs in ``Fast LSTD using stochastic approximation: Finite time analysis and application to traffic control"}
-The proof of Theorem 1 can be found in section A.2, starting on page 16 of \cite{flstda}.
+\subsection{Bugs in \cite{flstda}}
+One of the main results of \citet{flstda} is Theorem 1, which states a bound on the expected error.
+The proof of this theorem can be found in section A.2, starting on page 16.
 The proof up to Eq. (26) is correct (in the definition of $M_{n+1}$, $F_n$ should be $F$).
-However, after this display, we are told that by (A4), which ensures that $\frac1T \sum_{t=1}^T \phi_t \phi_t^\top \succ \mu I$ for some $\mu>0$, $\bar A_n = \frac1n \sum_{i=1}^n \phi_i (\phi_i - \beta \phi_i')^\top$ is such that $\bar A_n - (1-\beta) \mu I $ is positive definite. 
-Here, $n>0$ is an arbitrary index and we use the abbreviation $\phi_t = \phi(s_{i_t})$ and $\phi_t' = \phi(s_{i_t}')$.
+However, after this display, we are told that by (A4), which ensures that $\frac1T \sum_{i=1}^T \phi(s_i) \phi_t(s_i)^\top \succ \mu I$ for some $\mu>0$, $\bar A_n = \frac1n \sum_{t=1}^n \phi_t (\phi_t - \beta \phi_t')^\top$ is such that $\bar A_n - (1-\beta) \mu I $ is positive definite. 
+Here, $n>0$ is an arbitrary index and for $t\ge 1$ we use the abbreviation $\phi_t = \phi(s_{i_t})$ and $\phi_t' = \phi(s_{i_t}')$, where $i_t\in \{1,\dots,T\}$ is a random index.
 \begin{quote}
-In general, (A4) does \emph{not} imply that  $\bar A_n - (1-\beta) \mu I $ is positive definite!
+In general, (A4) does \emph{not} imply that  $\bar A_n - (1-\beta) \mu I $ is positive definite.
 \end{quote}
 Take for example $n=1$. We would need that $\phi_1 (\phi_1 - \beta \phi_1')^\top - (1-\beta) \mu I$ is positive definite.
-It is easy to construct examples where this is not true. (Note that the matrices involved are \emph{not} symmetric. Unfortunately, none of the two papers defines what is meant by positive definite in this case. We assume that the definition used is that a square, real-valued matrix $A$ is called positive definite if $x^\top A x\ge 0$ for any $x$ real-valued vector of appropriate dimension.)
-In fact, we don't see whether this holds even when $n=T$ and we in fact suspect that this claim is false in full generality.
-\subsection{Bugs in ``On TD(0) with function approximation: Concentration bounds and a centered variant with exponential convergence''}
-In page 10 of \cite{lstdicmla} the expression for $\mathbf{E}[a_{j+1}^\top a_{j+1}]$ contains quadratic probability terms. 
-
+It is easy to construct examples where this is not true: Nothing prevents, for example, $\phi_1 = \beta \phi_1'$, in which case $\bar A_1 - (1-\beta)\mu I = -(1-\beta)\mu I$ is \emph{negative} definite.
+(Note that the matrices involved are \emph{not} symmetric. Unfortunately, none of the two papers defines what is meant by positive definite in this case. We assume that the definition used is that a square, real-valued matrix $A$ is called positive definite if $x^\top A x\ge 0$ for any $x$ real-valued vector of appropriate dimension.)
+In fact, we don't see why the claimed relationship would hold even when 
+$\bar A_n$ is replaced by $\hat A_T \doteq  \frac1T \sum_{i=1}^T \phi( s_i) (\phi(s_i) - \beta \phi(s_i'))^\top$,
+and we in fact suspect that this claim is false in full generality. But at minimum, a proof would be required and the whole subsequent argument will need to be changed.
+\subsection{Bugs in  \cite{lstdicmla}}
+In page 10 of \cite{lstdicmla} the expression for $\mathbf{E}[a_{j+1}^\top a_{j+1}]$ contains terms that involve the product of $P$ and $P^\top$. This cannot be correct, as here we can take the expectation first over the next state, which will bring in a \emph{single} instance of $P$.
+To remove clutter, drop the $j$ subindex, and set $A = \phi(\phi- \beta \phi')^\top$, where $\phi  = \phi(s_{I})$ and $\phi' = \phi(s_{I}')$.
+The incriminated expression from Eq. (15) of the paper is
+\begin{align}
+\EE{ A - \tfrac{\gamma}{2} A^\top A  } = \Phi^\top (I - \beta \Psi P - \tfrac{\gamma}{2}(\Delta - \beta P^\top (2I - \beta \Delta)\Psi P) ) \Phi\,.
+\end{align}
+Here, $\Phi$ is the $S\times d$ matrix whose $i$th row is $\phi^\top(s_i)$,
+$\Psi$ is the $T \times T$ diagonal matrix whose $i$th diagonal entry is $\Prob{I = i}$, while $\Delta$ is another diagonal matrix whose $i$th entry is $\norm{\phi(s_i)}_2^2$.
+A direct calculation gives that
+\begin{align}
+A^\top A 
+& = ( \phi-\beta \phi') \phi^\top \phi ( \phi-\beta \phi')^\top  \nonumber \\
+& = \norm{\phi}^2  ( \phi-\beta \phi') ( \phi-\beta \phi')^\top \nonumber \\
+& = \norm{\phi}^2  \left\{ \phi \phi^\top-\beta (\phi' \phi^\top + \phi (\phi')^\top) + \beta^2 \phi' (\phi')^\top \right\}\, \nonumber \\
+& = \norm{\phi}^2  \phi \phi^\top-\beta \norm{\phi}^2 \phi' \phi^\top -\beta \norm{\phi}^2  \phi (\phi')^\top + \beta^2 
+\norm{\phi}^2 \phi' (\phi')^\top\,.
+\end{align}
+%where we abbreviate the 2-norm with $\norm{\cdot}$.
+Hence, 
+\begin{align*}
+\EE{ A^\top A \,|\, I } = 
+\norm{\phi}^2  \phi \phi^\top-\beta \norm{\phi}^2 \EE{ \phi' \,|\, I} \phi^\top -\beta \norm{\phi}^2  \phi (\EE{ \phi' \,|\, I})^\top + \beta^2 
+\norm{\phi}^2 \EE{ \phi' (\phi')^\top\,|\, I } \,.
+\end{align*}
+Now, $\EE{ \phi' (\phi')^\top\,|\, I=i } = $...
+Notice that $P \Phi$ is an $S\times d$ matrix whose $i$th row is $\EE{ \phi' \,|\, I=i}^\top$.
+Hence, $ \EE{ \phi' \,|\, I} = (P \Phi)_{I:\cdot}$.
+Now, $\EE{\norm{\phi}^2 \phi \phi^\top} = \Phi \Phi^\top \Psi \Phi \Phi^\top$.
+Hence,
+\begin{align*}
+\EE{ A^\top A } = 
+\EE{\norm{\phi}^2  \left\{ \phi \phi^\top-\beta (\phi' \phi^\top + \phi (\phi')^\top) + \beta^2 \phi' (\phi')^\top \right\}}\,.
+\end{align*}
 
 
 

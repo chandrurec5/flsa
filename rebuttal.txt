@@ -20,7 +20,10 @@ In fact, Prashanth and Korda later published arxiv.org/pdf/1411.3224.pdf (ICML'1
 
 2) Knowledge of minimum eigenvalue: Indeed, the stepsize dependence on a quantity that is most likely unknown in an application is highly problematic! Our intention if anything was to make this very clear. In fact, here is where our lower bound becomes crucial: We are showing that the dependence is not an artifact of the analysis, but a weakness of the approach. Shining light on this dependence makes the paper uniquely valuable. We realize that there is a tendency in the community to prefer constructive and positive results, but we think that negative results like ours are also extremely useful: there is much to be learned from knowing what does not work (and why). Gaining this level of understanding is only possible by a careful theoretical analysis like ours. The importance of our result is further elevated by that the topic of RL/TD/.. is rapidly gaining popularity, and that numerous works attempt to transport results from supervised learning to this setting, overlooking the extra difficulties (e.g., see the papers by Prashanth et al.). Our paper may be valuable for both people solely interested in RL, but also for the fast growing community of researchers coming to RL with a supervised learning background.
 
-3-4) Differences to Prashanth-Korda and Prashanth-Korda-Munos? See above. Why is our bound better? Also: line 275
+3) The word "results" in l.266 needs to be changed to the iterate averaged case (relevant to our work) in Theorem 2 [Korda-Prashanth 2015] which does not provide a bias/variance terms separately ($K_1^{IA}(n)$). 
+
+4) Going by Theorem 1 of fast LSTD it should be $\mu c$. However, the idea was to say that 1/n or c/c+n stepsize are bad in general and in l. 275 we were citing [Bach-Moulines 2011, see page 4 case $\alpha=1$], where it is $\mu c/2$. The point to be noted is that $\mu c$ or $\mu/2$ in the exponent is not desirable.
+
 
 5) TD/GTD can of course be used with data-resampling, which will not involve Markov noise (as recognized by many earlier, e.g., [4,10,15,16]). Since the LSTD equation is not derived from a loss, we are puzzled about the comment about SGD. Mirror-prox (=GTD) comes closest to what we think SGD may look like in this setting.
 

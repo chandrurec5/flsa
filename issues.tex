@@ -210,7 +210,7 @@ Choosing $\Phi = I$, we find that the two expressions are equal if and only if
 = 
 I - \beta \Psi P - \tfrac{\gamma}{2}(I - 2 \beta P^\top\Psi P  +  \beta^2 P^\top \Psi P)\,,
 \end{align*}
-which implies, e.g., that $\Psi=I$ (by choosing $\gamma=0$), which is not possible since the diagonal elements of $\Psi$ must some to one.
+which implies, e.g., that $\Psi=I$ (by choosing $\gamma=0$), which is not possible since the diagonal elements of $\Psi$ must sum to one.
 Even if we correct the first identity to $\Psi$, we see that we must have
 \begin{align*}
  \Psi -  \beta  (P^\top  \Psi +   \Psi P) + \beta^2 \Psi 
@@ -276,6 +276,13 @@ $A = C B/\norm{ B }_2$, we have
 A^\top \EE{ \epsilon_n | \mathcal{F}_n } A  = \frac{C^2}{\norm{ B }_2^2} B^\top B B
 \end{align*}
 and it is easy to construct examples where the expectation of this is nonzero.
+
+Also in page 14, we find the following inequality
+\begin{align*}
+(d+2)\left( e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\norm{\theta_0}^2_2+ e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\left(\sum_{k=1}^n \gamma_k e^{-(1+\beta)\sum_{j=1}^{k-1} \gamma_j}\right)^2+\norm{\theta^*}_2^2\right)\norm{\E(\epsilon_n|s_0)}_2\\
+\leq (d+2)\frac{\norm{\theta_0}_2^2+1+\norm{\theta^*}_2^2}{(1-\beta)^2}e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\norm{\E(\epsilon_n|s_0)}_2,
+\end{align*}
+where it is not clear as to how the $(1-\beta)^2$ factor appears in the denominator (also confirmed by a personal communication with one of the authors).
 
 \section{Issues with the Setup}
 \subsection{Boundedness of iterates: \citet{flstda}}

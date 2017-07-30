@@ -171,7 +171,7 @@ Here, we are told that for $A = \phi \phi^\top - \beta \phi (\phi')^\top$ (we ar
 A^\top A = \norm{\phi}^2 \phi \phi^\top - \beta ( 2 - \norm{\phi}^2\beta ) \phi' (\phi')^\top\,,
 \end{align*}
 where $\norm{x}$ denotes the $2$-norm of $x$.
-However, using $A = \phi( \phi-\beta \phi')^\top$, a direct calculation, as before, gives:
+However, using $A = \phi( \phi-\beta \phi')^\top$, a direct calculation gives:
 \begin{align*}
 A^\top A 
 & = ( \phi-\beta \phi') \phi^\top \phi ( \phi-\beta \phi')^\top \\
@@ -212,7 +212,7 @@ The incriminated expression from Eq. (15) of the paper is
 Here, $\Phi$ is the $S\times d$ matrix whose $s$th row is $\phi^\top(s)$ ($s\in \{1, \dots, S\}$),
 $\Psi$ is the $S \times S$ diagonal matrix whose $i$th diagonal entry is $\Prob{s_t = i}$,  \todoc{Do they assume stationarity?}
 while $\Delta$ is another $S\times S$ diagonal matrix whose $s$th entry is $\norm{\phi(s)}_2^2$.
-A direct calculation gives that
+A direct calculation (as before) gives that
 \begin{align}
 A^\top A 
 & = ( \phi-\beta \phi') \phi^\top \phi ( \phi-\beta \phi')^\top  \nonumber \\

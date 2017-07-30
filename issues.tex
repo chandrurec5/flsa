@@ -131,14 +131,17 @@ In fact, we don't see why the claimed relationship would hold even when
 $\bar A_n$ is replaced by $\hat A_T \doteq  \frac1T \sum_{i=1}^T \phi( s_i) (\phi(s_i) - \beta \phi(s_i'))^\top$,
 and we in fact suspect that this claim is false in full generality. But at minimum, a proof would be required and the whole subsequent argument will need to be changed.
 \subsection{Bugs in  \cite{lstdicmla}}
+(In this paper, $s_t$ is a sequence of states obtained whole following a fixed policy in an MDP.)
 In page 10 of \cite{lstdicmla} the expression for $\mathbf{E}[a_{j+1}^\top a_{j+1}]$ contains terms that involve the product of $P$ and $P^\top$. This cannot be correct, as here we can take the expectation first over the next state, which will bring in a \emph{single} instance of $P$.
-To remove clutter, drop the $j$ subindex, and set $A = \phi(\phi- \beta \phi')^\top$, where $\phi  = \phi(s_{I})$ and $\phi' = \phi(s_{I}')$.
+To remove clutter, drop the $j$ subindex, and set $A = \phi(\phi- \beta \phi')^\top$, where $\phi  = \phi(s_{j})$ and $\phi' = \phi(s_{j+1})$.
 The incriminated expression from Eq. (15) of the paper is
 \begin{align}
 \EE{ A - \tfrac{\gamma}{2} A^\top A  } = \Phi^\top (I - \beta \Psi P - \tfrac{\gamma}{2}(\Delta - \beta P^\top (2I - \beta \Delta)\Psi P) ) \Phi\,.
+\label{eq:bad1}
 \end{align}
-Here, $\Phi$ is the $S\times d$ matrix whose $i$th row is $\phi^\top(s_i)$,
-$\Psi$ is the $T \times T$ diagonal matrix whose $i$th diagonal entry is $\Prob{I = i}$, while $\Delta$ is another diagonal matrix whose $i$th entry is $\norm{\phi(s_i)}_2^2$.
+Here, $\Phi$ is the $S\times d$ matrix whose $s$th row is $\phi^\top(s)$ ($s\in \{1, \dots, S\}$),
+$\Psi$ is the $S \times S$ diagonal matrix whose $i$th diagonal entry is $\Prob{s_t = i}$,  \todoc{Do they assume stationarity?}
+while $\Delta$ is another $S\times S$ diagonal matrix whose $s$th entry is $\norm{\phi(s)}_2^2$.
 A direct calculation gives that
 \begin{align}
 A^\top A 
@@ -149,24 +152,50 @@ A^\top A
 \norm{\phi}^2 \phi' (\phi')^\top\,.
 \end{align}
 %where we abbreviate the 2-norm with $\norm{\cdot}$.
-Hence, 
+The expectation of each terms are as follows:
 \begin{align*}
-\EE{ A^\top A \,|\, I } = 
-\norm{\phi}^2  \phi \phi^\top-\beta \norm{\phi}^2 \EE{ \phi' \,|\, I} \phi^\top -\beta \norm{\phi}^2  \phi (\EE{ \phi' \,|\, I})^\top + \beta^2 
-\norm{\phi}^2 \EE{ \phi' (\phi')^\top\,|\, I } \,.
+\EE{\norm{\phi}^2  \phi \phi^\top } 
+& = \sum_s \Prob{s_t = s}\norm{\phi(s)}^2 \phi(s) \phi(s)^\top = \Phi^\top \Delta \Psi \Phi\,,\\
+\beta \EE{\norm{\phi}^2 \phi' \phi^\top } 
+& = \beta \sum_s \Prob{s_t = s}\norm{\phi(s)}^2 \left\{ \sum_{s'}  P(s'|s) \phi(s')  \right\} \phi(s)^\top 
+   = \beta (P \Phi)^\top \Delta \Psi \Phi\,,\\
+\beta \EE{\norm{\phi}^2 \phi (\phi')^\top } 
+& = \beta \EE{\norm{\phi}^2 \phi' \phi^\top }^\top
+= \beta \left\{(P \Phi)^\top \Delta \Psi \Phi\right\}^\top 
+=  \beta (\Phi^\top \Delta \Psi P \Phi) \,,\\
+\EE{ \beta^2  \norm{\phi}^2 \phi' (\phi')^\top } 
+& =\beta^2 \sum_s P(s_t=s) \norm{\phi(s)}^2 \left\{ \sum_{s'} P(s'|s) \phi(s') \phi(s')^\top \right\}\,.
 \end{align*}
-Now, $\EE{ \phi' (\phi')^\top\,|\, I=i } = $...
-Notice that $P \Phi$ is an $S\times d$ matrix whose $i$th row is $\EE{ \phi' \,|\, I=i}^\top$.
-Hence, $ \EE{ \phi' \,|\, I} = (P \Phi)_{I:\cdot}$.
-Now, $\EE{\norm{\phi}^2 \phi \phi^\top} = \Phi \Phi^\top \Psi \Phi \Phi^\top$.
-Hence,
+Further,
 \begin{align*}
-\EE{ A^\top A } = 
-\EE{\norm{\phi}^2  \left\{ \phi \phi^\top-\beta (\phi' \phi^\top + \phi (\phi')^\top) + \beta^2 \phi' (\phi')^\top \right\}}\,.
+\EE{ A }  = \Phi^\top (I - \beta P) \Phi\,.
 \end{align*}
-
-
-
+Putting together things we see the mismatch with \eqref{eq:bad1}.
+To see this even more clearly, assume that $ \norm{\phi(s)}^2 = 1$ for any $s\in \{1,\dots,S\}$.
+Then, $\Delta = I$, and by stationarity, $\Prob{s_{t+1} = s } = \Prob{s_t=s}$, hence,
+\begin{align*}
+\EE{ \beta^2  \norm{\phi}^2 \phi' (\phi')^\top } & =
+\beta^2 \EE{ \phi (\phi)^\top } =\beta^2 \Phi^\top \Psi \Phi\, .
+\end{align*}
+Thus, 
+\begin{align*}
+\EE{ A^\top A } & = 
+\Phi^\top  \Psi \Phi -  \beta \Phi^\top P^\top  \Psi \Phi - \beta \Phi^\top  \Psi P \Phi + \beta^2 \Phi^\top \Psi \Phi \\
+& = 
+\Phi^\top  \left(\Psi -  \beta  (P^\top  \Psi +   \Psi P) + \beta^2 \Psi \right) \Phi \\
+\end{align*}
+and hence
+\begin{align*}
+\EE{ A - \frac{\gamma}{2} A^\top A } = 
+ \Phi^\top (I - \beta P) \Phi - \frac{\gamma}{2} 
+ \Phi^\top  \Psi \Phi + \frac{\gamma\beta }{2} \left( \Phi^\top P^\top  \Psi \Phi + (\Phi^\top  \Psi P \Phi) \right)
+ - \frac{\gamma\beta^2}{2}\Phi^\top \Psi \Phi\,,
+\end{align*}
+while \eqref{eq:bad1} gives
+\begin{align*}
+\EE{ A - \tfrac{\gamma}{2} A^\top A  } 
+& = \Phi^\top (I - \beta \Psi P - \tfrac{\gamma}{2}(I - \beta P^\top (2I - \beta I)\Psi P) ) \Phi\,.
+\end{align*}
 
 
 \section{Problems with the Proof: High Probability Bound}

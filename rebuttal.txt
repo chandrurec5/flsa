@@ -7,7 +7,7 @@ i) Analysis of general LSA schemes with multiplicative noise for constant stepsi
 ii) Matrices in general LSA schemes lack symmetry, hence prior results do not apply directly; the similarity transformation that we employ in the paper is needed to handle the non-symmetric case; this is a major step
 iii) We show a negative result: for general LSAs the stepsize cannot be chosen in a problem independent manner; we provide a lower bound to show that the negative result is not due to a weakness in our analysis
 iv) Our results give better than previous rates for GTD. This way, our paper obviates a highly problematic projection step in GTD introduced by[10]; this is a major gain. The projection step is problematic because the range of dual variables cannot be known a priori in GTD.
-We would like to mention that we have discussed the significance of our contributions in the introduction as well as section 6. Hence, we think that the reviewer's position is unwarranted and lacks justification.
+We would like to mention that we have discussed the significance of our contributions in the introduction as well as section 6. Hence, we think that the negative position is unwarranted and lacks justification.
 
 Reviewer 2:
 We will be happy to push the adaptive stepsize section to the appendix and provide a proof sketch in the main body.

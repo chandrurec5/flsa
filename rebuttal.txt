@@ -22,7 +22,7 @@ In fact, Prashanth and Korda later published arxiv.org/pdf/1411.3224.pdf (ICML'1
 
 3) l.266 should have cited Theorem 2 [6] (PR avg case) which has no bias/variance decomposition (see $K_1^{IA}(n)$).
 
-4) In l. 275 we cite [11], (page 4, $\alpha=1$); point is both $\mu c$ or $\mu/2$ in the exponent are undesirable.
+4) In l. 275 we cite [11], (page 4, $\alpha=1$); point is both $\mu c$ or $\mu c/2$ in the exponent are undesirable.
 
 5) TD/GTD can of course be used with data-resampling, which will not involve Markov noise (as recognized by many earlier, e.g., [4,10,15,16]). Since the LSTD equation is not derived from a loss, we are puzzled about the comment about SGD. Mirror-prox (=GTD) comes closest to what we think SGD may look like in this setting.
 

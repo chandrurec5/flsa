@@ -134,7 +134,72 @@ It is easy to construct examples where this is not true: Nothing prevents, for e
 In fact, we don't see why the claimed relationship would hold even when 
 $\bar A_n$ is replaced by $\hat A_T \doteq  \frac1T \sum_{i=1}^T \phi( s_i) (\phi(s_i) - \beta \phi(s_i'))^\top$,
 and we in fact suspect that this claim is false in full generality. But at minimum, a proof would be required and the whole subsequent argument will need to be changed.
+\subsection{Bugs in the paper by  \cite{lstdicmla}}
+In page 14 the expression below ``$A$ is a possibly random matrix...'' is not justified (personal communication with one of the authors confirmed this).  In particular, the claim here is that if $A$ is a random matrix with $\norm{A}_2\le C$ with $C$ a deterministic constant then for any $\theta$ deterministic vector,
+\begin{align*}
+\EE{ \theta^\top A^\top \EE{ \epsilon_n | \mathcal{F}_n } A \theta \,|\, s_0 } \le C^2 \theta^\top \EE{ \epsilon_n|s_0 } \theta\,.
+\end{align*}
+Recall that here $\epsilon_n$ is a matrix of appropriate dimensions, the ``mixing-error term''
+and is actually $\mathcal{F}_n$ measurable ($\epsilon_n = \EE{ a_n | \mathcal{F}_n } - \mathbb{E}_{\Psi}[a_n]$). 
+When the Markov chain is started from its stationary state 
+(which is not ruled out by the conditions of the theorem under question), $\EE{ \epsilon_n|s_0 } = 0$.
+If the above inequality was true, we would get 
+\begin{align*}
+\EE{ A^\top \epsilon_n  A  \,|\, s_0 } = 0\,.
+\end{align*}
+However, letting $B = \EE{\epsilon_n|\mathcal{F}_n}$ and, for example,
+$A = C B/\norm{ B }_2$, we have 
+\begin{align*}
+A^\top \EE{ \epsilon_n | \mathcal{F}_n } A  = \frac{C^2}{\norm{ B }_2^2} B^\top B B
+\end{align*}
+and it is easy to construct examples where the expectation of this is nonzero.
 
+Also in page 14, we find the following inequality
+\begin{align*}
+(d+2)\left( e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\norm{\theta_0}^2_2+ e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\left(\sum_{k=1}^n \gamma_k e^{-(1+\beta)\sum_{j=1}^{k-1} \gamma_j}\right)^2+\norm{\theta^*}_2^2\right)\norm{\E(\epsilon_n|s_0)}_2\\
+\leq (d+2)\frac{\norm{\theta_0}_2^2+1+\norm{\theta^*}_2^2}{(1-\beta)^2}e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\norm{\E(\epsilon_n|s_0)}_2,
+\end{align*}
+where it is not clear as to how the $(1-\beta)^2$ factor appears in the denominator (also confirmed by a personal communication with one of the authors).
+
+
+\section{Problems with the Proof: High Probability Bound}
+\subsection{Bugs in the paper by \cite{flstda}}
+The proof of the high probability bound starts on page 14, in section A.1.
+The first problem happens in the display on the bottom of this page in the proof of Lemma 6.
+Here, we are told that for $A = \phi \phi^\top - \beta \phi (\phi')^\top$ (we are dropping indices to remove clutter),
+\begin{align*}
+A^\top A = \norm{\phi}^2 \phi \phi^\top - \beta ( 2 - \norm{\phi}^2\beta ) \phi' (\phi')^\top\,,
+\end{align*}
+where $\norm{x}$ denotes the $2$-norm of $x$.
+However, using $A = \phi( \phi-\beta \phi')^\top$, a direct calculation, as before, gives:
+\begin{align*}
+A^\top A 
+& = ( \phi-\beta \phi') \phi^\top \phi ( \phi-\beta \phi')^\top \\
+& = \norm{\phi}^2  ( \phi-\beta \phi') ( \phi-\beta \phi')^\top \\
+& = \norm{\phi}^2  \left\{ \phi \phi^\top-\beta (\phi' \phi^\top + \phi (\phi')^\top) + \beta^2 \phi' (\phi')^\top \right\}\,,
+\end{align*}
+which does not match the previous display.
+The terms that do not match are the linear-in-$\beta$ terms.
+In the first display we have $ -2 \beta \phi' (\phi')^\top$, while in the bottom we have $-\beta (\phi' \phi^\top + \phi (\phi')^\top)$.
+
+The first equality of their display states (in equivalent form) that 
+\begin{align*}
+A^\top A = \norm{\phi}^2 ( \phi \phi^\top - 2\beta \phi (\phi')^\top +\beta^2 \phi' (\phi')^\top )\,.
+\end{align*}
+We see that while this is closer to the correct result, here the mistake is that $-2\beta \phi  (\phi')^\top$ is replacing $-\beta(\phi (\phi')^\top + \phi' \phi^\top)$.
+\begin{comment}
+We also have a hard time following the rest of the proof of this lemma.
+In fact, we have a simple proof for a result similar to stated in this lemma.
+This works by observing that one needs to 
+bound the Lipschitz factor of $\theta \mapsto \bar T_n \dots \bar T_{t+1} ( (I-\gamma_t A_t)\theta + b_t )$, where
+$A_t = \phi_t (\phi_t -\beta \phi_t')^\top$, $b_t = r_{i_t} \phi_t$ and
+ $\bar T_t(\theta) = (I-\gamma_t \bar A_T) \theta + \bar b_T$ (we assume that the stepsize sequence is deterministic).
+ Clearly, this Lipschitz factor can be bounded by $\prod_{s=t+1}^n \norm{I-\gamma_s \bar A_T}_2 \norm{I-\gamma_t A_t}_2$
+ (the composition of Lipschitz maps is Lipschitz with a factor that is the product of the individual maps' Lipschitz factors). 
+Invoking (A3) then indeed gives some version of Lemma 7.
+By making an appropriate assumption (similar to those used in our paper), 
+$\prod_{s=t+1}^n \norm{I-\gamma_s \bar A_T}_2 $ can be controlled.
+\end{comment}
 \subsection{Bugs in the paper by  \cite{lstdicmla}}
 (In this paper, $s_t$ is a sequence of states obtained whole following a fixed policy in an MDP.)
 In page 10 of \cite{lstdicmla} the expression for $\mathbf{E}[a_{j+1}^\top a_{j+1}]$ contains terms that involve the product of $P$ and $P^\top$. This cannot be correct, as here we can take the expectation first over the next state, which will bring in a \emph{single} instance of $P$.
@@ -219,70 +284,6 @@ Even if we correct the first identity to $\Psi$, we see that we must have
 which again, means that $\Psi = I$, and also that $P^\top \Psi + \Psi P = P^\top \Psi P$ and that $\Psi = P^\top \Psi P$.
 The first equality is always false, and the others are false except (perhaps) in some very special cases.
 
-\section{Problems with the Proof: High Probability Bound}
-\subsection{Bugs in the paper by \cite{flstda}}
-The proof of the high probability bound starts on page 14, in section A.1.
-The first problem happens in the display on the bottom of this page in the proof of Lemma 6.
-Here, we are told that for $A = \phi \phi^\top - \beta \phi (\phi')^\top$ (we are dropping indices to remove clutter),
-\begin{align*}
-A^\top A = \norm{\phi}^2 \phi \phi^\top - \beta ( 2 - \norm{\phi}^2\beta ) \phi' (\phi')^\top\,,
-\end{align*}
-where $\norm{x}$ denotes the $2$-norm of $x$.
-However, using $A = \phi( \phi-\beta \phi')^\top$, a direct calculation, as before, gives:
-\begin{align*}
-A^\top A 
-& = ( \phi-\beta \phi') \phi^\top \phi ( \phi-\beta \phi')^\top \\
-& = \norm{\phi}^2  ( \phi-\beta \phi') ( \phi-\beta \phi')^\top \\
-& = \norm{\phi}^2  \left\{ \phi \phi^\top-\beta (\phi' \phi^\top + \phi (\phi')^\top) + \beta^2 \phi' (\phi')^\top \right\}\,,
-\end{align*}
-which does not match the previous display.
-The terms that do not match are the linear-in-$\beta$ terms.
-In the first display we have $ -2 \beta \phi' (\phi')^\top$, while in the bottom we have $-\beta (\phi' \phi^\top + \phi (\phi')^\top)$.
-
-The first equality of their display states (in equivalent form) that 
-\begin{align*}
-A^\top A = \norm{\phi}^2 ( \phi \phi^\top - 2\beta \phi (\phi')^\top +\beta^2 \phi' (\phi')^\top )\,.
-\end{align*}
-We see that while this is closer to the correct result, here the mistake is that $-2\beta \phi  (\phi')^\top$ is replacing $-\beta(\phi (\phi')^\top + \phi' \phi^\top)$.
-\begin{comment}
-We also have a hard time following the rest of the proof of this lemma.
-In fact, we have a simple proof for a result similar to stated in this lemma.
-This works by observing that one needs to 
-bound the Lipschitz factor of $\theta \mapsto \bar T_n \dots \bar T_{t+1} ( (I-\gamma_t A_t)\theta + b_t )$, where
-$A_t = \phi_t (\phi_t -\beta \phi_t')^\top$, $b_t = r_{i_t} \phi_t$ and
- $\bar T_t(\theta) = (I-\gamma_t \bar A_T) \theta + \bar b_T$ (we assume that the stepsize sequence is deterministic).
- Clearly, this Lipschitz factor can be bounded by $\prod_{s=t+1}^n \norm{I-\gamma_s \bar A_T}_2 \norm{I-\gamma_t A_t}_2$
- (the composition of Lipschitz maps is Lipschitz with a factor that is the product of the individual maps' Lipschitz factors). 
-Invoking (A3) then indeed gives some version of Lemma 7.
-By making an appropriate assumption (similar to those used in our paper), 
-$\prod_{s=t+1}^n \norm{I-\gamma_s \bar A_T}_2 $ can be controlled.
-\end{comment}
-\subsection{Bugs in the paper by  \cite{lstdicmla}}
-In page 14 the expression below ``$A$ is a possibly random matrix...'' is not justified (personal communication with one of the authors confirmed this).  In particular, the claim here is that if $A$ is a random matrix with $\norm{A}_2\le C$ with $C$ a deterministic constant then for any $\theta$ deterministic vector,
-\begin{align*}
-\EE{ \theta^\top A^\top \EE{ \epsilon_n | \mathcal{F}_n } A \theta \,|\, s_0 } \le C^2 \theta^\top \EE{ \epsilon_n|s_0 } \theta\,.
-\end{align*}
-Recall that here $\epsilon_n$ is a matrix of appropriate dimensions, the ``mixing-error term''
-and is actually $\mathcal{F}_n$ measurable ($\epsilon_n = \EE{ a_n | \mathcal{F}_n } - \mathbb{E}_{\Psi}[a_n]$). 
-When the Markov chain is started from its stationary state 
-(which is not ruled out by the conditions of the theorem under question), $\EE{ \epsilon_n|s_0 } = 0$.
-If the above inequality was true, we would get 
-\begin{align*}
-\EE{ A^\top \epsilon_n  A  \,|\, s_0 } = 0\,.
-\end{align*}
-However, letting $B = \EE{\epsilon_n|\mathcal{F}_n}$ and, for example,
-$A = C B/\norm{ B }_2$, we have 
-\begin{align*}
-A^\top \EE{ \epsilon_n | \mathcal{F}_n } A  = \frac{C^2}{\norm{ B }_2^2} B^\top B B
-\end{align*}
-and it is easy to construct examples where the expectation of this is nonzero.
-
-Also in page 14, we find the following inequality
-\begin{align*}
-(d+2)\left( e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\norm{\theta_0}^2_2+ e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\left(\sum_{k=1}^n \gamma_k e^{-(1+\beta)\sum_{j=1}^{k-1} \gamma_j}\right)^2+\norm{\theta^*}_2^2\right)\norm{\E(\epsilon_n|s_0)}_2\\
-\leq (d+2)\frac{\norm{\theta_0}_2^2+1+\norm{\theta^*}_2^2}{(1-\beta)^2}e^{2(1+\beta)\sum_{k=1}^n \gamma_k}\norm{\E(\epsilon_n|s_0)}_2,
-\end{align*}
-where it is not clear as to how the $(1-\beta)^2$ factor appears in the denominator (also confirmed by a personal communication with one of the authors).
 
 \section{Issues with the Setup}
 \subsection{Boundedness of iterates: \citet{flstda}}
